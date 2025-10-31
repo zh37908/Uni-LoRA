@@ -1,8 +1,13 @@
-export num_gpus=1
-export CUBLAS_WORKSPACE_CONFIG=":16:8" # https://docs.nvidia.com/cuda/cublas/index.html#cublasApi_reproducibility
+export num_gpus=7
+export CUBLAS_WORKSPACE_CONFIG=":16:8"
 export PYTHONHASHSEED=0
+export CUDA_VISIBLE_DEVICES=1,2,3,4,5,6,7
 export output_dir="./output/base_cola_qv"
-python examples/text-classification/run_glue.py \
+
+python -m torch.distributed.launch \
+  --nproc_per_node=$num_gpus \
+  --master_port=29503 \
+examples/text-classification/run_glue.py \
 --model_name_or_path roberta-base \
 --task_name cola \
 --do_train \

@@ -1,4 +1,4 @@
-name: Uni_LoRA_NLU
+name: Uni_LoRA_NLU_github2
 channels:
   - pytorch
   - nvidia

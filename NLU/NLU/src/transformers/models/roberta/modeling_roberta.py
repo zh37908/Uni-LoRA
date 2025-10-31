@@ -916,35 +916,10 @@ class RobertaModel(RobertaPreTrainedModel):
                 index_ls.append(module.project_params_B)
 
         all_elements = torch.cat([t.view(-1) for t in index_ls])
-        all_elements = self.generate_index(all_elements,config.vector_length)
-
-        pointer = 0  # 当前 data 使用的位置指针
-
-        for module in self.modules():
-            if isinstance(module, UniLinear):
-                for attr_name in ['project_params_A', 'project_params_B']:
-                    param = getattr(module, attr_name)
-                    param_numel = param.numel()
-
-                    # 从 data 中取出一段
-                    chunk = all_elements[pointer: pointer + param_numel]
-                    if chunk.numel() != param_numel:
-                        raise ValueError(f"Not enough data for {attr_name} in {module}")
-
-                    # reshape 并赋值
-                    setattr(module, attr_name, chunk.view_as(param).clone())
-
-                    # 移动指针
-                    pointer += param_numel
-
-        # 检查是否刚好用完
-        assert pointer <= len(all_elements), f"Used more data than available: {pointer} > {len(data)}"
-       
-        counts = torch.bincount(all_elements, minlength=config.vector_length) 
-        # assert torch.all(counts >= 1), "Some entries in 'counts' are less than 1." # shape: (vector_length,)
+        counts = torch.bincount(all_elements, minlength=config.vector_length)  # shape: (vector_length,)
         sqrt_counts = 1/torch.sqrt(counts.float())  # shape: (vector_length,)
         norm_factors = [sqrt_counts[t] for t in index_ls]
-       
+
         vb_modules = [m for m in self.modules() if isinstance(m, UniLinear)]
         for module, (a, b) in zip(vb_modules, zip(*[iter(norm_factors)] * 2)):
             module.update_norm_factor(a, b)
@@ -953,26 +928,6 @@ class RobertaModel(RobertaPreTrainedModel):
         for module in self.modules():
             if isinstance(module, UniLinear):
                 module.init_weight()
-    def generate_index(self,all_elements,vector_length):
-        import numpy as np
-        total_length = all_elements.size(0)
-        num_unique = vector_length
-        base_count = total_length // num_unique
-
-        remaining = total_length % num_unique
-
-        # 初始化：每个数字 base_count 次
-        data = np.repeat(np.arange(num_unique), base_count)
-
-        # 随机补上剩余的元素
-        if remaining > 0:
-            extras = np.random.choice(num_unique, size=remaining, replace=False)
-            data = np.concatenate([data, extras])
-
-        # 打乱顺序
-        np.random.shuffle(data)
-        return torch.tensor(data)
-
 
 
     def get_input_embeddings(self):
