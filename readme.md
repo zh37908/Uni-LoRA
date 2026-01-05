@@ -19,8 +19,8 @@ Empirically, Uni-LoRA matches the performance of standard LoRA while updating on
 ## Steps to reproduce the results
 
 ## NLU
-- Modified code for running experiments for Natural Language Understanding experiments.
-- Adapted from [LoRA source code](https://github.com/microsoft/LoRA).
+- Code for running experiments for Natural Language Understanding experiments.
+- 重构了代码使其完全融入了hugging face的peft包架构
 #### Create and activate conda env
 ```console
 cd NLU/NLU
@@ -42,7 +42,6 @@ The scripts are located in the "NLU/scripts_unilora_qv".
 For example,
 ```console
 ./scripts_unilora_qv/roberta_base_mrpc.sh
-```
 
 
 ## Instruction Tuning
@@ -121,6 +120,35 @@ pip install -e .
 ./run_vit_base.sh
 ./run_vit_large.sh
 ```
+
+
+## NLU
+- Modified code for running experiments for Natural Language Understanding experiments.
+- Adapted from [LoRA source code](https://github.com/microsoft/LoRA).
+#### Create and activate conda env
+```console
+cd NLU/NLU
+conda env create -f environment.yml
+conda activate Uni_LoRA_NLU
+```
+#### Install the pre-requisites
+uni-lora:
+```console
+pip install -e ..
+```
+NLU:
+```console
+pip install -e .
+```
+#### Start the experiments
+The scripts are located in the "NLU/scripts_unilora_qv".
+
+For example,
+```console
+./scripts_unilora_qv/roberta_base_mrpc.sh
+```
+
+
 
 ## Citation
 If you found this code useful, please cite our paper.
