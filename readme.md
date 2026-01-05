@@ -26,7 +26,8 @@ Empirically, Uni-LoRA matches the performance of standard LoRA while updating on
 #### Install the prerequisites
 ```console
 cd NLU/peft
-pip install -e .
+pip install -e .、
+```
 
 #### Start the experiments
 ```console
