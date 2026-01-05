@@ -1,0 +1,23 @@
+{
+  "task": "stsb",
+  "model": "roberta-base",
+  "head_lr": 0.005,
+  "theta_d_lr": 0.005,
+  "seed": 2,
+  "proj_seed": 2,
+  "batch_size": 32,
+  "max_length": 512,
+  "num_epochs": 80,
+  "warmup_ratio": 0.06,
+  "metric_for_best": "pearson",
+  "best_score": 0.9066964387893677,
+  "best_epoch": 15,
+  "best_metric": {
+    "pearson": 0.9066964387893677,
+    "spearmanr": 0.9045398227168067
+  },
+  "rank": 4,
+  "theta_d_length": 23040,
+  "init_theta_d_bound": 0.02,
+  "unilora_dropout": 0.0
+}

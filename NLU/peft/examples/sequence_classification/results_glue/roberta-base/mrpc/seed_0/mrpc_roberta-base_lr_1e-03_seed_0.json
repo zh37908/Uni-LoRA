@@ -1,0 +1,23 @@
+{
+  "task": "mrpc",
+  "model": "roberta-base",
+  "head_lr": 0.001,
+  "theta_d_lr": 0.005,
+  "seed": 0,
+  "proj_seed": 0,
+  "batch_size": 32,
+  "max_length": 512,
+  "num_epochs": 30,
+  "warmup_ratio": 0.06,
+  "metric_for_best": "accuracy",
+  "best_score": 0.9044117647058824,
+  "best_epoch": 18,
+  "best_metric": {
+    "accuracy": 0.9044117647058824,
+    "f1": 0.9299820466786356
+  },
+  "rank": 4,
+  "theta_d_length": 23040,
+  "init_theta_d_bound": 0.02,
+  "unilora_dropout": 0.0
+}

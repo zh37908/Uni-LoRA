@@ -1,0 +1,48 @@
+================================================================================
+Run config:
+  model_name        = roberta-large
+  task              = stsb
+  seed              = 0
+  head_lr           = 0.005
+  theta_d_lr        = 0.005 (fixed)
+  batch_size        = 32
+  max_length        = 128
+  num_epochs        = 40
+  warmup_ratio      = 0.06
+  metric_for_best   = pearson
+  out_dir           = results_glue/roberta-large/stsb/seed_0
+================================================================================
+Map:   0%|          | 0/5749 [00:00<?, ? examples/s]Map:  35%|███▍      | 2000/5749 [00:00<00:00, 12240.59 examples/s]Map:  70%|██████▉   | 4000/5749 [00:00<00:00, 11462.83 examples/s]Map: 100%|██████████| 5749/5749 [00:00<00:00, 10150.63 examples/s]Map: 100%|██████████| 5749/5749 [00:00<00:00, 10462.42 examples/s]
+Map:   0%|          | 0/1500 [00:00<?, ? examples/s]Map:  67%|██████▋   | 1000/1500 [00:00<00:00, 9925.80 examples/s]Map: 100%|██████████| 1500/1500 [00:00<00:00, 8822.18 examples/s]
+Map:   0%|          | 0/1379 [00:00<?, ? examples/s]Map:  73%|███████▎  | 1000/1379 [00:00<00:00, 9336.63 examples/s]Map: 100%|██████████| 1379/1379 [00:00<00:00, 9118.63 examples/s]
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at roberta-large and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Train epoch 0:   0%|          | 0/180 [00:00<?, ?it/s]You're using a RobertaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+                                                      Traceback (most recent call last):
+  File "/home/kli/unilora_peft_submit/peft/examples/sequence_classification/run_unilora_glue.py", line 383, in <module>
+    main()
+  File "/home/kli/unilora_peft_submit/peft/examples/sequence_classification/run_unilora_glue.py", line 307, in main
+    out = model(**batch)
+  File "/home/kli/miniconda3/envs/peft-dev/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/kli/miniconda3/envs/peft-dev/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/kli/unilora_peft_submit/peft/src/peft/peft_model.py", line 1722, in forward
+    return self.base_model(
+  File "/home/kli/miniconda3/envs/peft-dev/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/kli/miniconda3/envs/peft-dev/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/kli/unilora_peft_submit/peft/src/peft/tuners/tuners_utils.py", line 308, in forward
+    return self.model.forward(*args, **kwargs)
+  File "/home/kli/miniconda3/envs/peft-dev/lib/python3.10/site-packages/transformers/models/roberta/modeling_roberta.py", line 1225, in forward
+    loss = loss_fct(logits, labels)
+  File "/home/kli/miniconda3/envs/peft-dev/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/kli/miniconda3/envs/peft-dev/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/kli/miniconda3/envs/peft-dev/lib/python3.10/site-packages/torch/nn/modules/loss.py", line 850, in forward
+    return F.binary_cross_entropy_with_logits(
+  File "/home/kli/miniconda3/envs/peft-dev/lib/python3.10/site-packages/torch/nn/functional.py", line 3589, in binary_cross_entropy_with_logits
+    raise ValueError(
+ValueError: Target size (torch.Size([32])) must be the same as input size (torch.Size([32, 2]))

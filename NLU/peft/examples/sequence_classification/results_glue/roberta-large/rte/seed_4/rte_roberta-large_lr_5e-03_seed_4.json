@@ -1,0 +1,22 @@
+{
+  "task": "rte",
+  "model": "roberta-large",
+  "head_lr": 0.005,
+  "theta_d_lr": 0.005,
+  "seed": 4,
+  "proj_seed": 4,
+  "batch_size": 32,
+  "max_length": 128,
+  "num_epochs": 40,
+  "warmup_ratio": 0.06,
+  "metric_for_best": "accuracy",
+  "best_score": 0.8628158844765343,
+  "best_epoch": 13,
+  "best_metric": {
+    "accuracy": 0.8628158844765343
+  },
+  "rank": 4,
+  "theta_d_length": 23040,
+  "init_theta_d_bound": 0.02,
+  "unilora_dropout": 0.0
+}
