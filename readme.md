@@ -19,29 +19,25 @@ Empirically, Uni-LoRA matches the performance of standard LoRA while updating on
 ## Steps to reproduce the results
 
 ## NLU
-- Code for running experiments for Natural Language Understanding experiments.
-- 重构了代码使其完全融入了hugging face的peft包架构
-#### Create and activate conda env
-```console
-cd NLU/NLU
-conda env create -f environment.yml
-conda activate Uni_LoRA_NLU
-```
-#### Install the pre-requisites
-uni-lora:
-```console
-pip install -e ..
-```
-NLU:
-```console
-pip install -e .
-```
-#### Start the experiments
-The scripts are located in the "NLU/scripts_unilora_qv".
 
-For example,
+- Code for running **Natural Language Understanding (NLU)** experiments.
+- The codebase has been **refactored to fully integrate with the Hugging Face PEFT framework**.
+
+#### Install the prerequisites
 ```console
-./scripts_unilora_qv/roberta_base_mrpc.sh
+cd NLU/peft
+pip install -e .
+
+#### Start the experiments
+```console
+cd NLU/peft/examples/sequence_classification/
+./run.sh 
+```
+#### Analyze the experimental results
+```console
+cd NLU/peft/examples/sequence_classification/
+python summarize_lr.py
+```
 
 
 ## Instruction Tuning
