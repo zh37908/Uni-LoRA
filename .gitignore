@@ -1,0 +1,6 @@
+instruction_tuning/output/
+math_instruction_tuning/output/
+instruction_tuning/data/mt_bench/
+instruction_tuning/peft/
+instruction_tuning/peft/src/
+*.log

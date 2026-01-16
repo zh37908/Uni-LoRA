@@ -330,6 +330,20 @@ def set_peft_model_state_dict(
     """
     config = model.peft_config[adapter_name]
     state_dict = {}
+
+    # Check for embedding size mismatch and auto-resize if necessary
+    for key in ["base_model.model.model.embed_tokens.weight", "base_model.model.lm_head.weight", "model.embed_tokens.weight", "lm_head.weight"]:
+        if key in peft_model_state_dict:
+            checkpoint_size = peft_model_state_dict[key].shape[0]
+            try:
+                base_model = model.get_base_model()
+                current_size = base_model.get_input_embeddings().weight.shape[0]
+                if checkpoint_size != current_size:
+                    print(f"Auto-resizing model embeddings from {current_size} to {checkpoint_size} to match checkpoint.")
+                    base_model.resize_token_embeddings(checkpoint_size)
+            except Exception:
+                pass
+
     if getattr(model, "modules_to_save", None) is not None:
         for key, value in peft_model_state_dict.items():
             if any(module_name in key for module_name in model.modules_to_save):

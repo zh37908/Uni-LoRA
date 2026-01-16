@@ -1,5 +1,6 @@
-CUDA_VISIBLE_DEVICES=1 python qlora_unilora.py \
+CUDA_VISIBLE_DEVICES=0 python qlora_unilora.py \
     --model_name_or_path meta-llama/Llama-2-7b-hf \
+    --use_auth_token True \
     --output_dir ./output/llama2_7b_vb \
     --logging_steps 20 \
     --save_strategy no \

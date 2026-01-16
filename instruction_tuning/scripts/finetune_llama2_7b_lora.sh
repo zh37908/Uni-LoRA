@@ -1,5 +1,6 @@
 python qlora.py \
     --model_name_or_path meta-llama/Llama-2-7b-hf \
+    --use_auth_token True \
     --output_dir ./output/llama2_7b \
     --logging_steps 20 \
     --save_strategy no \
