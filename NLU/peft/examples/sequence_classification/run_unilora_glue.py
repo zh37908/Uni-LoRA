@@ -37,7 +37,7 @@ from transformers import (
 )
 
 from peft import get_peft_model
-from peft import UniLoRAConfig, PeftType
+from peft import UniLoRAConfig, UniLoRANonormConfig, PeftType
 
 
 # =========================
@@ -119,6 +119,7 @@ def parse_args():
     parser.add_argument("--theta_d_length", type=int, default=23040)   # if you have per-model/table values, change here or pass by args
     parser.add_argument("--init_theta_d_bound", type=float, default=0.02)
     parser.add_argument("--unilora_dropout", type=float, default=0.0)
+    parser.add_argument("--use_unilora_nonorm", action="store_true", help="Use UniLoRA without normalization", default=False)
 
     return parser.parse_args()
 
@@ -176,7 +177,7 @@ def main():
         # RoBERTa usually has pad_token_id, but keep safe like your script
         tokenizer.pad_token_id = tokenizer.eos_token_id
 
-    datasets = load_dataset("glue", task)
+    datasets = load_dataset("nyu-mll/glue", task)
 
     s1_key, s2_key = TASK_TO_KEYS[task]
 
@@ -239,20 +240,36 @@ def main():
     )
 
     # NOTE: Keep the same target_modules/modules_to_save pattern as your working CoLA script.
-    peft_config = UniLoRAConfig(
-        task_type="SEQ_CLS",
-        peft_type=PeftType.UNILORA,
-        r=rank,
-        theta_d_length=theta_d_length,
-        proj_seed=proj_seed,
-        init_theta_d_bound=init_theta_d_bound,
-        unilora_dropout=args.unilora_dropout,
-        target_modules=[
-            "query", "key", "value",
-            "output.dense", "intermediate.dense",
-        ],
-        modules_to_save=["classifier"],
-    )
+    if args.use_unilora_nonorm:
+        peft_config = UniLoRANonormConfig(
+            task_type="SEQ_CLS",
+            peft_type=PeftType.UNILORA_NONORM,
+            r=rank,
+            theta_d_length=theta_d_length,
+            proj_seed=proj_seed,
+            init_theta_d_bound=init_theta_d_bound,
+            unilora_dropout=args.unilora_dropout,
+            target_modules=[
+                "query", "key", "value",
+                "output.dense", "intermediate.dense",
+            ],
+            modules_to_save=["classifier"],
+        )
+    else:
+        peft_config = UniLoRAConfig(
+            task_type="SEQ_CLS",
+            peft_type=PeftType.UNILORA,
+            r=rank,
+            theta_d_length=theta_d_length,
+            proj_seed=proj_seed,
+            init_theta_d_bound=init_theta_d_bound,
+            unilora_dropout=args.unilora_dropout,
+            target_modules=[
+                "query", "key", "value",
+                "output.dense", "intermediate.dense",
+            ],
+            modules_to_save=["classifier"],
+        )
 
     model = get_peft_model(base_model, peft_config)
     model.to(device)
@@ -368,6 +385,7 @@ def main():
         "theta_d_length": theta_d_length,
         "init_theta_d_bound": init_theta_d_bound,
         "unilora_dropout": args.unilora_dropout,
+        "use_unilora_nonorm": args.use_unilora_nonorm,
     }
 
     out_path = os.path.join(

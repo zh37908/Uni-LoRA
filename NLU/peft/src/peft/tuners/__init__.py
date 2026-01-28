@@ -53,6 +53,8 @@ from .shira import ShiraConfig, ShiraModel
 from .trainable_tokens import TrainableTokensConfig, TrainableTokensModel
 from .vblora import VBLoRAConfig, VBLoRAModel
 from .unilora import UniLoRAConfig, UniLoRAModel
+from .unilora_nonorm import UniLoRANonormConfig, UniLoRANonormModel
+from .unilora_fastfood import UniLoRAFastFoodConfig, UniLoRAFastFoodModel
 from .vera import VeraConfig, VeraModel
 from .waveft import WaveFTConfig, WaveFTModel
 from .xlora import XLoraConfig, XLoraModel
@@ -132,6 +134,10 @@ __all__ = [
     "XLoraModel",
     "UniLoRAConfig",
     "UniLoRAModel",
+    "UniLoRANonormConfig",
+    "UniLoRANonormModel",
+    "UniLoRAFastFoodConfig",
+    "UniLoRAFastFoodModel",
     "create_arrow_model",
     "get_eva_state_dict",
     "initialize_lora_eva_weights",

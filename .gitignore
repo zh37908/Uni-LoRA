@@ -4,3 +4,11 @@ instruction_tuning/data/mt_bench/
 instruction_tuning/peft/
 instruction_tuning/peft/src/
 *.log
+instruction_tuning/peft/src/
+*.pyc
+math_instruction_tuning/peft/src/peft/tuners/__pycache__/_buffer_dict.cpython-38.pyc
+NLU/peft/examples/sequence_classification/results_glue/
+
+NLU/peft/examples/sequence_classification/results_variants_sweep/
+NLU/peft/examples/sequence_classification/results_glue/roberta-large/
+
