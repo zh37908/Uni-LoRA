@@ -4,7 +4,7 @@ import re
 import numpy as np
 from collections import defaultdict
 
-ROOT_DIR = "/home/kli/unilora_peft_submit/peft/examples/sequence_classification/results_glue"
+ROOT_DIR = "results_glue"
 
 TASK2METRIC = {
     "cola": "matthews_correlation",

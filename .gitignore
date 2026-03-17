@@ -12,3 +12,18 @@ NLU/peft/examples/sequence_classification/results_glue/
 NLU/peft/examples/sequence_classification/results_variants_sweep/
 NLU/peft/examples/sequence_classification/results_glue/roberta-large/
 
+# Sequence classification experiment outputs
+NLU/peft/examples/sequence_classification/results_glue_variants/
+NLU/peft/examples/sequence_classification/results_debug/
+NLU/peft/examples/sequence_classification/results_debug_history/
+NLU/peft/examples/sequence_classification/results_glue_variants_debug/
+NLU/peft/examples/sequence_classification/results_glue_variants_history/
+NLU/peft/examples/sequence_classification/results_variants_monitor/
+NLU/peft/examples/sequence_classification/results_variants/
+NLU/peft/examples/sequence_classification/results_glue_variants_nonorm_scaled/
+NLU/peft/examples/sequence_classification/results_glue_variants_direct_unilora_td1277952/
+NLU/peft/examples/sequence_classification/results_monitor/
+
+
+minst_test/results
+data

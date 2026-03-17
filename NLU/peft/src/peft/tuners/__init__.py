@@ -53,8 +53,19 @@ from .shira import ShiraConfig, ShiraModel
 from .trainable_tokens import TrainableTokensConfig, TrainableTokensModel
 from .vblora import VBLoRAConfig, VBLoRAModel
 from .unilora import UniLoRAConfig, UniLoRAModel
+from .unilora_count_sketch import UniLoRACountSketchConfig, UniLoRACountSketchModel
+from .unilora_sign import UniLoRASignConfig, UniLoRASignModel
 from .unilora_nonorm import UniLoRANonormConfig, UniLoRANonormModel
 from .unilora_fastfood import UniLoRAFastFoodConfig, UniLoRAFastFoodModel
+from .unilora_learnable import UniLoRALearnableConfig, UniLoRALearnableModel
+from .unilora_learnable_column import UniLoRALearnableColumnConfig, UniLoRALearnableColumnModel
+from .unilora_isometric_control import UniLoRAIsometricControlConfig, UniLoRAIsometricControlModel
+from .unilora_gs import UniLoRAGSConfig, UniLoRAGSModel
+from .direct_unilora import DirectUniLoRAConfig, DirectUniLoRAModel
+from .unilora_block_routing import UniLoRABlockRoutingConfig, UniLoRABlockRoutingModel
+from .unilora_stage_ratio import UniLoRAStageRatioConfig, UniLoRAStageRatioModel
+from .unilora_layer_wise import UniLoRALayerWiseConfig, UniLoRALayerWiseModel
+from .unilora_learnable_layer import UniLoRALearnableLayerConfig, UniLoRALearnableLayerModel
 from .vera import VeraConfig, VeraModel
 from .waveft import WaveFTConfig, WaveFTModel
 from .xlora import XLoraConfig, XLoraModel
@@ -134,10 +145,32 @@ __all__ = [
     "XLoraModel",
     "UniLoRAConfig",
     "UniLoRAModel",
+    "UniLoRACountSketchConfig",
+    "UniLoRACountSketchModel",
+    "UniLoRASignConfig",
+    "UniLoRASignModel",
     "UniLoRANonormConfig",
     "UniLoRANonormModel",
     "UniLoRAFastFoodConfig",
     "UniLoRAFastFoodModel",
+    "UniLoRALearnableConfig",
+    "UniLoRALearnableModel",
+    "UniLoRALearnableColumnConfig",
+    "UniLoRALearnableColumnModel",
+    "UniLoRAIsometricControlConfig",
+    "UniLoRAIsometricControlModel",
+    "UniLoRAGSConfig",
+    "UniLoRAGSModel",
+    "DirectUniLoRAConfig",
+    "DirectUniLoRAModel",
+    "UniLoRABlockRoutingConfig",
+    "UniLoRABlockRoutingModel",
+    "UniLoRAStageRatioConfig",
+    "UniLoRAStageRatioModel",
+    "UniLoRALayerWiseConfig",
+    "UniLoRALayerWiseModel",
+    "UniLoRALearnableLayerConfig",
+    "UniLoRALearnableLayerModel",
     "create_arrow_model",
     "get_eva_state_dict",
     "initialize_lora_eva_weights",

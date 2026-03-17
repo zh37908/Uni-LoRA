@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import math
 import warnings
 
 import torch
@@ -31,6 +32,25 @@ class UniLoRAFastFoodModel(BaseTuner):
 
     def __init__(self, model, config, adapter_name, low_cpu_mem_usage: bool = False) -> None:
         super().__init__(model, config, adapter_name, low_cpu_mem_usage=low_cpu_mem_usage)
+
+        # Global Isometry Correction for FastFood variant
+        # Count total number of projections for this adapter
+        num_projections = 0
+        target_layers = []
+        for name, module in model.named_modules():
+            if isinstance(module, UniLoRAFastFoodLayer):
+                num_projections += 1
+                target_layers.append(module)
+
+        if num_projections > 0:
+            # According to Uni-LoRA theory, global isometry requires P^T P = I.
+            # Since theta_d is shared across all layers, and each FastFood layer P_l is 
+            # constructed to be locally isometric (P_l^T P_l = I), the global 
+            # P^T P = sum(P_l^T P_l) = L * I.
+            # To restore global isometry, we must scale each layer by 1/sqrt(L).
+            global_scaling = 1.0 / math.sqrt(float(num_projections))
+            for layer in target_layers:
+                layer.unilora_fastfood_global_scaling[adapter_name] = global_scaling
 
     def _init_theta_d(self, config: UniLoRAFastFoodConfig, adapter_name: str) -> None:
         theta = torch.zeros(config.theta_d_length)

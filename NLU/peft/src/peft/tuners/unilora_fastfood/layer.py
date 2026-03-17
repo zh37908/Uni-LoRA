@@ -81,6 +81,7 @@ class UniLoRAFastFoodLayer(BaseTunerLayer):
         self.base_layer = base_layer
         self.r = {}
         self.unilora_dropout = nn.ModuleDict({})
+        self.unilora_fastfood_global_scaling = {}
 
         # FastFood buffers (per-adapter) for deterministic projections
         self.unilora_fastfood_G = BufferDict({}, persistent=True)
@@ -126,6 +127,7 @@ class UniLoRAFastFoodLayer(BaseTunerLayer):
             raise ValueError(f"`theta_d_length` {theta_d_length} should be a positive integer value")
 
         self.r[adapter_name] = r
+        self.unilora_fastfood_global_scaling[adapter_name] = 1.0  # Default, will be updated by Model
 
         if unilora_dropout > 0.0:
             unilora_dropout_layer = nn.Dropout(p=unilora_dropout)
@@ -241,6 +243,10 @@ class Linear(nn.Linear, UniLoRAFastFoodLayer):
             divisor=self.unilora_fastfood_divisor[adapter],
             out_dim=out_dim_total,
         )
+
+        # Apply global scaling to ensure global isometry (P^T P = I)
+        global_scaling = self.unilora_fastfood_global_scaling.get(adapter, 1.0)
+        vec = vec * global_scaling
 
         A = vec[:out_dim_A].view(r, self.in_features)
         B = vec[out_dim_A:].view(self.out_features, r)
