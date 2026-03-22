@@ -5,16 +5,16 @@
 # =========================
 
 # Learning rates (8 GPUs → 8 LRs)
-LRS=(1e-4 2e-4 5e-4 1e-3 2e-3 5e-3 1e-2 2e-2)
+LRS=(5e-3)
 
 # GPUs for parallel runs
-GPUS=(0 1 2 3 4 5 6 7)
+GPUS=(0 )
 
 # Random seeds
-SEEDS=(0 1 2 3 4)
+SEEDS=(0)
 
 # GLUE tasks (6 tasks)
-TASKS=(mrpc cola)
+TASKS=(cola)
 
 # Models
 MODELS=(roberta-large)
@@ -23,7 +23,7 @@ MODELS=(roberta-large)
 SCRIPT=run_unilora_glue.py
 
 # Root output directory
-OUT_ROOT=results_glue
+OUT_ROOT=results_glue_test
 
 mkdir -p ${OUT_ROOT}
 

@@ -19,7 +19,7 @@
 
 # from .config import PeftConfig, PeftType, PromptLearningConfig, TaskType
 from .loftq_utils import replace_lora_weights_loftq
-from .peft_types import PeftType, TaskType
+from .peft_types import PeftType, TaskType, register_peft_method
 from .other import (
     TRANSFORMERS_MODELS_TO_PREFIX_TUNING_POSTPROCESS_MAPPING,
     TRANSFORMERS_MODELS_TO_LORA_TARGET_MODULES_MAPPING,

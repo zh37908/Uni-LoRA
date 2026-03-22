@@ -53,6 +53,10 @@ from .shira import ShiraConfig, ShiraModel
 from .trainable_tokens import TrainableTokensConfig, TrainableTokensModel
 from .vblora import VBLoRAConfig, VBLoRAModel
 from .unilora import UniLoRAConfig, UniLoRAModel
+from .unilora_sketch_tune import UniLoRASketchTuneConfig, UniLoRASketchTuneModel
+from .unilora_sketch_delta import UniLoRASketchDeltaConfig, UniLoRASketchDeltaModel
+from .unilora_shared_sketch_bank import UniLoRASharedSketchBankConfig, UniLoRASharedSketchBankModel
+from .unilora_sketch_routed import UniLoRASketchRoutedConfig, UniLoRASketchRoutedModel
 from .unilora_count_sketch import UniLoRACountSketchConfig, UniLoRACountSketchModel
 from .unilora_sign import UniLoRASignConfig, UniLoRASignModel
 from .unilora_nonorm import UniLoRANonormConfig, UniLoRANonormModel
@@ -61,11 +65,14 @@ from .unilora_learnable import UniLoRALearnableConfig, UniLoRALearnableModel
 from .unilora_learnable_column import UniLoRALearnableColumnConfig, UniLoRALearnableColumnModel
 from .unilora_isometric_control import UniLoRAIsometricControlConfig, UniLoRAIsometricControlModel
 from .unilora_gs import UniLoRAGSConfig, UniLoRAGSModel
+from .unilora_soft_assign import UniLoRASoftAssignConfig, UniLoRASoftAssignModel
 from .direct_unilora import DirectUniLoRAConfig, DirectUniLoRAModel
 from .unilora_block_routing import UniLoRABlockRoutingConfig, UniLoRABlockRoutingModel
 from .unilora_stage_ratio import UniLoRAStageRatioConfig, UniLoRAStageRatioModel
+from .unilora_trajectory_initial import UniLoRATrajectoryInitialConfig, UniLoRATrajectoryInitialModel
 from .unilora_layer_wise import UniLoRALayerWiseConfig, UniLoRALayerWiseModel
 from .unilora_learnable_layer import UniLoRALearnableLayerConfig, UniLoRALearnableLayerModel
+from .unilora_hessian_aware import UniLoRAHessianAwareConfig, UniLoRAHessianAwareModel
 from .vera import VeraConfig, VeraModel
 from .waveft import WaveFTConfig, WaveFTModel
 from .xlora import XLoraConfig, XLoraModel
@@ -145,6 +152,14 @@ __all__ = [
     "XLoraModel",
     "UniLoRAConfig",
     "UniLoRAModel",
+    "UniLoRASketchTuneConfig",
+    "UniLoRASketchTuneModel",
+    "UniLoRASketchDeltaConfig",
+    "UniLoRASketchDeltaModel",
+    "UniLoRASharedSketchBankConfig",
+    "UniLoRASharedSketchBankModel",
+    "UniLoRASketchRoutedConfig",
+    "UniLoRASketchRoutedModel",
     "UniLoRACountSketchConfig",
     "UniLoRACountSketchModel",
     "UniLoRASignConfig",
@@ -161,16 +176,22 @@ __all__ = [
     "UniLoRAIsometricControlModel",
     "UniLoRAGSConfig",
     "UniLoRAGSModel",
+    "UniLoRASoftAssignConfig",
+    "UniLoRASoftAssignModel",
     "DirectUniLoRAConfig",
     "DirectUniLoRAModel",
     "UniLoRABlockRoutingConfig",
     "UniLoRABlockRoutingModel",
     "UniLoRAStageRatioConfig",
     "UniLoRAStageRatioModel",
+    "UniLoRATrajectoryInitialConfig",
+    "UniLoRATrajectoryInitialModel",
     "UniLoRALayerWiseConfig",
     "UniLoRALayerWiseModel",
     "UniLoRALearnableLayerConfig",
     "UniLoRALearnableLayerModel",
+    "UniLoRAHessianAwareConfig",
+    "UniLoRAHessianAwareModel",
     "create_arrow_model",
     "get_eva_state_dict",
     "initialize_lora_eva_weights",

@@ -192,6 +192,23 @@ def get_peft_model_state_dict(
         to_return["base_model.unilora_stage_ratio_theta_d." + adapter_name] = state_dict[
             "base_model.unilora_stage_ratio_theta_d." + adapter_name
         ]
+    elif config.peft_type == PeftType.UNILORA_TRAJECTORY_INITIAL:
+        to_return = {k: state_dict[k] for k in state_dict if "unilora_scales" in k or "unilora_indices" in k}
+        to_return["base_model.unilora_trajectory_initial_theta_d." + adapter_name] = state_dict[
+            "base_model.unilora_trajectory_initial_theta_d." + adapter_name
+        ]
+    elif config.peft_type == PeftType.UNILORA_LAYER_WISE:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if "unilora_scales" in k or "unilora_indices" in k or "unilora_theta_d" in k
+        }
+    elif config.peft_type == PeftType.UNILORA_HESSIAN_AWARE:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if "unilora_scales" in k or "unilora_indices" in k or "unilora_hessian_aware_theta_d" in k
+        }
     elif config.peft_type == PeftType.VERA:
         vera_prefix = PEFT_TYPE_TO_PREFIX_MAPPING[config.peft_type]
         to_return = {k: state_dict[k] for k in state_dict if vera_prefix in k}
@@ -486,6 +503,18 @@ def set_peft_model_state_dict(
     elif config.peft_type == PeftType.XLORA:
         peft_model_state_dict = state_dict
     elif config.peft_type == PeftType.UNILORA_STAGE_RATIO:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_TRAJECTORY_INITIAL:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_LAYER_WISE:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_HESSIAN_AWARE:
         peft_model_state_dict = _insert_adapter_name_into_state_dict(
             state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
         )

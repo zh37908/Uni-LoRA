@@ -22,9 +22,10 @@ from peft.utils import PeftType
 @dataclass
 class UniLoRALayerWiseConfig(PeftConfig):
     """
-    UniLoRA-Layer-Wise: A control experiment for Uni-LoRA where the projection space is split per layer.
-    Each layer has its own independent trainable subspace, and the sum of subspace dimensions matches
-    Uni-LoRA's global subspace dimension.
+    UniLoRA-Layer-Wise: a control experiment for Uni-LoRA where the projection
+    space is split per transformer layer / block instead of being global.
+    The sum of local subspace dimensions matches Uni-LoRA's global subspace
+    dimension.
     """
 
     r: int = field(default=4, metadata={"help": "LoRA rank."})

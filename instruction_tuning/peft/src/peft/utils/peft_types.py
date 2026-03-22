@@ -17,6 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import enum
+from typing import Optional
 
 
 class PeftType(str, enum.Enum):
@@ -86,3 +87,30 @@ class TaskType(str, enum.Enum):
     TOKEN_CLS = "TOKEN_CLS"
     QUESTION_ANS = "QUESTION_ANS"
     FEATURE_EXTRACTION = "FEATURE_EXTRACTION"
+
+
+def register_peft_method(*, name: str, config_cls, model_cls, prefix: Optional[str] = None, is_mixed_compatible=False) -> None:
+    """
+    Register a PEFT method in the legacy instruction_tuning mapping tables.
+
+    This local PEFT fork predates the newer dynamic registration API, so we only
+    update the config/tuner mappings that exist in this tree.
+    """
+    del prefix
+    del is_mixed_compatible
+
+    from peft.mapping import PEFT_TYPE_TO_CONFIG_MAPPING, PEFT_TYPE_TO_TUNER_MAPPING
+
+    if name.endswith("_"):
+        raise ValueError(f"Please pass the name of the PEFT method without '_' suffix, got {name}.")
+
+    if not name.islower():
+        raise ValueError(f"The name of the PEFT method should be in lower case letters, got {name}.")
+
+    peft_type_name = name.upper()
+    if peft_type_name not in list(PeftType):
+        raise ValueError(f"Unknown PEFT type {peft_type_name}, please add it to peft.utils.peft_types.PeftType.")
+
+    peft_type = getattr(PeftType, peft_type_name)
+    PEFT_TYPE_TO_CONFIG_MAPPING[peft_type] = config_cls
+    PEFT_TYPE_TO_TUNER_MAPPING[peft_type] = model_cls

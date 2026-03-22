@@ -13,6 +13,7 @@ NLU/peft/examples/sequence_classification/results_variants_sweep/
 NLU/peft/examples/sequence_classification/results_glue/roberta-large/
 
 # Sequence classification experiment outputs
+NLU/peft/examples/sequence_classification/results*/
 NLU/peft/examples/sequence_classification/results_glue_variants/
 NLU/peft/examples/sequence_classification/results_debug/
 NLU/peft/examples/sequence_classification/results_debug_history/
