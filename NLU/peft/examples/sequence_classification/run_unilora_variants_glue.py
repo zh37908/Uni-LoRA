@@ -51,6 +51,7 @@ from peft import (
     UniLoRAIsometricControlConfig,
     DirectUniLoRAConfig,
     UniLoRALayerWiseConfig,
+    UniLoRATrajectoryInitialConfig,
     UniLoRALearnableLayerConfig,
     UniLoRASoftAssignConfig,
     PeftType,
@@ -136,6 +137,7 @@ def parse_args():
             "unilora_isometric_control",
             "direct_unilora",
             "unilora_layer_wise",
+            "unilora_trajectory_initial",
             "unilora_learnable_layer",
             "unilora_hessian_aware",
         ],
@@ -230,6 +232,30 @@ def parse_args():
         default=[0.2, 0.3, 0.5],
         metavar=("FRONT", "MIDDLE", "BACK"),
         help="Theta_d ratios for front/middle/back stages in unilora_stage_ratio.",
+    )
+    parser.add_argument(
+        "--trajectory_num_buckets",
+        type=int,
+        default=4,
+        help="Number of layer buckets for unilora_trajectory_initial.",
+    )
+    parser.add_argument(
+        "--trajectory_block_rows",
+        type=int,
+        default=4,
+        help="Block row size for trajectory-based layer signatures.",
+    )
+    parser.add_argument(
+        "--trajectory_block_cols",
+        type=int,
+        default=4,
+        help="Block column size for trajectory-based layer signatures.",
+    )
+    parser.add_argument(
+        "--trajectory_kmeans_iters",
+        type=int,
+        default=15,
+        help="K-means iterations for trajectory-based bucket initialization.",
     )
     parser.add_argument(
         "--hessian_aware_structure_update_interval",
@@ -655,6 +681,19 @@ def main():
             task_type="SEQ_CLS", peft_type=PeftType.UNILORA_LAYER_WISE,
             r=args.rank, theta_d_length=args.theta_d_length,
             proj_seed=args.seed, init_theta_d_bound=current_init_bound,
+            unilora_dropout=args.unilora_dropout,
+            target_modules=["query", "key", "value", "output.dense", "intermediate.dense"],
+            modules_to_save=["classifier"],
+        )
+    elif variant == "unilora_trajectory_initial":
+        peft_config = UniLoRATrajectoryInitialConfig(
+            task_type="SEQ_CLS", peft_type=PeftType.UNILORA_TRAJECTORY_INITIAL,
+            r=args.rank, theta_d_length=args.theta_d_length,
+            proj_seed=args.seed, init_theta_d_bound=current_init_bound,
+            num_buckets=args.trajectory_num_buckets,
+            block_rows=args.trajectory_block_rows,
+            block_cols=args.trajectory_block_cols,
+            kmeans_iters=args.trajectory_kmeans_iters,
             unilora_dropout=args.unilora_dropout,
             target_modules=["query", "key", "value", "output.dense", "intermediate.dense"],
             modules_to_save=["classifier"],
