@@ -50,14 +50,13 @@ export TRANSFORMERS_OFFLINE=1
 #   --stage_theta_d_ratios FRONT MIDDLE BACK
 RATIO_TRIPLES=(
   "0.333 0.333 0.333"
-  "0.2 0.4 0.4"
-  "0.4 0.3 0.3"
+  "0.3 0.35 0.35"
 )
 
 # Multi-group sweep for task/seed/lr
 MODELS=(roberta-large)
-TASKS=(cola mrpc)
-SEEDS=(0 1)
+TASKS=( mrpc)
+SEEDS=(0 1 2)
 LRS=(2e-4 1e-3 5e-3)
 
 SCRIPT=run_unilora_variants_glue.py

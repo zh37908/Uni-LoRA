@@ -293,6 +293,38 @@ def flatten_gradient(params):
     return torch.cat(grads)
 
 
+def select_epoch_histogram_params(model, variant):
+    if variant == "lora":
+        selected = [
+            param
+            for name, param in model.named_parameters()
+            if param.requires_grad and any(term in name for term in ["lora_A", "lora_B", "lora_embedding_A", "lora_embedding_B"])
+        ]
+        if selected:
+            return selected, "LoRAGradEpoch", "LoRAGradAbs"
+
+    selected = [
+        param
+        for name, param in model.named_parameters()
+        if param.requires_grad and (name.endswith("theta_d") or "theta_d." in name)
+    ]
+    if selected:
+        return selected, "ThetaDGradEpoch", "ThetaDGradAbs"
+
+    selected = [param for _, param in model.named_parameters() if param.requires_grad]
+    return selected, "TrainableGradEpoch", "TrainableGradAbs"
+
+
+def compute_abs_grad_quantiles(grad_vec):
+    abs_grad = grad_vec.abs()
+    return {
+        "p50": torch.quantile(abs_grad, 0.50).item(),
+        "p90": torch.quantile(abs_grad, 0.90).item(),
+        "p95": torch.quantile(abs_grad, 0.95).item(),
+        "p99": torch.quantile(abs_grad, 0.99).item(),
+    }
+
+
 class RollingGradientMonitor:
     def __init__(self, window_size):
         self.buffer = deque(maxlen=window_size)
@@ -396,6 +428,7 @@ def main():
 
     head_params, theta_d_params, alpha_params = partition_trainable_params(model)
     monitor_params, monitor_param_names = select_monitor_params(model, variant, args.monitor_scope)
+    epoch_hist_params, epoch_hist_tag, epoch_hist_abs_prefix = select_epoch_histogram_params(model, variant)
 
     print("=" * 80)
     print(f"Run Variant: {variant.upper()}")
@@ -411,6 +444,7 @@ def main():
         head_params=head_params,
     )
     print(f"Monitoring {len(monitor_params)} parameter tensors across {sum(p.numel() for p in monitor_params)} scalars.")
+    print(f"Epoch histogram tracks {len(epoch_hist_params)} tensors as Monitor/{epoch_hist_tag}.")
 
     optimizer_groups = []
     if head_params:
@@ -454,6 +488,7 @@ def main():
             model.train()
             pbar = base.tqdm(train_loader, desc=f"Epoch {epoch}", leave=False)
             epoch_loss = 0.0
+            epoch_hist_grads = []
             for batch in pbar:
                 if alpha_params and alpha_freeze_steps > 0 and global_step == alpha_freeze_steps:
                     for param in alpha_params:
@@ -485,6 +520,9 @@ def main():
                                 **stats,
                             }
                             monitor_file.write(json.dumps(record) + "\n")
+                    epoch_hist_grad_vec = flatten_gradient(epoch_hist_params)
+                    if epoch_hist_grad_vec is not None:
+                        epoch_hist_grads.append(epoch_hist_grad_vec)
 
                 optimizer.step()
                 scheduler.step()
@@ -497,6 +535,14 @@ def main():
 
             avg_epoch_loss = epoch_loss / len(train_loader)
             writer.add_scalar("Train/Epoch_Loss", avg_epoch_loss, epoch)
+            if epoch_hist_grads:
+                epoch_grad = torch.cat(epoch_hist_grads)
+                writer.add_histogram(f"Monitor/{epoch_hist_tag}", epoch_grad, epoch)
+                q = compute_abs_grad_quantiles(epoch_grad)
+                writer.add_scalar(f"Monitor/{epoch_hist_abs_prefix}P50", q["p50"], epoch)
+                writer.add_scalar(f"Monitor/{epoch_hist_abs_prefix}P90", q["p90"], epoch)
+                writer.add_scalar(f"Monitor/{epoch_hist_abs_prefix}P95", q["p95"], epoch)
+                writer.add_scalar(f"Monitor/{epoch_hist_abs_prefix}P99", q["p99"], epoch)
 
             model.eval()
             metric = base.evaluate.load("glue", task)

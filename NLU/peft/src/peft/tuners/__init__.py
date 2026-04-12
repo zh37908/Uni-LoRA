@@ -53,6 +53,7 @@ from .shira import ShiraConfig, ShiraModel
 from .trainable_tokens import TrainableTokensConfig, TrainableTokensModel
 from .vblora import VBLoRAConfig, VBLoRAModel
 from .unilora import UniLoRAConfig, UniLoRAModel
+from .unilora_aroma import UniLoRAAromaConfig, UniLoRAAromaModel
 from .unilora_sketch_tune import UniLoRASketchTuneConfig, UniLoRASketchTuneModel
 from .unilora_sketch_delta import UniLoRASketchDeltaConfig, UniLoRASketchDeltaModel
 from .unilora_shared_sketch_bank import UniLoRASharedSketchBankConfig, UniLoRASharedSketchBankModel
@@ -65,7 +66,16 @@ from .unilora_learnable import UniLoRALearnableConfig, UniLoRALearnableModel
 from .unilora_learnable_column import UniLoRALearnableColumnConfig, UniLoRALearnableColumnModel
 from .unilora_isometric_control import UniLoRAIsometricControlConfig, UniLoRAIsometricControlModel
 from .unilora_gs import UniLoRAGSConfig, UniLoRAGSModel
+from .unilora_gora import UniLoRAGoRAConfig, UniLoRAGoRAModel
+from .unilora_gelora import UniLoRAGeLoRAConfig, UniLoRAGeLoRAModel
+from .geo_unilora import GeoUniLoRAConfig, GeoUniLoRAModel
+from .igu_unilora import IGUUniLoRAConfig, IGUUniLoRAModel
+from .unilora_igu import UniLoRAIGUConfig, UniLoRAIGUModel
 from .unilora_soft_assign import UniLoRASoftAssignConfig, UniLoRASoftAssignModel
+from .unilora_swap import UniLoRASwapConfig, UniLoRASwapModel
+from .unilora_local_swap import UniLoRALocalSwapConfig, UniLoRALocalSwapModel
+from .unilora_soft_weight_sharing import UniLoRASoftWeightSharingConfig, UniLoRASoftWeightSharingModel
+from .unilora_deepk import UniLoRADeepKConfig, UniLoRADeepKModel
 from .direct_unilora import DirectUniLoRAConfig, DirectUniLoRAModel
 from .unilora_block_routing import UniLoRABlockRoutingConfig, UniLoRABlockRoutingModel
 from .unilora_stage_ratio import UniLoRAStageRatioConfig, UniLoRAStageRatioModel
@@ -73,6 +83,15 @@ from .unilora_trajectory_initial import UniLoRATrajectoryInitialConfig, UniLoRAT
 from .unilora_layer_wise import UniLoRALayerWiseConfig, UniLoRALayerWiseModel
 from .unilora_learnable_layer import UniLoRALearnableLayerConfig, UniLoRALearnableLayerModel
 from .unilora_hessian_aware import UniLoRAHessianAwareConfig, UniLoRAHessianAwareModel
+from .unilora_rosa import UniLoRARoSAConfig, UniLoRARoSAModel
+from .unilora_rosa_discrete import UniLoRARoSADiscreteConfig, UniLoRARoSADiscreteModel
+from .unilora_rosa_global import UniLoRARoSAGlobalConfig, UniLoRARoSAGlobalModel
+from .unilora_multi_hashing import UniLoRAMultiHashingConfig, UniLoRAMultiHashingModel
+from .unilora_multi_structured import UniLoRAMultiStructuredConfig, UniLoRAMultiStructuredModel
+from .unilora_multi_structured_global import (
+    UniLoRAMultiStructuredGlobalConfig,
+    UniLoRAMultiStructuredGlobalModel,
+)
 from .vera import VeraConfig, VeraModel
 from .waveft import WaveFTConfig, WaveFTModel
 from .xlora import XLoraConfig, XLoraModel
@@ -151,7 +170,9 @@ __all__ = [
     "XLoraConfig",
     "XLoraModel",
     "UniLoRAConfig",
+    "UniLoRAAromaConfig",
     "UniLoRAModel",
+    "UniLoRAAromaModel",
     "UniLoRASketchTuneConfig",
     "UniLoRASketchTuneModel",
     "UniLoRASketchDeltaConfig",
@@ -174,10 +195,28 @@ __all__ = [
     "UniLoRALearnableColumnModel",
     "UniLoRAIsometricControlConfig",
     "UniLoRAIsometricControlModel",
+    "UniLoRAGoRAConfig",
+    "UniLoRAGoRAModel",
+    "UniLoRAGeLoRAConfig",
+    "UniLoRAGeLoRAModel",
+    "GeoUniLoRAConfig",
+    "GeoUniLoRAModel",
+    "IGUUniLoRAConfig",
+    "IGUUniLoRAModel",
+    "UniLoRAIGUConfig",
+    "UniLoRAIGUModel",
     "UniLoRAGSConfig",
     "UniLoRAGSModel",
     "UniLoRASoftAssignConfig",
     "UniLoRASoftAssignModel",
+    "UniLoRASwapConfig",
+    "UniLoRASwapModel",
+    "UniLoRALocalSwapConfig",
+    "UniLoRALocalSwapModel",
+    "UniLoRASoftWeightSharingConfig",
+    "UniLoRASoftWeightSharingModel",
+    "UniLoRADeepKConfig",
+    "UniLoRADeepKModel",
     "DirectUniLoRAConfig",
     "DirectUniLoRAModel",
     "UniLoRABlockRoutingConfig",
@@ -192,6 +231,18 @@ __all__ = [
     "UniLoRALearnableLayerModel",
     "UniLoRAHessianAwareConfig",
     "UniLoRAHessianAwareModel",
+    "UniLoRARoSAConfig",
+    "UniLoRARoSAModel",
+    "UniLoRARoSADiscreteConfig",
+    "UniLoRARoSADiscreteModel",
+    "UniLoRARoSAGlobalConfig",
+    "UniLoRARoSAGlobalModel",
+    "UniLoRAMultiHashingConfig",
+    "UniLoRAMultiHashingModel",
+    "UniLoRAMultiStructuredConfig",
+    "UniLoRAMultiStructuredModel",
+    "UniLoRAMultiStructuredGlobalConfig",
+    "UniLoRAMultiStructuredGlobalModel",
     "create_arrow_model",
     "get_eva_state_dict",
     "initialize_lora_eva_weights",

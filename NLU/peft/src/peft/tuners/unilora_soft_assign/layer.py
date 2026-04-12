@@ -23,6 +23,8 @@ class UniLoRASoftAssignLayer(BaseTunerLayer):
         "unilora_soft_assign_candidate_indices_B",
         "unilora_soft_assign_scales_A",
         "unilora_soft_assign_scales_B",
+        "unilora_deepk_override_A",
+        "unilora_deepk_override_B",
     )
 
     def __init__(self, base_layer: nn.Module, **kwargs):
@@ -37,6 +39,9 @@ class UniLoRASoftAssignLayer(BaseTunerLayer):
         self.unilora_soft_assign_candidate_indices_B = BufferDict({}, persistent=True)
         self.unilora_soft_assign_scales_A = BufferDict({}, persistent=True)
         self.unilora_soft_assign_scales_B = BufferDict({}, persistent=True)
+        # Optional deployment override used by UniLoRA-DeepK finalize stage.
+        self.unilora_deepk_override_A = BufferDict({}, persistent=True)
+        self.unilora_deepk_override_B = BufferDict({}, persistent=True)
 
         self.unilora_soft_assign_temperature = {}
         self.unilora_soft_assign_assignment_mode = {}
@@ -192,6 +197,14 @@ class UniLoRASoftAssignLayer(BaseTunerLayer):
         return torch.softmax(logits / temperature, dim=-1)
 
     def _get_lora_matrices(self, adapter: str, cast_to_fp32: bool = False) -> Tuple[torch.Tensor, torch.Tensor]:
+        if adapter in self.unilora_deepk_override_A and adapter in self.unilora_deepk_override_B:
+            A = self.unilora_deepk_override_A[adapter]
+            B = self.unilora_deepk_override_B[adapter]
+            if cast_to_fp32:
+                A = A.float()
+                B = B.float()
+            return A, B
+
         logits_A = self.unilora_soft_assign_logits_A[adapter]
         logits_B = self.unilora_soft_assign_logits_B[adapter]
         candidate_indices_A = self.unilora_soft_assign_candidate_indices_A[adapter]

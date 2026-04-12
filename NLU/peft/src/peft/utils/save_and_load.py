@@ -182,11 +182,6 @@ def get_peft_model_state_dict(
                     to_return[f"{name}.shira_indices.{k}"] = (
                         v.to(torch.float32) if platform.system() == "Windows" else v
                     )
-    elif config.peft_type == PeftType.UNILORA:
-        to_return = {}
-        to_return["base_model.unilora_theta_d." + adapter_name] = state_dict["base_model.unilora_theta_d." + adapter_name]
-      
-
     elif config.peft_type == PeftType.UNILORA_STAGE_RATIO:
         to_return = {k: state_dict[k] for k in state_dict if "unilora_scales" in k or "unilora_indices" in k}
         to_return["base_model.unilora_stage_ratio_theta_d." + adapter_name] = state_dict[
@@ -209,6 +204,51 @@ def get_peft_model_state_dict(
             for k in state_dict
             if "unilora_scales" in k or "unilora_indices" in k or "unilora_hessian_aware_theta_d" in k
         }
+    elif config.peft_type == PeftType.UNILORA_ROSA:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                "unilora_scales" in k
+                or "unilora_indices" in k
+                or "unilora_theta_D_offsets" in k
+                or "unilora_rosa_sparse_theta_D" in k
+                or "unilora_rosa_sparse_mask" in k
+                or "unilora_rosa_theta_d" in k
+            )
+        }
+    elif config.peft_type == PeftType.UNILORA_ROSA_DISCRETE:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                "unilora_rosa_discrete_" in k
+            )
+        }
+    elif config.peft_type == PeftType.UNILORA_MULTI_STRUCTURED:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                "m_hat_" in k
+                or "unilora_multi_structured_left" in k
+                or "unilora_multi_structured_right" in k
+                or "unilora_multi_structured_layer_scale" in k
+                or "unilora_multi_structured_meta" in k
+            )
+        }
+    elif config.peft_type == PeftType.UNILORA_MULTI_STRUCTURED_GLOBAL:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if "unilora_multi_structured_global_" in k
+        }
+    elif config.peft_type == PeftType.UNILORA_MULTI_HASHING:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if "unilora_scales" in k or "unilora_indices" in k or "unilora_multi_hashing_" in k
+        }
     elif config.peft_type == PeftType.VERA:
         vera_prefix = PEFT_TYPE_TO_PREFIX_MAPPING[config.peft_type]
         to_return = {k: state_dict[k] for k in state_dict if vera_prefix in k}
@@ -225,11 +265,97 @@ def get_peft_model_state_dict(
     elif config.peft_type == PeftType.XLORA:
         to_return = {k: state_dict[k] for k in state_dict if "internal_xlora_classifier" in k}     
     elif config.peft_type == PeftType.UNILORA:
-        to_return = {}
         to_return = {k: state_dict[k] for k in state_dict if "unilora_scales" in k or "unilora_indices" in k}
-        to_return["base_model.unilora_theta_d." + adapter_name] = state_dict[
-            "base_model.unilora_theta_d." + adapter_name
+        to_return["base_model.unilora_theta_d." + adapter_name] = state_dict["base_model.unilora_theta_d." + adapter_name]
+    elif config.peft_type == PeftType.UNILORA_AROMA:
+        to_return = {k: state_dict[k] for k in state_dict if "unilora_scales" in k or "unilora_indices" in k}
+        to_return["base_model.unilora_aroma_theta_d." + adapter_name] = state_dict[
+            "base_model.unilora_aroma_theta_d." + adapter_name
         ]
+    elif config.peft_type == PeftType.UNILORA_GORA:
+        to_return = {k: state_dict[k] for k in state_dict if "unilora_scales" in k or "unilora_indices" in k}
+        to_return["base_model.unilora_gora_theta_d." + adapter_name] = state_dict[
+            "base_model.unilora_gora_theta_d." + adapter_name
+        ]
+    elif config.peft_type == PeftType.UNILORA_GELORA:
+        to_return = {k: state_dict[k] for k in state_dict if "unilora_scales" in k or "unilora_indices" in k}
+        to_return["base_model.unilora_gelora_theta_d." + adapter_name] = state_dict[
+            "base_model.unilora_gelora_theta_d." + adapter_name
+        ]
+    elif config.peft_type == PeftType.GEO_UNILORA:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                ((("unilora_scales" in k) or ("unilora_indices" in k)) and k.endswith(f".{adapter_name}"))
+                or (k.startswith("base_model.geo_ul_shared_theta_d.") and f"{adapter_name}__" in k)
+                or (k.startswith("base_model.geo_ul_innovation_theta_d.") and f"{adapter_name}__" in k)
+            )
+        }
+        to_return = _normalize_geo_ul_bank_keys_for_save(to_return, adapter_name)
+    elif config.peft_type == PeftType.IGU_UNILORA:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                ((("unilora_scales" in k) or ("unilora_indices" in k)) and k.endswith(f".{adapter_name}"))
+                or (k.startswith("base_model.geo_ul_shared_theta_d.") and f"{adapter_name}__" in k)
+                or (k.startswith("base_model.geo_ul_innovation_theta_d.") and f"{adapter_name}__" in k)
+            )
+        }
+        to_return = _normalize_geo_ul_bank_keys_for_save(to_return, adapter_name)
+    elif config.peft_type == PeftType.UNILORA_IGU:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                "unilora_scales" in k
+                or "unilora_indices" in k
+                or "unilora_igu_lora_E" in k
+                or "unilora_igu_lora_mask" in k
+                or "unilora_igu_ranknum" in k
+                or "unilora_igu_weight_coeff" in k
+            )
+        }
+        to_return["base_model.unilora_igu_theta_d." + adapter_name] = state_dict[
+            "base_model.unilora_igu_theta_d." + adapter_name
+        ]
+    elif config.peft_type == PeftType.UNILORA_SWAP:
+        to_return = {k: state_dict[k] for k in state_dict if "unilora_scales" in k or "unilora_indices" in k}
+        to_return["base_model.unilora_swap_theta_d." + adapter_name] = state_dict[
+            "base_model.unilora_swap_theta_d." + adapter_name
+        ]
+    elif config.peft_type == PeftType.UNILORA_LOCAL_SWAP:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if "unilora_scales" in k or "unilora_indices" in k or "unilora_local_swap_offsets" in k
+        }
+        to_return["base_model.unilora_local_swap_theta_d." + adapter_name] = state_dict[
+            "base_model.unilora_local_swap_theta_d." + adapter_name
+        ]
+    elif config.peft_type == PeftType.UNILORA_SOFT_WEIGHT_SHARING:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                "unilora_soft_assign_" in k
+                or "unilora_soft_weight_sharing_" in k
+                or "unilora_scales" in k
+                or "unilora_indices" in k
+            )
+        }
+    elif config.peft_type == PeftType.UNILORA_DEEPK:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                "unilora_soft_assign_" in k
+                or "unilora_deepk_override_" in k
+                or "unilora_scales" in k
+                or "unilora_indices" in k
+            )
+        }
     elif config.peft_type == PeftType.UNILORA_LEARNABLE_COLUMN:
         to_return = {
             k: state_dict[k]
@@ -443,6 +569,39 @@ def _insert_adapter_name_into_state_dict(
     return peft_model_state_dict
 
 
+def _normalize_geo_ul_bank_keys_for_save(
+    state_dict: dict[str, torch.Tensor], adapter_name: str
+) -> dict[str, torch.Tensor]:
+    normalized = {}
+    shared_marker = f"geo_ul_shared_theta_d.{adapter_name}__"
+    innov_marker = f"geo_ul_innovation_theta_d.{adapter_name}__"
+    for key, val in state_dict.items():
+        if shared_marker in key:
+            normalized[key.replace(shared_marker, "geo_ul_shared_theta_d.", 1)] = val
+        elif innov_marker in key:
+            normalized[key.replace(innov_marker, "geo_ul_innovation_theta_d.", 1)] = val
+        else:
+            normalized[key] = val
+    return normalized
+
+
+def _restore_geo_ul_bank_keys_for_load(
+    state_dict: dict[str, torch.Tensor], adapter_name: str
+) -> dict[str, torch.Tensor]:
+    restored = {}
+    for key, val in state_dict.items():
+        if "geo_ul_shared_theta_d." in key:
+            prefix, _, suffix = key.partition("geo_ul_shared_theta_d.")
+            if not suffix.startswith(f"{adapter_name}__"):
+                key = f"{prefix}geo_ul_shared_theta_d.{adapter_name}__{suffix}"
+        elif "geo_ul_innovation_theta_d." in key:
+            prefix, _, suffix = key.partition("geo_ul_innovation_theta_d.")
+            if not suffix.startswith(f"{adapter_name}__"):
+                key = f"{prefix}geo_ul_innovation_theta_d.{adapter_name}__{suffix}"
+        restored[key] = val
+    return restored
+
+
 def set_peft_model_state_dict(
     model,
     peft_model_state_dict,
@@ -515,6 +674,67 @@ def set_peft_model_state_dict(
             state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
         )
     elif config.peft_type == PeftType.UNILORA_HESSIAN_AWARE:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_ROSA:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_ROSA_DISCRETE:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_rosa_discrete_"
+        )
+    elif config.peft_type == PeftType.UNILORA_MULTI_STRUCTURED:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_multi_structured_"
+        )
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            peft_model_state_dict, adapter_name=adapter_name, parameter_prefix="m_hat_"
+        )
+    elif config.peft_type == PeftType.UNILORA_MULTI_STRUCTURED_GLOBAL:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_multi_structured_global_"
+        )
+    elif config.peft_type == PeftType.UNILORA_MULTI_HASHING:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_SOFT_WEIGHT_SHARING:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_DEEPK:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.GEO_UNILORA:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+        peft_model_state_dict = _restore_geo_ul_bank_keys_for_load(peft_model_state_dict, adapter_name)
+    elif config.peft_type == PeftType.IGU_UNILORA:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+        peft_model_state_dict = _restore_geo_ul_bank_keys_for_load(peft_model_state_dict, adapter_name)
+    elif config.peft_type == PeftType.UNILORA_IGU:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_AROMA:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_GORA:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_SWAP:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_LOCAL_SWAP:
         peft_model_state_dict = _insert_adapter_name_into_state_dict(
             state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
         )
