@@ -2,7 +2,7 @@
 #SBATCH --job-name=unilora_trajectory_initial_glue
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=4
-#SBATCH --cpus-per-gpu=8
+#SBATCH --cpus-per-gpu=16
 #SBATCH --gpus-per-node=4
 #SBATCH --time=48:00:00
 #SBATCH --partition=gpu-l20
@@ -10,10 +10,11 @@
 #SBATCH --output=/home/hzhaobi/Uni-LoRA/NLU/peft/examples/sequence_classification/logs/unilora_trajectory_initial_%j.out
 #SBATCH --error=/home/hzhaobi/Uni-LoRA/NLU/peft/examples/sequence_classification/logs/unilora_trajectory_initial_%j.err
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "${SCRIPT_DIR}"
+# Under sbatch, BASH_SOURCE points at a copy under /var/spool/slurm/... — do NOT use it for SCRIPT_DIR.
+SCRIPT_DIR="/home/hzhaobi/Uni-LoRA/NLU/peft/examples/sequence_classification"
+cd "${SCRIPT_DIR}" || { echo "cd SCRIPT_DIR failed: ${SCRIPT_DIR}"; exit 1; }
 
-mkdir -p logs
+mkdir -p "${SCRIPT_DIR}/logs"
 
 # Activate NLU conda env
 source /home/hzhaobi/miniconda3/etc/profile.d/conda.sh
@@ -61,8 +62,8 @@ TASKS=(mrpc)
 SEEDS=(0 1 2)
 LRS=(5e-4 1e-3 5e-3)
 
-SCRIPT=run_unilora_variants_glue.py
-OUT_ROOT=results_glue_variants_trajectory_initial
+SCRIPT="${SCRIPT_DIR}/run_unilora_variants_glue.py"
+OUT_ROOT="${SCRIPT_DIR}/results_glue_variants_trajectory_initial"
 mkdir -p "${OUT_ROOT}"
 
 CMD_LIST=$(mktemp)
@@ -80,7 +81,7 @@ for MODEL in "${MODELS[@]}"; do
         mkdir -p "${SEED_DIR}"
         for LR in "${LRS[@]}"; do
           LOG_FILE=${SEED_DIR}/log_lr_${LR}.txt
-          FULL_CMD="srun --ntasks=1 --nodes=1 --exclusive --gres=gpu:1 --cpus-per-task=8 --cpu-bind=none --gpu-bind=single:1 python ${SCRIPT} --variant ${METHOD} ${EXTRA_FLAG} --model_name ${MODEL} --task ${TASK} --head_lr ${LR} --seed ${SEED} --out_dir ${SEED_DIR} > ${LOG_FILE} 2>&1"
+          FULL_CMD="cd \"${SCRIPT_DIR}\" && srun --ntasks=1 --nodes=1 --exclusive --gres=gpu:1 --cpus-per-task=8 --cpu-bind=none --gpu-bind=single:1 python \"${SCRIPT}\" --variant ${METHOD} ${EXTRA_FLAG} --model_name ${MODEL} --task ${TASK} --head_lr ${LR} --seed ${SEED} --out_dir \"${SEED_DIR}\" > \"${LOG_FILE}\" 2>&1"
           echo "$FULL_CMD" >> "$CMD_LIST"
         done
       done

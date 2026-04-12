@@ -1,0 +1,116 @@
+mkdir: cannot create directory ‘logs’: Permission denied
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at roberta-large and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+mkdir: cannot create directory ‘results_glue_variants_hessian_aware’: Permission denied
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/mrpc/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/cola/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/sst2/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_0/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_1/log_lr_2e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_5e-4.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_5e-3.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_1e-2.txt: No such file or directory
+bash: line 1: results_glue_variants_hessian_aware/roberta-large/qnli/unilora_hessian_aware_int5_warm1_rr0.01_pool8_cap0.1_slack2.0_ema0.9/seed_2/log_lr_2e-2.txt: No such file or directory
