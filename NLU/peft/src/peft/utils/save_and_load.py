@@ -204,7 +204,7 @@ def get_peft_model_state_dict(
             for k in state_dict
             if "unilora_scales" in k or "unilora_indices" in k or "unilora_hessian_aware_theta_d" in k
         }
-    elif config.peft_type == PeftType.UNILORA_ROSA:
+    elif config.peft_type in {PeftType.UNILORA_ROSA, PeftType.UNILORA_ROSA_STAGE}:
         to_return = {
             k: state_dict[k]
             for k in state_dict
@@ -215,6 +215,21 @@ def get_peft_model_state_dict(
                 or "unilora_rosa_sparse_theta_D" in k
                 or "unilora_rosa_sparse_mask" in k
                 or "unilora_rosa_theta_d" in k
+            )
+        }
+    elif config.peft_type == PeftType.UNILORA_ROSA_COMPRESSION:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                "unilora_scales" in k
+                or "unilora_indices" in k
+                or "unilora_theta_D_offsets" in k
+                or "unilora_rosa_sparse_theta_d" in k
+                or "unilora_rosa_sparse_mask" in k
+                or "unilora_rosa_theta_d" in k
+                or "unilora_rosa_sparse_indices" in k
+                or "unilora_rosa_sparse_scales" in k
             )
         }
     elif config.peft_type == PeftType.UNILORA_ROSA_DISCRETE:
@@ -677,7 +692,11 @@ def set_peft_model_state_dict(
         peft_model_state_dict = _insert_adapter_name_into_state_dict(
             state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
         )
-    elif config.peft_type == PeftType.UNILORA_ROSA:
+    elif config.peft_type in {PeftType.UNILORA_ROSA, PeftType.UNILORA_ROSA_STAGE}:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type == PeftType.UNILORA_ROSA_COMPRESSION:
         peft_model_state_dict = _insert_adapter_name_into_state_dict(
             state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
         )
