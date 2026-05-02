@@ -204,7 +204,11 @@ def get_peft_model_state_dict(
             for k in state_dict
             if "unilora_scales" in k or "unilora_indices" in k or "unilora_hessian_aware_theta_d" in k
         }
-    elif config.peft_type in {PeftType.UNILORA_ROSA, PeftType.UNILORA_ROSA_STAGE}:
+    elif config.peft_type in {
+        PeftType.UNILORA_ROSA,
+        PeftType.UNILORA_ROSA_STAGE,
+        PeftType.UNILORA_ROSA_STAGE_SNIP,
+    }:
         to_return = {
             k: state_dict[k]
             for k in state_dict
@@ -692,7 +696,11 @@ def set_peft_model_state_dict(
         peft_model_state_dict = _insert_adapter_name_into_state_dict(
             state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
         )
-    elif config.peft_type in {PeftType.UNILORA_ROSA, PeftType.UNILORA_ROSA_STAGE}:
+    elif config.peft_type in {
+        PeftType.UNILORA_ROSA,
+        PeftType.UNILORA_ROSA_STAGE,
+        PeftType.UNILORA_ROSA_STAGE_SNIP,
+    }:
         peft_model_state_dict = _insert_adapter_name_into_state_dict(
             state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
         )

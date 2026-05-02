@@ -61,6 +61,7 @@ from peft import (
     UniLoRALearnableLayerConfig,
     UniLoRARoSAConfig,
     UniLoRARoSAStageConfig,
+    UniLoRARoSAStageSnipConfig,
     UniLoRARoSACompressionConfig,
     UniLoRARoSADiscreteConfig,
     UniLoRARoSAGlobalConfig,
@@ -167,6 +168,7 @@ def parse_args():
             "unilora_hessian_aware",
             "unilora_rosa",
             "unilora_rosa_stage",
+            "unilora_rosa_stage_snip",
             "unilora_rosa_discrete",
             "unilora_rosa_global",
             "unilora_rosa_compression",
@@ -267,21 +269,34 @@ def parse_args():
         help="Keep optimizer state after UniLoRA-AROMA merge-and-reinit.",
     )
     parser.add_argument("--rosa_sparse_lr", type=float, default=None, help="LR for UniLoRA-RoSA sparse compensation; defaults to theta_d_lr.")
+    parser.add_argument(
+        "--rosa_decay_sparse_lr_after_activation",
+        action="store_true",
+        help=(
+            "Keep the UniLoRA-RoSA sparse LR at its base value until the sparse mask is activated, "
+            "then decay it over the remaining training steps using --scheduler_type."
+        ),
+    )
     parser.add_argument("--rosa_density", type=float, default=0.01, help="Density of the UniLoRA-RoSA sparse compensation mask.")
     parser.add_argument(
         "--rosa_stage_ratio",
         type=float,
         default=0.5,
-        help="For unilora_rosa_stage: fraction of total training epochs completed before starting sparse-mask selection.",
+        help="For unilora_rosa_stage(_snip): fraction of total training epochs completed before starting sparse-mask selection.",
     )
     parser.add_argument(
         "--rosa_stage_warmup_steps",
         type=int,
         default=None,
-        help="For unilora_rosa_stage: explicit optimizer-step warmup before starting sparse-mask selection; overrides --rosa_stage_ratio.",
+        help="For unilora_rosa_stage(_snip): explicit optimizer-step warmup before starting sparse-mask selection; overrides --rosa_stage_ratio.",
     )
     parser.add_argument("--rosa_warmup_steps", type=int, default=64, help="Low-rank-only warmup steps before collecting RoSA sparse mask gradients.")
-    parser.add_argument("--rosa_mask_steps", type=int, default=1, help="Number of optimizer steps used to accumulate max-abs gradients for RoSA masks.")
+    parser.add_argument(
+        "--rosa_mask_steps",
+        type=int,
+        default=1,
+        help="Number of optimizer steps used to collect RoSA mask scores.",
+    )
     parser.add_argument("--swap_dead_bucket_count", type=int, default=8, help="Number of low-importance buckets used per UniLoRA-Swap round.")
     parser.add_argument("--swap_split_ratio", type=float, default=0.5, help="Fraction of assignments moved from an overloaded bucket to a freed bucket in UniLoRA-Swap.")
     parser.add_argument("--swap_interval_steps", type=int, default=0, help="Run UniLoRA-Swap every N optimizer steps; 0 disables step-based swap.")
@@ -656,7 +671,14 @@ def get_hessian_aware_backend(model, variant):
 
 
 def get_unilora_rosa_backend(model, variant):
-    if variant not in {"unilora_rosa", "unilora_rosa_stage", "unilora_rosa_discrete", "unilora_rosa_global", "unilora_rosa_compression"}:
+    if variant not in {
+        "unilora_rosa",
+        "unilora_rosa_stage",
+        "unilora_rosa_stage_snip",
+        "unilora_rosa_discrete",
+        "unilora_rosa_global",
+        "unilora_rosa_compression",
+    }:
         return None
     backend = getattr(model, "base_model", None)
     if backend is None:
@@ -2015,6 +2037,18 @@ def main():
             target_modules=["query", "key", "value", "output.dense", "intermediate.dense"],
             modules_to_save=["classifier"],
         )
+    elif variant == "unilora_rosa_stage_snip":
+        peft_config = UniLoRARoSAStageSnipConfig(
+            task_type="SEQ_CLS", peft_type=PeftType.UNILORA_ROSA_STAGE_SNIP,
+            r=args.rank, theta_d_length=args.theta_d_length,
+            proj_seed=args.seed, init_theta_d_bound=current_init_bound,
+            unilora_dropout=args.unilora_dropout,
+            rosa_density=args.rosa_density,
+            rosa_stage_ratio=args.rosa_stage_ratio,
+            rosa_mask_steps=args.rosa_mask_steps,
+            target_modules=["query", "key", "value", "output.dense", "intermediate.dense"],
+            modules_to_save=["classifier"],
+        )
     elif variant == "unilora_rosa_compression":
         if args.sparse_theta_d_length is None:
             raise ValueError("--sparse_theta_d_length must be specified for unilora_rosa_compression.")
@@ -2247,13 +2281,15 @@ def main():
         )
         print(f"Initial structure stats: {hessian_aware_backend.get_structure_stats()}")
     if unilora_rosa_backend is not None:
-        if variant == "unilora_rosa_stage":
+        if variant in {"unilora_rosa_stage", "unilora_rosa_stage_snip"}:
+            score_mode = "snip |W*g|" if variant == "unilora_rosa_stage_snip" else "max-abs gradient"
             print(
                 "UniLoRA-RoSA sparse config: "
                 f"density={args.rosa_density}, "
                 f"stage_ratio={args.rosa_stage_ratio}, "
                 f"stage_warmup_steps={args.rosa_stage_warmup_steps}, "
                 f"mask_steps={args.rosa_mask_steps}, "
+                f"score_mode={score_mode}, "
                 f"reset_optimizer_on_mask={args.rosa_reset_optimizer_on_mask}"
             )
         else:
@@ -2341,6 +2377,7 @@ def main():
     optimizer = AdamW(optimizer_groups)
 
     total_steps = len(train_loader) * num_epochs
+    rosa_stage_info = None
     if unilora_igu_backend is not None:
         unilora_igu_backend.set_total_step(total_steps)
     if unilora_rosa_backend is not None and hasattr(unilora_rosa_backend, "set_training_schedule"):
@@ -2349,12 +2386,18 @@ def main():
             steps_per_epoch=len(train_loader),
             total_epochs=num_epochs,
             stage_start_step_override=(
-                args.rosa_stage_warmup_steps if variant == "unilora_rosa_stage" else None
+                args.rosa_stage_warmup_steps
+                if variant in {"unilora_rosa_stage", "unilora_rosa_stage_snip"}
+                else None
             ),
             adapter_name="default",
         )
-        if variant == "unilora_rosa_stage":
-            schedule_prefix = "UniLoRA-RoSA-Stage schedule"
+        if variant in {"unilora_rosa_stage", "unilora_rosa_stage_snip"}:
+            schedule_prefix = (
+                "UniLoRA-RoSA-Stage-SNIP schedule"
+                if variant == "unilora_rosa_stage_snip"
+                else "UniLoRA-RoSA-Stage schedule"
+            )
             if bool(rosa_stage_info.get("using_warmup_steps", 0)):
                 schedule_prefix += f" (warmup_steps={args.rosa_stage_warmup_steps})"
             print(
@@ -2362,7 +2405,8 @@ def main():
                 f"stage_ratio={rosa_stage_info['stage_ratio']}, "
                 f"stage_progress_epochs={rosa_stage_info['stage_progress_epochs']:.4f}, "
                 f"stage_start_step={rosa_stage_info['stage_start_step']}, "
-                f"mask_steps={rosa_stage_info['mask_steps']}"
+                f"mask_steps={rosa_stage_info['mask_steps']}, "
+                f"score_mode={rosa_stage_info.get('score_mode', 'max_abs_grad')}"
             )
     num_warmup_steps = int(warmup_ratio * total_steps)
     if args.scheduler_type == "cosine":
@@ -2377,6 +2421,35 @@ def main():
             num_warmup_steps=num_warmup_steps,
             num_training_steps=total_steps,
         )
+    sparse_lr_activation_step = 0
+    if sparse_group_indices:
+        if variant in {"unilora_rosa_stage", "unilora_rosa_stage_snip"} and rosa_stage_info is not None:
+            sparse_lr_activation_step = int(rosa_stage_info["stage_start_step"]) + int(rosa_stage_info["mask_steps"])
+        elif variant in {"unilora_rosa", "unilora_rosa_discrete", "unilora_rosa_global", "unilora_rosa_compression"}:
+            sparse_lr_activation_step = int(args.rosa_warmup_steps) + int(args.rosa_mask_steps)
+        sparse_lr_activation_step = max(0, min(total_steps, sparse_lr_activation_step))
+        if args.rosa_decay_sparse_lr_after_activation:
+            print(
+                "UniLoRA-RoSA sparse LR schedule: "
+                f"base_lr={rosa_sparse_lr}, activation_step={sparse_lr_activation_step}, "
+                f"decay_steps={max(1, total_steps - sparse_lr_activation_step)}, "
+                f"scheduler_type={args.scheduler_type}"
+            )
+
+    def get_sparse_lr_for_step(step_after_update: int) -> float:
+        if not args.rosa_decay_sparse_lr_after_activation:
+            return float(rosa_sparse_lr)
+        if step_after_update <= sparse_lr_activation_step:
+            return float(rosa_sparse_lr)
+        decay_steps = max(1, total_steps - sparse_lr_activation_step)
+        progress = (float(step_after_update) - float(sparse_lr_activation_step)) / float(decay_steps)
+        progress = max(0.0, min(1.0, progress))
+        if args.scheduler_type == "cosine":
+            lr_factor = 0.5 * (1.0 + math.cos(math.pi * progress))
+        else:
+            lr_factor = 1.0 - progress
+        return float(rosa_sparse_lr) * max(0.0, lr_factor)
+
     alpha_freeze_steps = int(args.alpha_freeze_ratio * total_steps) if alpha_params else 0
     if alpha_params and alpha_freeze_steps > 0:
         for p in alpha_params:
@@ -2489,8 +2562,10 @@ def main():
                 )
             optimizer.step()
             scheduler.step()
+            current_sparse_lr = None
             for sparse_group_idx in sparse_group_indices:
-                optimizer.param_groups[sparse_group_idx]["lr"] = rosa_sparse_lr
+                current_sparse_lr = get_sparse_lr_for_step(global_step + 1)
+                optimizer.param_groups[sparse_group_idx]["lr"] = current_sparse_lr
             if (
                 unilora_rosa_backend is not None
                 and unilora_rosa_backend.should_generate_masks(global_step + 1, adapter_name="default")
@@ -2594,6 +2669,8 @@ def main():
             pbar.set_postfix({"loss": f"{loss.item():.4f}"})
             writer.add_scalar("Train/Loss", loss.item(), global_step)
             writer.add_scalar("Train/Task_Loss", task_loss.item(), global_step)
+            if current_sparse_lr is not None:
+                writer.add_scalar("RoSA/Sparse_LR", current_sparse_lr, global_step)
             if igu_orth_reg is not None:
                 writer.add_scalar("IGU/Orth_Reg", igu_orth_reg.item(), global_step)
             if sws_loss_value is not None:

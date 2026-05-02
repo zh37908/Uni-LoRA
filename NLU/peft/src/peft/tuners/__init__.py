@@ -84,7 +84,12 @@ from .unilora_layer_wise import UniLoRALayerWiseConfig, UniLoRALayerWiseModel
 from .unilora_learnable_layer import UniLoRALearnableLayerConfig, UniLoRALearnableLayerModel
 from .unilora_hessian_aware import UniLoRAHessianAwareConfig, UniLoRAHessianAwareModel
 from .unilora_rosa import UniLoRARoSAConfig, UniLoRARoSAModel
-from .unilora_rosa_stage import UniLoRARoSAStageConfig, UniLoRARoSAStageModel
+from .unilora_rosa_stage import (
+    UniLoRARoSAStageConfig,
+    UniLoRARoSAStageModel,
+    UniLoRARoSAStageSnipConfig,
+    UniLoRARoSAStageSnipModel,
+)
 from .unilora_rosa_compression import UniLoRARoSACompressionConfig, UniLoRARoSACompressionModel
 from .unilora_rosa_discrete import UniLoRARoSADiscreteConfig, UniLoRARoSADiscreteModel
 from .unilora_rosa_global import UniLoRARoSAGlobalConfig, UniLoRARoSAGlobalModel
@@ -237,6 +242,8 @@ __all__ = [
     "UniLoRARoSAModel",
     "UniLoRARoSAStageConfig",
     "UniLoRARoSAStageModel",
+    "UniLoRARoSAStageSnipConfig",
+    "UniLoRARoSAStageSnipModel",
     "UniLoRARoSACompressionConfig",
     "UniLoRARoSACompressionModel",
     "UniLoRARoSADiscreteConfig",

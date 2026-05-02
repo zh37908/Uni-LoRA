@@ -51,7 +51,7 @@ class UniLoRARoSAStageConfig(PeftConfig):
     )
     rosa_mask_steps: int = field(
         default=1,
-        metadata={"help": "Number of optimizer steps whose gradients are accumulated with max-abs scoring."},
+        metadata={"help": "Number of optimizer steps whose sparse-mask scores are collected."},
     )
     layers_to_transform: Optional[Union[List[int], int]] = field(default=None)
     layers_pattern: Optional[Union[List[str], str]] = field(default=None)
@@ -72,3 +72,18 @@ class UniLoRARoSAStageConfig(PeftConfig):
             raise ValueError("`rosa_mask_steps` must be non-negative.")
         if self.rosa_density > 0.0 and self.rosa_mask_steps == 0:
             raise ValueError("`rosa_mask_steps` must be positive when `rosa_density` is greater than zero.")
+
+
+@dataclass
+class UniLoRARoSAStageSnipConfig(UniLoRARoSAStageConfig):
+    """
+    UniLoRA-RoSA-Stage with SNIP-style sparse mask scoring.
+
+    The stage schedule is identical to UniLoRA-RoSA-Stage, but sparse positions
+    are selected by |W_ij * g_ij| saliency on the current low-rank weights rather
+    than by raw gradient magnitude.
+    """
+
+    def __post_init__(self):
+        super().__post_init__()
+        self.peft_type = PeftType.UNILORA_ROSA_STAGE_SNIP

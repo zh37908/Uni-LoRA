@@ -81,3 +81,40 @@ class UniLoRARoSAStageModel(UniLoRARoSAModel):
             return False
         stage_start_step = self._get_stage_start_step(adapter_name)
         return next_global_step >= (stage_start_step + config.rosa_mask_steps)
+
+
+class UniLoRARoSAStageSnipModel(UniLoRARoSAStageModel):
+    """
+    Stage-wise RoSA whose sparse mask uses SNIP |W_ij * g_ij| saliency.
+    """
+
+    prefix: str = "unilora_rosa_stage_snip_"
+
+    def set_training_schedule(
+        self,
+        total_steps: int,
+        steps_per_epoch: int,
+        total_epochs: int,
+        stage_start_step_override: int | None = None,
+        adapter_name: str = "default",
+    ) -> dict[str, float | int]:
+        schedule_info = super().set_training_schedule(
+            total_steps=total_steps,
+            steps_per_epoch=steps_per_epoch,
+            total_epochs=total_epochs,
+            stage_start_step_override=stage_start_step_override,
+            adapter_name=adapter_name,
+        )
+        schedule_info["score_mode"] = "snip"
+        self._rosa_stage_schedule_meta[adapter_name] = schedule_info
+        return schedule_info
+
+    def accumulate_gradient_statistics(self, adapter_name: str = "default") -> dict[str, int]:
+        updated_modules = 0
+        updated_tensors = 0
+        for module in self._iter_unilora_modules():
+            updated = module.accumulate_snip_statistics(adapter_name)
+            if updated > 0:
+                updated_modules += 1
+                updated_tensors += updated
+        return {"updated_modules": updated_modules, "updated_tensors": updated_tensors}

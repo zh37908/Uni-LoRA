@@ -155,6 +155,33 @@ class UniLoRARoSALayer(BaseTunerLayer):
         self.clear_cached_gradients(adapter_name)
         return updated
 
+    def accumulate_snip_statistics(self, adapter_name: str) -> int:
+        updated = 0
+        score = self.unilora_rosa_grad_accum[adapter_name]
+
+        if adapter_name in self._last_A and self._last_A[adapter_name] is not None:
+            weight_A = self._last_A[adapter_name]
+            grad_A = weight_A.grad
+            if grad_A is not None:
+                offsets_A = self.unilora_theta_D_offsets_A[adapter_name].reshape(-1)
+                snip_A = (weight_A.detach().reshape(-1) * grad_A.detach().reshape(-1)).abs()
+                snip_A = snip_A.to(device=score.device, dtype=score.dtype)
+                score[offsets_A] = torch.maximum(score[offsets_A], snip_A)
+                updated += 1
+
+        if adapter_name in self._last_B and self._last_B[adapter_name] is not None:
+            weight_B = self._last_B[adapter_name]
+            grad_B = weight_B.grad
+            if grad_B is not None:
+                offsets_B = self.unilora_theta_D_offsets_B[adapter_name].reshape(-1)
+                snip_B = (weight_B.detach().reshape(-1) * grad_B.detach().reshape(-1)).abs()
+                snip_B = snip_B.to(device=score.device, dtype=score.dtype)
+                score[offsets_B] = torch.maximum(score[offsets_B], snip_B)
+                updated += 1
+
+        self.clear_cached_gradients(adapter_name)
+        return updated
+
 
 class Linear(nn.Linear, UniLoRARoSALayer):
     def __init__(
