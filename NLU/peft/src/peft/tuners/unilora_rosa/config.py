@@ -66,3 +66,17 @@ class UniLoRARoSAConfig(PeftConfig):
             raise ValueError("`rosa_mask_steps` must be non-negative.")
         if self.rosa_density > 0.0 and self.rosa_mask_steps == 0:
             raise ValueError("`rosa_mask_steps` must be positive when `rosa_density` is greater than zero.")
+
+
+@dataclass
+class UniLoRARoSASnipConfig(UniLoRARoSAConfig):
+    """
+    UniLoRA-RoSA with SNIP-style sparse mask scoring.
+
+    Sparse positions are selected by |W_ij * g_ij| saliency on the current
+    low-rank weights after the configured low-rank-only warmup phase.
+    """
+
+    def __post_init__(self):
+        super().__post_init__()
+        self.peft_type = PeftType.UNILORA_ROSA_SNIP

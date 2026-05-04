@@ -206,6 +206,7 @@ def get_peft_model_state_dict(
         }
     elif config.peft_type in {
         PeftType.UNILORA_ROSA,
+        PeftType.UNILORA_ROSA_SNIP,
         PeftType.UNILORA_ROSA_STAGE,
         PeftType.UNILORA_ROSA_STAGE_SNIP,
     }:
@@ -698,6 +699,7 @@ def set_peft_model_state_dict(
         )
     elif config.peft_type in {
         PeftType.UNILORA_ROSA,
+        PeftType.UNILORA_ROSA_SNIP,
         PeftType.UNILORA_ROSA_STAGE,
         PeftType.UNILORA_ROSA_STAGE_SNIP,
     }:

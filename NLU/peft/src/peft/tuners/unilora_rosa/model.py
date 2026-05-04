@@ -11,7 +11,7 @@ from peft.tuners.tuners_utils import BaseTuner, BaseTunerLayer
 from peft.utils import TRANSFORMERS_MODELS_TO_LORA_TARGET_MODULES_MAPPING
 
 from .._buffer_dict import BufferDict
-from .config import UniLoRARoSAConfig
+from .config import UniLoRARoSAConfig, UniLoRARoSASnipConfig
 from .layer import Linear, UniLoRARoSALayer
 
 
@@ -338,3 +338,34 @@ class UniLoRARoSAModel(BaseTuner):
             f"UniLoRA-RoSA params to-be-saved (float32-equivalent): {unilora_params:,d} "
             f"|| total params to-be-saved: {(unilora_params + other_params):,d}"
         )
+
+
+class UniLoRARoSASnipModel(UniLoRARoSAModel):
+    """
+    UniLoRA-RoSA variant that selects sparse positions with SNIP |W_ij * g_ij|
+    saliency.
+    """
+
+    prefix: str = "unilora_rosa_snip_"
+
+    def accumulate_gradient_statistics(self, adapter_name: str = "default") -> dict[str, int]:
+        updated_modules = 0
+        updated_tensors = 0
+        for module in self._iter_unilora_modules():
+            updated = module.accumulate_snip_statistics(adapter_name)
+            if updated > 0:
+                updated_modules += 1
+                updated_tensors += updated
+        return {"updated_modules": updated_modules, "updated_tensors": updated_tensors}
+
+    def should_collect_gradients(self, global_step: int, adapter_name: str = "default") -> bool:
+        config: UniLoRARoSASnipConfig = self.peft_config[adapter_name]
+        if config.rosa_density <= 0.0 or config.rosa_mask_steps <= 0 or self.has_sparse_masks(adapter_name):
+            return False
+        return config.rosa_warmup_steps <= global_step < (config.rosa_warmup_steps + config.rosa_mask_steps)
+
+    def should_generate_masks(self, next_global_step: int, adapter_name: str = "default") -> bool:
+        config: UniLoRARoSASnipConfig = self.peft_config[adapter_name]
+        if config.rosa_density <= 0.0 or config.rosa_mask_steps <= 0 or self.has_sparse_masks(adapter_name):
+            return False
+        return next_global_step >= (config.rosa_warmup_steps + config.rosa_mask_steps)

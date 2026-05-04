@@ -60,6 +60,7 @@ from peft import (
     UniLoRALayerWiseConfig,
     UniLoRALearnableLayerConfig,
     UniLoRARoSAConfig,
+    UniLoRARoSASnipConfig,
     UniLoRARoSAStageConfig,
     UniLoRARoSAStageSnipConfig,
     UniLoRARoSACompressionConfig,
@@ -167,6 +168,7 @@ def parse_args():
             "unilora_learnable_layer",
             "unilora_hessian_aware",
             "unilora_rosa",
+            "unilora_rosa_snip",
             "unilora_rosa_stage",
             "unilora_rosa_stage_snip",
             "unilora_rosa_discrete",
@@ -673,6 +675,7 @@ def get_hessian_aware_backend(model, variant):
 def get_unilora_rosa_backend(model, variant):
     if variant not in {
         "unilora_rosa",
+        "unilora_rosa_snip",
         "unilora_rosa_stage",
         "unilora_rosa_stage_snip",
         "unilora_rosa_discrete",
@@ -2025,6 +2028,18 @@ def main():
             target_modules=["query", "key", "value", "output.dense", "intermediate.dense"],
             modules_to_save=["classifier"],
         )
+    elif variant == "unilora_rosa_snip":
+        peft_config = UniLoRARoSASnipConfig(
+            task_type="SEQ_CLS", peft_type=PeftType.UNILORA_ROSA_SNIP,
+            r=args.rank, theta_d_length=args.theta_d_length,
+            proj_seed=args.seed, init_theta_d_bound=current_init_bound,
+            unilora_dropout=args.unilora_dropout,
+            rosa_density=args.rosa_density,
+            rosa_warmup_steps=args.rosa_warmup_steps,
+            rosa_mask_steps=args.rosa_mask_steps,
+            target_modules=["query", "key", "value", "output.dense", "intermediate.dense"],
+            modules_to_save=["classifier"],
+        )
     elif variant == "unilora_rosa_stage":
         peft_config = UniLoRARoSAStageConfig(
             task_type="SEQ_CLS", peft_type=PeftType.UNILORA_ROSA_STAGE,
@@ -2281,7 +2296,16 @@ def main():
         )
         print(f"Initial structure stats: {hessian_aware_backend.get_structure_stats()}")
     if unilora_rosa_backend is not None:
-        if variant in {"unilora_rosa_stage", "unilora_rosa_stage_snip"}:
+        if variant == "unilora_rosa_snip":
+            print(
+                "UniLoRA-RoSA sparse config: "
+                f"density={args.rosa_density}, "
+                f"warmup_steps={args.rosa_warmup_steps}, "
+                f"mask_steps={args.rosa_mask_steps}, "
+                "score_mode=snip |W*g|, "
+                f"reset_optimizer_on_mask={args.rosa_reset_optimizer_on_mask}"
+            )
+        elif variant in {"unilora_rosa_stage", "unilora_rosa_stage_snip"}:
             score_mode = "snip |W*g|" if variant == "unilora_rosa_stage_snip" else "max-abs gradient"
             print(
                 "UniLoRA-RoSA sparse config: "
@@ -2425,6 +2449,8 @@ def main():
     if sparse_group_indices:
         if variant in {"unilora_rosa_stage", "unilora_rosa_stage_snip"} and rosa_stage_info is not None:
             sparse_lr_activation_step = int(rosa_stage_info["stage_start_step"]) + int(rosa_stage_info["mask_steps"])
+        elif variant == "unilora_rosa_snip":
+            sparse_lr_activation_step = int(args.rosa_warmup_steps) + int(args.rosa_mask_steps)
         elif variant in {"unilora_rosa", "unilora_rosa_discrete", "unilora_rosa_global", "unilora_rosa_compression"}:
             sparse_lr_activation_step = int(args.rosa_warmup_steps) + int(args.rosa_mask_steps)
         sparse_lr_activation_step = max(0, min(total_steps, sparse_lr_activation_step))

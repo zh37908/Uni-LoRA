@@ -83,7 +83,12 @@ from .unilora_trajectory_initial import UniLoRATrajectoryInitialConfig, UniLoRAT
 from .unilora_layer_wise import UniLoRALayerWiseConfig, UniLoRALayerWiseModel
 from .unilora_learnable_layer import UniLoRALearnableLayerConfig, UniLoRALearnableLayerModel
 from .unilora_hessian_aware import UniLoRAHessianAwareConfig, UniLoRAHessianAwareModel
-from .unilora_rosa import UniLoRARoSAConfig, UniLoRARoSAModel
+from .unilora_rosa import (
+    UniLoRARoSAConfig,
+    UniLoRARoSAModel,
+    UniLoRARoSASnipConfig,
+    UniLoRARoSASnipModel,
+)
 from .unilora_rosa_stage import (
     UniLoRARoSAStageConfig,
     UniLoRARoSAStageModel,
@@ -240,6 +245,8 @@ __all__ = [
     "UniLoRAHessianAwareModel",
     "UniLoRARoSAConfig",
     "UniLoRARoSAModel",
+    "UniLoRARoSASnipConfig",
+    "UniLoRARoSASnipModel",
     "UniLoRARoSAStageConfig",
     "UniLoRARoSAStageModel",
     "UniLoRARoSAStageSnipConfig",
