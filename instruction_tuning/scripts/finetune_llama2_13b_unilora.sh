@@ -38,4 +38,5 @@ CUDA_VISIBLE_DEVICES=0 python qlora_unilora.py \
     --max_grad_norm 0.3 \
     --lora_dropout 0.05 \
     --weight_decay 0.0 \
-    --seed 0
+    --seed 0 \
+    --use_auth_token True

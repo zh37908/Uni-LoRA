@@ -76,7 +76,7 @@ export TRANSFORMERS_OFFLINE=1
 
 SCRIPT=run_unilora_variants_glue.py
 VARIANT="unilora_rosa_snip"
-OUT_ROOT="${OUT_ROOT:-results_glue_variants_unilora_rosa_snip_total23040_cola_sparse_decay_acf}"
+OUT_ROOT="${OUT_ROOT:-results_glue_variants_unilora_rosa_snip_total23040_stsb_sparse_decay_acf}"
 mkdir -p "${OUT_ROOT}"
 
 # Compute total sparse positions for the current model / rank / target-module set.
