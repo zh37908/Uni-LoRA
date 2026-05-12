@@ -4,6 +4,7 @@
 from collections import defaultdict
 import copy
 import json
+import math
 import os
 from os.path import exists, join, isdir
 from dataclasses import dataclass, field
@@ -17,6 +18,11 @@ import pandas as pd
 import importlib
 from packaging import version
 from packaging.version import parse
+
+_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+_LOCAL_PEFT_SRC = os.path.join(_REPO_ROOT, "math_instruction_tuning", "peft", "src")
+if os.path.isdir(_LOCAL_PEFT_SRC) and _LOCAL_PEFT_SRC not in sys.path:
+    sys.path.insert(0, _LOCAL_PEFT_SRC)
 
 import torch
 import transformers
@@ -38,9 +44,11 @@ from peft import (
     get_peft_model,
     PeftModel,
     UniLoRAConfig,
+    UniLoRARoSASnipConfig,
 )
 
 from peft.tuners.unilora import UniLoRALayer
+from peft.tuners.unilora_rosa import UniLoRARoSALayer
 from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 from transformers.trainer_pt_utils import get_parameter_names
 from transformers.trainer import Trainer
@@ -199,9 +207,57 @@ class TrainingArguments(transformers.Seq2SeqTrainingArguments):
     num_vectors: int = field(
         default=90, metadata={"help": "Number of vectors in the vector bank."}
     )
+    unilora_variant: str = field(
+        default="unilora",
+        metadata={"help": "UniLoRA adapter variant. Supported: unilora, unilora_rosa_snip."},
+    )
+    theta_d_length: int = field(
+        default=524288,
+        metadata={"help": "Trainable theta_d length for UniLoRA-RoSA-SNIP."},
+    )
+    init_theta_d_bound: float = field(
+        default=0.02,
+        metadata={"help": "Uniform init bound for UniLoRA-RoSA-SNIP theta_d."},
+    )
+    rosa_density: float = field(
+        default=0.0,
+        metadata={"help": "Sparse compensation density for UniLoRA-RoSA-SNIP. Overridden by rosa_sparse_budget if set."},
+    )
+    rosa_sparse_budget: int = field(
+        default=0,
+        metadata={"help": "Exact sparse-position budget used to derive rosa_density when greater than zero."},
+    )
+    rosa_warmup_steps: int = field(
+        default=128,
+        metadata={"help": "Optimizer steps before collecting SNIP gradients for the RoSA sparse mask."},
+    )
+    rosa_mask_steps: int = field(
+        default=1,
+        metadata={"help": "Optimizer steps whose gradients are accumulated to select the RoSA sparse mask."},
+    )
 
     learning_rate_vector_bank: float = field(
         default=1e-3, metadata={"help": "The initial learning rate for vector bank."}
+    )
+    learning_rate_theta_d: Optional[float] = field(
+        default=None,
+        metadata={"help": "Learning rate for UniLoRA-RoSA-SNIP theta_d. Defaults to learning_rate_vector_bank."},
+    )
+    learning_rate_sparse: Optional[float] = field(
+        default=None,
+        metadata={"help": "Learning rate for RoSA sparse vector. Defaults to theta_d lr * rosa_sparse_lr_mult."},
+    )
+    rosa_sparse_lr_mult: float = field(
+        default=0.2,
+        metadata={"help": "Sparse-vector LR multiplier when learning_rate_sparse is not specified."},
+    )
+    rosa_reset_optimizer_on_mask: bool = field(
+        default=True,
+        metadata={"help": "Clear optimizer state when the RoSA sparse mask is activated."},
+    )
+    rosa_decay_sparse_lr_after_activation: bool = field(
+        default=True,
+        metadata={"help": "Decay RoSA sparse LR after sparse-mask activation."},
     )
     learning_rate_logits: float = field(
         default=0, metadata={"help": "The initial learning rate for logits."}
@@ -330,6 +386,142 @@ def find_all_linear_names(args, model):
     if "lm_head" in lora_module_names:  # needed for 16-bit
         lora_module_names.remove("lm_head")
     return list(lora_module_names)
+
+
+def count_unilora_matrix_positions(args, model, target_modules):
+    cls = (
+        bnb.nn.Linear4bit
+        if args.bits == 4
+        else (bnb.nn.Linear8bitLt if args.bits == 8 else torch.nn.Linear)
+    )
+    target_modules = set(target_modules)
+    total_positions = 0
+    for name, module in model.named_modules():
+        if not isinstance(module, cls):
+            continue
+        module_name = name.split(".")[-1]
+        if module_name == "lm_head" or module_name not in target_modules:
+            continue
+        if hasattr(module, "in_features") and hasattr(module, "out_features"):
+            in_features = module.in_features
+            out_features = module.out_features
+        else:
+            weight = module.weight
+            out_features, in_features = weight.shape[0], weight.shape[1]
+        total_positions += args.lora_r * in_features + out_features * args.lora_r
+    return total_positions
+
+
+def get_unilora_rosa_backend(model):
+    candidates = [model]
+    if hasattr(model, "module"):
+        candidates.append(model.module)
+
+    visited = set()
+    while candidates:
+        candidate = candidates.pop(0)
+        if candidate is None or id(candidate) in visited:
+            continue
+        visited.add(id(candidate))
+        if all(
+            hasattr(candidate, attr)
+            for attr in (
+                "should_collect_gradients",
+                "should_generate_masks",
+                "generate_sparse_masks",
+            )
+        ):
+            return candidate
+        candidates.append(getattr(candidate, "base_model", None))
+        candidates.append(getattr(candidate, "model", None))
+    return None
+
+
+def resolve_rosa_sparse_lr(args):
+    theta_d_lr = args.learning_rate_theta_d
+    if theta_d_lr is None:
+        theta_d_lr = args.learning_rate_vector_bank
+    if args.learning_rate_sparse is not None:
+        return args.learning_rate_sparse
+    return theta_d_lr * args.rosa_sparse_lr_mult
+
+
+def get_rosa_sparse_lr_for_step(args, step_after_update, total_steps):
+    base_lr = resolve_rosa_sparse_lr(args)
+    if not args.rosa_decay_sparse_lr_after_activation:
+        return base_lr
+
+    activation_step = args.rosa_warmup_steps + args.rosa_mask_steps
+    if step_after_update <= activation_step:
+        return base_lr
+
+    decay_steps = max(1, total_steps - activation_step)
+    progress = (float(step_after_update) - float(activation_step)) / float(decay_steps)
+    progress = max(0.0, min(1.0, progress))
+    scheduler_name = str(args.lr_scheduler_type).lower()
+    if "cosine" in scheduler_name:
+        lr_factor = 0.5 * (1.0 + math.cos(math.pi * progress))
+    else:
+        lr_factor = 1.0 - progress
+    return base_lr * max(0.0, lr_factor)
+
+
+class UniLoRARoSATrainer(Seq2SeqTrainer):
+    def training_step(self, model, inputs, *args, **kwargs):
+        rosa_backend = get_unilora_rosa_backend(model)
+        rosa_collecting = False
+        if rosa_backend is not None:
+            rosa_collecting = rosa_backend.should_collect_gradients(self.state.global_step, adapter_name="default")
+            rosa_backend.enable_gradient_capture(rosa_collecting)
+
+        loss = super().training_step(model, inputs, *args, **kwargs)
+
+        if rosa_backend is not None:
+            if rosa_collecting:
+                rosa_backend.accumulate_gradient_statistics(adapter_name="default")
+            else:
+                rosa_backend.enable_gradient_capture(False)
+        return loss
+
+
+class UniLoRARoSACallback(transformers.TrainerCallback):
+    def on_train_begin(self, args, state, control, model=None, **kwargs):
+        rosa_backend = get_unilora_rosa_backend(model)
+        if rosa_backend is not None:
+            print(
+                "UniLoRA-RoSA-SNIP sparse config: "
+                f"density={args.rosa_density}, "
+                f"warmup_steps={args.rosa_warmup_steps}, "
+                f"mask_steps={args.rosa_mask_steps}, "
+                f"sparse_lr={resolve_rosa_sparse_lr(args)}, "
+                f"reset_optimizer_on_mask={args.rosa_reset_optimizer_on_mask}"
+            )
+            print(f"Initial sparse stats: {rosa_backend.get_sparse_structure_stats()}")
+        return control
+
+    def on_step_end(self, args, state, control, model=None, optimizer=None, **kwargs):
+        rosa_backend = get_unilora_rosa_backend(model)
+        if rosa_backend is None:
+            return control
+
+        if rosa_backend.should_generate_masks(state.global_step, adapter_name="default"):
+            mask_info = rosa_backend.generate_sparse_masks(adapter_name="default")
+            if optimizer is not None and args.rosa_reset_optimizer_on_mask:
+                optimizer.state.clear()
+            print(
+                "Activated UniLoRA-RoSA-SNIP sparse compensation: "
+                f"selected_ratio={mask_info['selected_ratio']:.6f}, "
+                f"selected_positions={mask_info['selected_positions']}, "
+                f"density={mask_info['selected_density']:.6f}, "
+                f"score_max={mask_info['score_max']:.6e}"
+            )
+
+        if optimizer is not None:
+            sparse_lr = get_rosa_sparse_lr_for_step(args, state.global_step, state.max_steps)
+            for group in optimizer.param_groups:
+                if group.get("unilora_param_group") == "rosa_sparse":
+                    group["lr"] = sparse_lr
+        return control
 
 
 class SavePeftModelCallback(transformers.TrainerCallback):
@@ -480,19 +672,53 @@ def get_accelerate_model(args, checkpoint_dir):
         else:
             print(f"adding Uni-LoRA modules...")
             modules = find_all_linear_names(args, model)
-            config = UniLoRAConfig(
-                r=args.lora_r,
-                unilora_dropout=args.lora_dropout,
-                target_modules=modules,
-                num_vectors=args.num_vectors,
-                vector_length=256*args.num_vectors,
-                save_only_topk_weights=False,
-                task_type="CAUSAL_LM",
-            )
+            unilora_variant = args.unilora_variant.lower()
+            if unilora_variant == "unilora_rosa_snip":
+                total_sparse_positions = count_unilora_matrix_positions(args, model, modules)
+                if total_sparse_positions <= 0:
+                    raise ValueError("No target modules found for UniLoRA-RoSA-SNIP sparse position counting.")
+                if args.rosa_sparse_budget > 0:
+                    if args.rosa_sparse_budget > total_sparse_positions:
+                        raise ValueError(
+                            f"rosa_sparse_budget={args.rosa_sparse_budget} exceeds "
+                            f"total sparse positions={total_sparse_positions}."
+                        )
+                    args.rosa_density = args.rosa_sparse_budget / total_sparse_positions
+                print(
+                    "adding UniLoRA-RoSA-SNIP modules... "
+                    f"theta_d_length={args.theta_d_length}, "
+                    f"total_sparse_positions={total_sparse_positions}, "
+                    f"sparse_budget={args.rosa_sparse_budget}, "
+                    f"rosa_density={args.rosa_density}"
+                )
+                config = UniLoRARoSASnipConfig(
+                    r=args.lora_r,
+                    theta_d_length=args.theta_d_length,
+                    proj_seed=args.seed,
+                    init_theta_d_bound=args.init_theta_d_bound,
+                    unilora_dropout=args.lora_dropout,
+                    rosa_density=args.rosa_density,
+                    rosa_warmup_steps=args.rosa_warmup_steps,
+                    rosa_mask_steps=args.rosa_mask_steps,
+                    target_modules=modules,
+                    task_type="CAUSAL_LM",
+                )
+            elif unilora_variant == "unilora":
+                config = UniLoRAConfig(
+                    r=args.lora_r,
+                    unilora_dropout=args.lora_dropout,
+                    target_modules=modules,
+                    num_vectors=args.num_vectors,
+                    vector_length=256 * args.num_vectors,
+                    save_only_topk_weights=False,
+                    task_type="CAUSAL_LM",
+                )
+            else:
+                raise ValueError(f"Unsupported unilora_variant: {args.unilora_variant}")
             model = get_peft_model(model, config)
 
     for name, module in model.named_modules():
-        if isinstance(module, UniLoRALayer):
+        if isinstance(module, (UniLoRALayer, UniLoRARoSALayer)):
             if args.bf16:
                 module = module.to(torch.bfloat16)
         if "norm" in name:
@@ -686,6 +912,15 @@ def create_optimizer(model, args) -> torch.optim.Optimizer:
     logits_parameters = [
         name for name, _ in model.named_parameters() if "logits" in name
     ]
+    rosa_theta_d_parameters = [
+        name for name, _ in model.named_parameters() if "unilora_rosa_theta_d" in name
+    ]
+    rosa_sparse_parameters = [
+        name for name, _ in model.named_parameters() if "unilora_rosa_sparse_theta_D" in name
+    ]
+    special_lr_parameters = set(
+        logits_parameters + vector_bank_parameters + rosa_theta_d_parameters + rosa_sparse_parameters
+    )
 
     optimizer_grouped_parameters = [
         {
@@ -693,8 +928,7 @@ def create_optimizer(model, args) -> torch.optim.Optimizer:
                 p
                 for n, p in model.named_parameters()
                 if n in decay_parameters
-                and n not in logits_parameters
-                and n not in vector_bank_parameters
+                and n not in special_lr_parameters
             ],
             "weight_decay": args.weight_decay,
         },
@@ -703,19 +937,47 @@ def create_optimizer(model, args) -> torch.optim.Optimizer:
                 p
                 for n, p in model.named_parameters()
                 if n not in decay_parameters
-                and n not in logits_parameters
-                and n not in vector_bank_parameters
+                and n not in special_lr_parameters
             ],
-            "weight_decay": 0.0,
-        },
-        {
-            "params": [
-                p for n, p in model.named_parameters() if n in vector_bank_parameters
-            ],
-            "lr": args.learning_rate_vector_bank,
             "weight_decay": 0.0,
         },
     ]
+    if vector_bank_parameters:
+        optimizer_grouped_parameters.append(
+            {
+                "params": [
+                    p for n, p in model.named_parameters() if n in vector_bank_parameters
+                ],
+                "lr": args.learning_rate_vector_bank,
+                "weight_decay": 0.0,
+                "unilora_param_group": "vector_bank",
+            }
+        )
+    if rosa_theta_d_parameters:
+        theta_d_lr = args.learning_rate_theta_d
+        if theta_d_lr is None:
+            theta_d_lr = args.learning_rate_vector_bank
+        optimizer_grouped_parameters.append(
+            {
+                "params": [
+                    p for n, p in model.named_parameters() if n in rosa_theta_d_parameters
+                ],
+                "lr": theta_d_lr,
+                "weight_decay": 0.0,
+                "unilora_param_group": "rosa_theta_d",
+            }
+        )
+    if rosa_sparse_parameters:
+        optimizer_grouped_parameters.append(
+            {
+                "params": [
+                    p for n, p in model.named_parameters() if n in rosa_sparse_parameters
+                ],
+                "lr": resolve_rosa_sparse_lr(args),
+                "weight_decay": 0.0,
+                "unilora_param_group": "rosa_sparse",
+            }
+        )
 
     optimizer_cls, optimizer_kwargs = Trainer.get_optimizer_cls_and_kwargs(args)
 
@@ -936,6 +1198,7 @@ def train():
         print("Detected that training was already completed!")
 
     model, tokenizer = get_accelerate_model(args, checkpoint_dir)
+    training_args.rosa_density = args.rosa_density
 
     model.config.use_cache = False
     print("loaded model")
@@ -943,7 +1206,8 @@ def train():
 
     data_module = make_data_module(tokenizer=tokenizer, args=args)
     optimizer = create_optimizer(model, args)
-    trainer = Seq2SeqTrainer(
+    trainer_cls = UniLoRARoSATrainer if args.unilora_variant.lower() == "unilora_rosa_snip" else Seq2SeqTrainer
+    trainer = trainer_cls(
         model=model,
         tokenizer=tokenizer,
         args=training_args,
@@ -954,6 +1218,8 @@ def train():
     # Callbacks
     if not args.full_finetune:
         trainer.add_callback(SavePeftModelCallback)
+    if args.unilora_variant.lower() == "unilora_rosa_snip":
+        trainer.add_callback(UniLoRARoSACallback)
     if args.do_mmlu_eval:
         if args.mmlu_dataset == "mmlu-zs":
             mmlu_dataset = load_dataset(

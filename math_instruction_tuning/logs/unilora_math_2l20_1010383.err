@@ -1,0 +1,102 @@
+/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Gemma's activation function should be approximate GeLU and not exact GeLU.
+Changing the activation function to `gelu_pytorch_tanh`.if you want to use the legacy `gelu`, edit the `model.config` to set `hidden_activation=gelu`   instead of `hidden_act`. See https://github.com/huggingface/transformers/pull/29402 for more details.
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:20<01:00, 20.21s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:43<00:44, 22.13s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [01:08<00:23, 23.39s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:18<00:00, 18.25s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:18<00:00, 19.74s/it]
+  0%|          | 0/3124 [00:00<?, ?it/s]/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/utils/checkpoint.py:460: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+Traceback (most recent call last):
+  File "intruction_tuning_unilora.py", line 398, in <module>
+    train()
+  File "intruction_tuning_unilora.py", line 295, in train
+    trainer.train()
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/transformers/trainer.py", line 1859, in train
+    return inner_training_loop(
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/transformers/trainer.py", line 2203, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/transformers/trainer.py", line 3138, in training_step
+    loss = self.compute_loss(model, inputs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/transformers/trainer.py", line 3161, in compute_loss
+    outputs = model(**inputs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/accelerate/utils/operations.py", line 817, in forward
+    return model_forward(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/accelerate/utils/operations.py", line 805, in __call__
+    return convert_to_fp32(self.model_forward(*args, **kwargs))
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/amp/autocast_mode.py", line 16, in decorate_autocast
+    return func(*args, **kwargs)
+  File "/home/hzhaobi/Uni-LoRA/math_instruction_tuning/peft/src/peft/peft_model.py", line 1644, in forward
+    return self.base_model(
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/hzhaobi/Uni-LoRA/math_instruction_tuning/peft/src/peft/tuners/tuners_utils.py", line 197, in forward
+    return self.model.forward(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/transformers/models/gemma/modeling_gemma.py", line 1118, in forward
+    outputs = self.model(
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/transformers/models/gemma/modeling_gemma.py", line 915, in forward
+    layer_outputs = self._gradient_checkpointing_func(
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/_compile.py", line 24, in inner
+    return torch._dynamo.disable(fn, recursive)(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/_dynamo/eval_frame.py", line 489, in _fn
+    return fn(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/_dynamo/external_utils.py", line 17, in inner
+    return fn(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/utils/checkpoint.py", line 482, in checkpoint
+    return CheckpointFunction.apply(function, preserve, *args)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/autograd/function.py", line 553, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/utils/checkpoint.py", line 261, in forward
+    outputs = run_function(*args)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/transformers/models/gemma/modeling_gemma.py", line 646, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/accelerate/hooks.py", line 166, in new_forward
+    output = module._old_forward(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/transformers/models/gemma/modeling_gemma.py", line 541, in forward
+    query_states = self.q_proj(hidden_states)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/hzhaobi/Uni-LoRA/math_instruction_tuning/peft/src/peft/tuners/unilora/layer.py", line 255, in forward
+    result = result + F.linear(F.linear(dropout(x), A), B)
+RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat2 in method wrapper_CUDA_mm)
+  0%|          | 0/3124 [00:04<?, ?it/s]Fatal error condition occurred in /opt/vcpkg/buildtrees/aws-c-io/src/9e6648842a-364b708815.clean/source/event_loop.c:72: aws_thread_launch(&cleanup_thread, s_event_loop_destroy_async_thread_fn, el_group, &thread_options) == AWS_OP_SUCCESS
+Exiting Application
+################################################################################
+Stack trace:
+################################################################################
+/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/pyarrow/libarrow.so.900(+0x200af06) [0x14d28c50cf06]
+/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/pyarrow/libarrow.so.900(+0x20028e5) [0x14d28c5048e5]
+/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/pyarrow/libarrow.so.900(+0x1f27e09) [0x14d28c429e09]
+/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/pyarrow/libarrow.so.900(+0x200ba3d) [0x14d28c50da3d]
+/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/pyarrow/libarrow.so.900(+0x1f25948) [0x14d28c427948]
+/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/pyarrow/libarrow.so.900(+0x200ba3d) [0x14d28c50da3d]
+/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/pyarrow/libarrow.so.900(+0x1ee0b46) [0x14d28c3e2b46]
+/home/hzhaobi/miniconda3/envs/math_instruction_tuning/lib/python3.8/site-packages/pyarrow/libarrow.so.900(+0x194546a) [0x14d28be4746a]
+/lib64/libc.so.6(+0x40dfd) [0x14d35fe03dfd]
+/lib64/libc.so.6(on_exit+0) [0x14d35fe03f40]
+/lib64/libc.so.6(+0x295d7) [0x14d35fdec5d7]
+/lib64/libc.so.6(__libc_start_main+0x80) [0x14d35fdec680]
+python() [0x55ca9e]
+/var/spool/slurm/d/job1010383/slurm_script: line 89: 196304 Aborted                 (core dumped) python intruction_tuning_unilora.py --model_name_or_path "${BASE_MODEL}" --output_dir "${OUTPUT}" --lora_r "${LORA_RANK}" --num_vectors "${NUM_VECTORS}" --vector_length "${VECTOR_LENGTH}" --save_only_topk_weights True --data_path "${DATA_PATH}" --dataset_split "${DATASET_SPLIT}" --dataset_field query response --num_train_epochs 2 --per_device_train_batch_size 1 --gradient_accumulation_steps 64 --gradient_checkpointing True --save_strategy "steps" --save_steps 100 --save_total_limit 5 --learning_rate "${LEARNING_RATE}" --weight_decay 0. --warmup_ratio 0.02 --lr_scheduler_type "cosine" --logging_steps 1 --bf16 False --tf32 False --fp16 True --device_map auto --max_memory_per_gpu "${MAX_MEMORY_PER_GPU}" --max_memory_cpu "${MAX_MEMORY_CPU}" --report_to tensorboard --seed "${SEED}"

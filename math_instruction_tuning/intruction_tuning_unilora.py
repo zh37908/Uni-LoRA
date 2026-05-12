@@ -68,6 +68,24 @@ class TrainingArguments(transformers.TrainingArguments):
             "help": "Whether to only save the topk weights. Setting save_only_topk_weights = True significantly reduces storage space. However, models saved in this mode can be used for merging or inference only, not for resuming training."
         },
     )
+    device_map: Optional[str] = field(
+        default="auto",
+        metadata={
+            "help": "Device map used by from_pretrained. Use 'auto' to shard a large model across all visible GPUs, or 'none' to disable it."
+        },
+    )
+    max_memory_per_gpu: Optional[str] = field(
+        default=None,
+        metadata={
+            "help": "Optional per-GPU max_memory passed to from_pretrained, e.g. '44GiB'."
+        },
+    )
+    max_memory_cpu: Optional[str] = field(
+        default=None,
+        metadata={
+            "help": "Optional CPU max_memory passed to from_pretrained when max_memory_per_gpu is set, e.g. '128GiB'."
+        },
+    )
 
 
 def safe_save_model_for_hf_trainer(trainer: transformers.Trainer, output_dir: str):
@@ -158,6 +176,27 @@ def train_tokenize_function(examples, tokenizer, query, response):
     return data_dict
 
 
+def resolve_torch_dtype(script_args):
+    if script_args.bf16:
+        return torch.bfloat16
+    if script_args.fp16:
+        return torch.float16
+    return None
+
+
+def build_max_memory(script_args):
+    if script_args.max_memory_per_gpu is None:
+        return None
+
+    max_memory = {
+        device_id: script_args.max_memory_per_gpu
+        for device_id in range(torch.cuda.device_count())
+    }
+    if script_args.max_memory_cpu is not None:
+        max_memory["cpu"] = script_args.max_memory_cpu
+    return max_memory
+
+
 def train():
     parser = transformers.HfArgumentParser(TrainingArguments)
     script_args = parser.parse_args_into_dataclasses()[0]
@@ -165,9 +204,16 @@ def train():
 
     set_seed(script_args.seed)
 
+    device_map = script_args.device_map
+    if device_map is not None and device_map.lower() == "none":
+        device_map = None
+
     model = transformers.AutoModelForCausalLM.from_pretrained(
         script_args.model_name_or_path,
-        device_map="auto",
+        device_map=device_map,
+        max_memory=build_max_memory(script_args),
+        torch_dtype=resolve_torch_dtype(script_args),
+        low_cpu_mem_usage=True,
     )
 
     if script_args.lora_r is not None:
@@ -184,11 +230,12 @@ def train():
         )
 
         model = get_peft_model(model, config)
+        if script_args.gradient_checkpointing:
+            model.enable_input_require_grads()
     else:
         raise ValueError("LoRA rank should be provided.")
 
-    now = datetime.datetime.now()
-    now.strftime("%Y-%m-%dT%H:%M:%S") + ("-%02d" % (now.microsecond / 10000))
+    now = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S-%f")
 
     adapter_name = "default"
     peft_config_dict = {adapter_name: config}
@@ -199,10 +246,12 @@ def train():
         f"rank_{peft_config_dict[adapter_name].r}_lr_"
         f"{script_args.learning_rate}_seed_{script_args.seed}/output_{now}"
     )
-    os.makedirs(script_args.output_dir)
+    os.makedirs(script_args.output_dir, exist_ok=True)
 
     for param in model.parameters():
         param.data = param.data.contiguous()
+
+    model.config.use_cache = False
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(
         script_args.model_name_or_path,
@@ -240,7 +289,6 @@ def train():
         optimizers=(optimizer, None),
         **data_module,
     )
-    model.config.use_cache = False
 
     print_trainable_parameters(model)
 

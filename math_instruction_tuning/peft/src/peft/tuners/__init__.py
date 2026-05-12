@@ -37,3 +37,4 @@ from .fourierft import FourierFTConfig, FourierFTModel
 from .xlora import XLoraConfig, XLoraModel
 from .hra import HRAConfig, HRAModel
 from .unilora import UniLoRAConfig, UniLoRAModel
+from .unilora_rosa import UniLoRARoSAConfig, UniLoRARoSAModel, UniLoRARoSASnipConfig, UniLoRARoSASnipModel
