@@ -217,11 +217,16 @@ def get_peft_model_state_dict(
                 "unilora_scales" in k
                 or "unilora_indices" in k
                 or "unilora_theta_D_offsets" in k
-                or "unilora_rosa_sparse_theta_D" in k
-                or "unilora_rosa_sparse_mask" in k
-                or "unilora_rosa_theta_d" in k
             )
         }
+        for shared_name in (
+            "unilora_rosa_theta_d",
+            "unilora_rosa_sparse_theta_D",
+            "unilora_rosa_sparse_mask",
+        ):
+            shared_key = f"base_model.{shared_name}.{adapter_name}"
+            if shared_key in state_dict:
+                to_return[shared_key] = state_dict[shared_key]
     elif config.peft_type == PeftType.UNILORA_ROSA_COMPRESSION:
         to_return = {
             k: state_dict[k]

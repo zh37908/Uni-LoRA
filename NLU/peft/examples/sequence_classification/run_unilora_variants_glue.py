@@ -2513,7 +2513,8 @@ def main():
                 and unilora_rosa_backend.should_collect_gradients(global_step, adapter_name="default")
             )
             if unilora_rosa_backend is not None:
-                unilora_rosa_backend.enable_gradient_capture(rosa_collecting)
+                rosa_capture_mode = "snip" if "snip" in variant else "grad"
+                unilora_rosa_backend.enable_gradient_capture(rosa_collecting, mode=rosa_capture_mode)
 
             batch = {k: v.to(device) for k, v in batch.items()}
             if unilora_igu_backend is not None:
@@ -2566,7 +2567,11 @@ def main():
             if unilora_igu_backend is not None:
                 unilora_igu_backend.set_weight_coeffs(1.0, adapter_name="default")
             if rosa_collecting:
-                unilora_rosa_backend.accumulate_gradient_statistics(adapter_name="default")
+                capture_stats = unilora_rosa_backend.accumulate_gradient_statistics(adapter_name="default")
+                if capture_stats.get("updated_tensors", 0) == 0:
+                    raise RuntimeError(
+                        "UniLoRA-RoSA did not capture any A/B gradients during sparse-mask collection."
+                    )
             if hessian_aware_backend is not None:
                 hessian_aware_backend.accumulate_curvature_statistics(
                     adapter_name="default",

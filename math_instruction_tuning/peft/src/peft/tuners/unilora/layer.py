@@ -193,7 +193,9 @@ class Linear(nn.Linear, UniLoRALayer):
     #     topk_weights = F.softmax(top_k_logits, dim=-1)
     #     return (topk_weights.unsqueeze(-1) * unilora_vector_bank[indices]).sum(-2)
 
-    def _get_lora_matrices(self, adapter, cast_to_fp32=False) -> Tuple[torch.Tensor, torch.Tensor]:
+    def _get_lora_matrices(
+        self, adapter, cast_to_fp32=False, target_device: Optional[torch.device] = None
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
         unilora_logits_A = self.unilora_logits_A[adapter] 
         unilora_logits_B = self.unilora_logits_B[adapter] 
 
@@ -203,7 +205,14 @@ class Linear(nn.Linear, UniLoRALayer):
                 "Found infinity values in Uni-LoRA logits. Ensure training was not resumed from a `save_only_topk_weights` model."
             )
 
-        unilora_vector_bank = self.unilora_vector_bank[adapter].to(unilora_logits_A.device)
+        if target_device is None:
+            target_device = unilora_logits_A.device
+
+        unilora_logits_A = unilora_logits_A.to(target_device)
+        unilora_logits_B = unilora_logits_B.to(target_device)
+        unilora_vector_bank = self.unilora_vector_bank[adapter].to(target_device)
+        unilora_norm_A = self.unilora_norm_A[adapter].to(target_device)
+        unilora_norm_B = self.unilora_norm_B[adapter].to(target_device)
         # topk = self.topk[adapter]
         # In case users wants to merge the adapter weights that are in
         # float16 while being on CPU, we need to cast the weights to float32, perform the merge and then cast back to
@@ -212,8 +221,10 @@ class Linear(nn.Linear, UniLoRALayer):
             unilora_logits_A = unilora_logits_A.float()
             unilora_logits_B = unilora_logits_B.float()
             unilora_vector_bank = unilora_vector_bank.float()
-        A = unilora_vector_bank[unilora_logits_A.long()] * self.unilora_norm_A[adapter]
-        B = unilora_vector_bank[unilora_logits_B.long()] * self.unilora_norm_B[adapter]
+            unilora_norm_A = unilora_norm_A.float()
+            unilora_norm_B = unilora_norm_B.float()
+        A = unilora_vector_bank[unilora_logits_A.long()] * unilora_norm_A
+        B = unilora_vector_bank[unilora_logits_B.long()] * unilora_norm_B
         
 
         # A: (rank, in_tile, vector_length) -> (rank, in_tile x vector_length)
@@ -229,10 +240,11 @@ class Linear(nn.Linear, UniLoRALayer):
             adapter (str):
                 The name of the adapter for which the delta weight should be computed.
         """
-        device = self.unilora_logits_A[adapter].device
-        dtype = self.unilora_logits_A[adapter].dtype
+        base_layer = self.get_base_layer()
+        device = base_layer.weight.device
+        dtype = self.unilora_vector_bank[adapter].dtype
         cast_to_fp32 = device.type == "cpu" and dtype == torch.float16
-        A, B = self._get_lora_matrices(adapter, cast_to_fp32)
+        A, B = self._get_lora_matrices(adapter, cast_to_fp32, target_device=device)
         output_tensor = transpose(B @ A, self.fan_in_fan_out)
         return output_tensor
 
@@ -249,8 +261,8 @@ class Linear(nn.Linear, UniLoRALayer):
             for active_adapter in self.active_adapters:
                 if active_adapter not in self.unilora_logits_A.keys():
                     continue
-                A, B = self._get_lora_matrices(active_adapter)
-                x = x.to(self.unilora_vector_bank[active_adapter].dtype)
+                A, B = self._get_lora_matrices(active_adapter, target_device=x.device)
+                x = x.to(device=A.device, dtype=A.dtype)
                 dropout = self.unilora_dropout[active_adapter]
                 result = result + F.linear(F.linear(dropout(x), A), B)
         result = result.to(previous_dtype)

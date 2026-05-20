@@ -81,7 +81,8 @@ class UniLoRAModel(BaseTuner):
                LoRA_para_cnt += module.unilora_logits_B[adapter_name].numel()
 
 
-        vector_length = config[adapter_name].vector_length
+        peft_config = self.peft_config[adapter_name]
+        vector_length = peft_config.vector_length
         all_elements = self.generate_index(LoRA_para_cnt,vector_length)
 
         pointer = 0  #  data 
@@ -142,6 +143,8 @@ class UniLoRAModel(BaseTuner):
         return torch.tensor(data)
 
     def _init_unilora_vector_bank(self, config: UniLoRAConfig, adapter_name: str) -> None:
+        if adapter_name in self.unilora_vector_bank:
+            return
         unilora_vector_bank = torch.zeros(config.vector_length)
         torch.nn.init.uniform_(unilora_vector_bank, -config.init_vector_bank_bound, config.init_vector_bank_bound)
         self.unilora_vector_bank[adapter_name] = unilora_vector_bank
@@ -319,8 +322,8 @@ class UniLoRAModel(BaseTuner):
             config = {k: v.value if isinstance(v, Enum) else v for k, v in asdict(value).items()}
             if inference:
                 config["inference_mode"] = True
-        config_dict[key] = config
-        return config
+            config_dict[key] = config
+        return config_dict
 
     def _set_adapter_layers(self, enabled: bool = True) -> None:
         for module in self.model.modules():

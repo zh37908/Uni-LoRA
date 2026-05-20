@@ -62,6 +62,10 @@ from .tuners import (
     PromptTuningConfig,
     UniLoRAConfig,
     UniLoRAModel,
+    UniLoRARoSAConfig,
+    UniLoRARoSAModel,
+    UniLoRARoSASnipConfig,
+    UniLoRARoSASnipModel,
     VeraConfig,
     VeraModel,
     XLoraConfig,
@@ -104,6 +108,8 @@ PEFT_TYPE_TO_CONFIG_MAPPING: dict[str, type[PeftConfig]] = {
     "XLORA": XLoraConfig,
     "HRA": HRAConfig,
     "UNILORA": UniLoRAConfig,
+    "UNILORA_ROSA": UniLoRARoSAConfig,
+    "UNILORA_ROSA_SNIP": UniLoRARoSASnipConfig,
 }
 
 PEFT_TYPE_TO_TUNER_MAPPING: dict[str, type[BaseTuner]] = {
@@ -121,6 +127,8 @@ PEFT_TYPE_TO_TUNER_MAPPING: dict[str, type[BaseTuner]] = {
     "XLORA": XLoraModel,
     "HRA": HRAModel,
     "UNILORA": UniLoRAModel,
+    "UNILORA_ROSA": UniLoRARoSAModel,
+    "UNILORA_ROSA_SNIP": UniLoRARoSASnipModel,
 }
 
 

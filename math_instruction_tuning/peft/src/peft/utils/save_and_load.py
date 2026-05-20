@@ -207,6 +207,24 @@ def get_peft_model_state_dict(
         to_return["base_model.unilora_vector_bank." + adapter_name] = state_dict[
             "base_model.unilora_vector_bank." + adapter_name
         ]
+    elif config.peft_type in {PeftType.UNILORA_ROSA, PeftType.UNILORA_ROSA_SNIP}:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                "unilora_scales" in k
+                or "unilora_indices" in k
+                or "unilora_theta_D_offsets" in k
+            )
+        }
+        for shared_name in (
+            "unilora_rosa_theta_d",
+            "unilora_rosa_sparse_theta_D",
+            "unilora_rosa_sparse_mask",
+        ):
+            shared_key = f"base_model.{shared_name}.{adapter_name}"
+            if shared_key in state_dict:
+                to_return[shared_key] = state_dict[shared_key]
     else:
         raise ValueError(f"Unknown PEFT type passed: {config.peft_type}")
 
@@ -355,6 +373,8 @@ def set_peft_model_state_dict(
         PeftType.FOURIERFT,
         PeftType.HRA,
         PeftType.UNILORA,
+        PeftType.UNILORA_ROSA,
+        PeftType.UNILORA_ROSA_SNIP,
     ):
         peft_model_state_dict = {}
         parameter_prefix = {
@@ -371,6 +391,8 @@ def set_peft_model_state_dict(
             PeftType.FOURIERFT: "fourierft_",
             PeftType.HRA: "hra_",
             PeftType.UNILORA: "unilora_",
+            PeftType.UNILORA_ROSA: "unilora_",
+            PeftType.UNILORA_ROSA_SNIP: "unilora_",
         }[config.peft_type]
         if config.peft_type == PeftType.UNILORA and config.save_only_topk_weights:
             num_vectors  = 1

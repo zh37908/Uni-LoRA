@@ -60,6 +60,8 @@ from .tuners import (
     PromptEmbedding,
     PromptEncoder,
     UniLoRAModel,
+    UniLoRARoSAModel,
+    UniLoRARoSASnipModel,
     VeraModel,
     XLoraConfig,
     XLoraModel,
@@ -103,6 +105,8 @@ PEFT_TYPE_TO_MODEL_MAPPING = {
     PeftType.XLORA: XLoraModel,
     PeftType.HRA: HRAModel,
     PeftType.UNILORA: UniLoRAModel,
+    PeftType.UNILORA_ROSA: UniLoRARoSAModel,
+    PeftType.UNILORA_ROSA_SNIP: UniLoRARoSASnipModel,
 }
 
 

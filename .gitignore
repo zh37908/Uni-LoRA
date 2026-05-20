@@ -25,6 +25,9 @@ NLU/peft/examples/sequence_classification/results_glue_variants_nonorm_scaled/
 NLU/peft/examples/sequence_classification/results_glue_variants_direct_unilora_td1277952/
 NLU/peft/examples/sequence_classification/results_monitor/
 NLU/peft/examples/sequence_classification/logs/
-
+clash-for-linux-install/
+FastChat/
 minst_test/results
 data
+instruction_tuning/output
+instruction_tuning/old_output
