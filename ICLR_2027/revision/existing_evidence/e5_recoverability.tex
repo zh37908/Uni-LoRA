@@ -1,0 +1,16 @@
+\begin{table*}[t]
+\centering\small
+\caption{E5 coordinate-energy diagnostics on an explicitly full-data LoRA target proxy. $q_E=(I-PP^\top)\Delta\theta$; oracle and SNIP capture fractions of $\sum_i\hat H_{ii}q_{E,i}^2$. The uniform-coordinate reference is $K/D$, $D=1{,}769{,}472$.}
+\label{tab:e5_recoverability}
+\begin{tabular}{lrrrrr}
+\toprule
+Task & $K$ & Oracle & SNIP & $K/D$ & Enrichment \\
+\midrule
+CoLA & 8640 & 0.4987 & 0.0791 & 0.004883 & $16.21\times$ \\
+MRPC & 8640 & 0.6945 & 0.1804 & 0.004883 & $36.94\times$ \\
+QNLI & 721 & 0.1446 & 0.0312 & 0.000407 & $76.52\times$ \\
+RTE & 721 & 0.3374 & 0.0114 & 0.000407 & $27.98\times$ \\
+STS-B & 721 & 0.5191 & 0.0791 & 0.000407 & $194.13\times$ \\
+\bottomrule
+\end{tabular}
+\end{table*}

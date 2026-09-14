@@ -1,0 +1,12 @@
+{
+  "stage": "final",
+  "model": "large",
+  "dataset": "cifar100",
+  "seed": 43,
+  "epochs": 20,
+  "vector_lr": 0.01,
+  "head_lr": 0.002,
+  "ratio": 4,
+  "sparse_lr_mult": 0.2,
+  "support_warmup_ratio": 0.1
+}

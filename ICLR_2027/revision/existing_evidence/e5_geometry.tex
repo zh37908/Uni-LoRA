@@ -1,0 +1,16 @@
+\begin{table*}[t]
+\centering\scriptsize
+\caption{Effect of projection geometry with the same target, Fisher diagonal, and saved SNIP support. Coordinate capture on $q_E$ and $q_H$ uses each residual's own total weighted energy. Joint recovery refits the compressed and sparse coefficients under the diagonal metric and is normalized by $\|q_H\|_{\hat H}^2$.}
+\label{tab:e5_geometry}
+\begin{tabular}{lrrrr}
+\toprule
+Task & Capture on $q_E$ & Capture on $q_H$ & Joint recovery & $\|q_H\|_{\hat H}^2/\|q_E\|_{\hat H}^2$ \\
+\midrule
+CoLA & 7.915\% & 1.188\% & 2.347\% & 0.767 \\
+MRPC & 18.037\% & 2.667\% & 5.683\% & 0.567 \\
+QNLI & 3.118\% & 0.138\% & 0.384\% & 0.836 \\
+RTE & 1.140\% & 0.078\% & 0.239\% & 0.590 \\
+STS-B & 7.910\% & 0.198\% & 0.874\% & 0.471 \\
+\bottomrule
+\end{tabular}
+\end{table*}

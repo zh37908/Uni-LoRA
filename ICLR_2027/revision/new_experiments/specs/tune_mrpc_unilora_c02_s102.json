@@ -1,0 +1,13 @@
+{
+  "id": "tune_mrpc_unilora_c02_s102",
+  "phase": "tune",
+  "task": "mrpc",
+  "method": "unilora",
+  "seed": 102,
+  "config_id": 2,
+  "adapter_lr": 0.001,
+  "head_lr": 0.005,
+  "weight_decay": 0.1,
+  "dropout": 0.1,
+  "stopping": "best"
+}

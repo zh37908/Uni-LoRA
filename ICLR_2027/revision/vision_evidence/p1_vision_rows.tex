@@ -1,0 +1,15 @@
+% Generated from final_accuracy, seed 42; do not edit.
+\begin{tabular}{lrrrrr}
+\toprule
+ & \multicolumn{3}{c}{1,000 training images} & \multicolumn{2}{c}{CIFAR-100} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}
+Method & CIFAR-100 & Food-101 & DTD & 5,000 & Full \\
+\midrule
+LoRA ($r=4$) & 86.91 & 79.50 & 73.14 & 89.87 & 92.41 \\
+Uni-LoRA & 86.59 & 79.25 & 72.66 & 89.55 & 92.10 \\
+ProLoSA ($2:1$) & 86.35 & 79.26 & 72.71 & 89.13 & 92.03 \\
+ProLoSA ($4:1$) & 86.50 & 79.10 & 72.29 & 89.32 & 92.33 \\
+ProLoSA ($8:1$) & 86.34 & 79.19 & 72.50 & 89.28 & 92.02 \\
+ProLoSA ($12:1$) & 86.39 & 79.25 & 72.71 & 89.36 & 91.99 \\
+\bottomrule
+\end{tabular}

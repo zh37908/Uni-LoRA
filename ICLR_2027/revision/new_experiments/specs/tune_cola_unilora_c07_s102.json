@@ -1,0 +1,13 @@
+{
+  "id": "tune_cola_unilora_c07_s102",
+  "phase": "tune",
+  "task": "cola",
+  "method": "unilora",
+  "seed": 102,
+  "config_id": 7,
+  "adapter_lr": 0.005,
+  "head_lr": 0.001,
+  "weight_decay": 0.01,
+  "dropout": 0.05,
+  "stopping": "last"
+}

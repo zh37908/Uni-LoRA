@@ -1,0 +1,12 @@
+{
+  "stage": "validate",
+  "model": "base",
+  "dataset": "eurosat",
+  "seed": 101,
+  "epochs": 20,
+  "vector_lr": 0.01,
+  "head_lr": 0.01,
+  "ratio": 4,
+  "sparse_lr_mult": 0.2,
+  "support_warmup_ratio": 0.1
+}

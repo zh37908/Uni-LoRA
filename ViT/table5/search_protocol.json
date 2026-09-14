@@ -1,0 +1,205 @@
+{
+  "created_at": 1789294345.8620489,
+  "group_count": 16,
+  "configs": [
+    {
+      "vector_lr": 0.002,
+      "head_lr": 0.002,
+      "ratio": 2,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.002,
+      "head_lr": 0.002,
+      "ratio": 4,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.002,
+      "head_lr": 0.002,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.002,
+      "head_lr": 0.002,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.002,
+      "head_lr": 0.01,
+      "ratio": 2,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.002,
+      "head_lr": 0.01,
+      "ratio": 4,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.002,
+      "head_lr": 0.01,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.002,
+      "head_lr": 0.01,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.01,
+      "head_lr": 0.002,
+      "ratio": 2,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.01,
+      "head_lr": 0.002,
+      "ratio": 4,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.01,
+      "head_lr": 0.002,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.01,
+      "head_lr": 0.002,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 2,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 4,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.05,
+      "head_lr": 0.002,
+      "ratio": 2,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.05,
+      "head_lr": 0.002,
+      "ratio": 4,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.05,
+      "head_lr": 0.002,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.05,
+      "head_lr": 0.002,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.05,
+      "head_lr": 0.01,
+      "ratio": 2,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.05,
+      "head_lr": 0.01,
+      "ratio": 4,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.05,
+      "head_lr": 0.01,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    {
+      "vector_lr": 0.05,
+      "head_lr": 0.01,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    }
+  ],
+  "stages": [
+    {
+      "name": "screen",
+      "epochs": 5,
+      "seed": 101,
+      "candidates": 24
+    },
+    {
+      "name": "validate",
+      "epochs": 20,
+      "seed": 101,
+      "top": 3
+    },
+    {
+      "name": "confirm",
+      "epochs": 20,
+      "seed": 102,
+      "top": 2
+    }
+  ],
+  "formal_seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "formal_runs": 80,
+  "selection": "highest two-seed mean best validation accuracy; loss then config hash break ties",
+  "test_policy": "test split is never opened during smoke/screen/validate/confirm",
+  "scope": "best among screened candidate configurations; not a global optimum guarantee"
+}

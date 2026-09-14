@@ -1,0 +1,79 @@
+% Not included in the submission PDF: original unfilled experiment tables.
+% ======================================================================
+% TODO(作者): 以下两个补充实验(参照 Uni-LoRA 原文附录)尚未运行;
+% 表中 "--" 为占位符, 实验完成后填写, 并可将 d-sweep 表格替换/补充为
+% 折线图 (仿 Uni-LoRA Fig. 3)。
+% ======================================================================
+\subsection{Impact of Hyperparameters on Model Performance}
+\label{app:hyperparam_d}
+
+The theory of Appendix~\ref{sec:theory} predicts that the trainable budget controls a bias--variance trade-off: enlarging the compressed dimension $d$ reduces the projection bias $B_{\mathrm{proj}}$ but increases the retained estimation variance, so performance should first improve and then saturate (or degrade in low-resource regimes) as $d$ grows.
+To probe this directly, we vary the total trainable budget $B=d+K$ while keeping all other settings at their default values (Tables~\ref{tab:glue_hyperparams} and~\ref{tab:math_hyperparams}): RoBERTa-large is fine-tuned on SST-2 and Gemma-7B on the mathematical reasoning benchmarks.
+For Uni-LoRA the entire budget is spent on the compressed dimension ($d=B$); for ProLoSA the default split ratio between the projected branch and the sparse residual branch is preserved ($K/B=1/32$ on GLUE and $K/B=1/3$ on mathematical reasoning), so that the comparison isolates the effect of the budget rather than the allocation, which is ablated separately in Table~\ref{tab:ablation_budget_full}.
+Results are summarized in Table~\ref{tab:d_sweep}.
+
+\begin{table*}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{\textbf{Impact of the trainable budget $B=d+K$.} RoBERTa-large on SST-2 (accuracy, mean$_{\pm\mathrm{std}}$ over 5 seeds) and Gemma-7B on GSM8K/MATH (exact match); all remaining settings follow Tables~\ref{tab:glue_hyperparams} and~\ref{tab:math_hyperparams}. Default budgets are marked with $^\ast$.}
+\label{tab:d_sweep}
+\begin{tabular}{lcccccc}
+\toprule
+& \multicolumn{6}{c}{\emph{RoBERTa-large, SST-2}} \\
+\cmidrule(lr){2-7}
+$B$ & 2880 & 5760 & 11520 & 23040$^\ast$ & 46080 & 92160 \\
+\midrule
+Uni-LoRA & -- & -- & -- & -- & -- & -- \\
+ProLoSA  & -- & -- & -- & -- & -- & -- \\
+\midrule
+& \multicolumn{6}{c}{\emph{Gemma-7B, GSM8K / MATH}} \\
+\cmidrule(lr){2-7}
+$B$ & \multicolumn{2}{c}{131072} & 262144 & 524288$^\ast$ & 1048576 & 2097152 \\
+\midrule
+Uni-LoRA & \multicolumn{2}{c}{--\,/\,--} & --\,/\,-- & --\,/\,-- & --\,/\,-- & --\,/\,-- \\
+ProLoSA  & \multicolumn{2}{c}{--\,/\,--} & --\,/\,-- & --\,/\,-- & --\,/\,-- & --\,/\,-- \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% 实验完成后可改为折线图:
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.9\linewidth]{d_sweep.pdf}
+% \caption{Performance as a function of the trainable budget $B$.}
+% \label{fig:d_sweep}
+% \end{figure}
+
+\subsection{Comparison with LoRA of the Same Rank}
+\label{app:same_rank}
+
+The LoRA baselines in the main tables follow their standard, much larger configurations, which confounds two effects: the rank of the update and the estimator used within the resulting parameter space.
+Both Uni-LoRA and ProLoSA operate in the flattened parameter space of a \emph{rank-4} LoRA (dimension $D$); training a standard rank-4 LoRA optimizes all $D$ coordinates of exactly the same space.
+This comparison is therefore the cleanest real-model instantiation of the theory: the ambient space, achievable function class, and training protocol are identical, and the methods differ only in whether estimation is unrestricted (LoRA, variance-dominated at small $n$) or restricted to a $d$-dimensional subspace with an optional sparse correction (Uni-LoRA/ProLoSA).
+Table~\ref{tab:same_rank} reports the comparison on GLUE with RoBERTa-large and on the mathematical reasoning benchmarks with Gemma-7B, using the default budgets of Tables~\ref{tab:glue_hyperparams} and~\ref{tab:math_hyperparams}.
+
+\begin{table*}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{\textbf{Comparison with LoRA of the same rank ($r=4$).} All methods parameterize the identical rank-4 update space of the same target modules; they differ only in the estimator. GLUE uses RoBERTa-large (Matthews correlation for CoLA, Pearson correlation for STS-B, accuracy otherwise; mean$_{\pm\mathrm{std}}$ over 5 seeds); GSM8K/MATH use Gemma-7B (exact match).}
+\label{tab:same_rank}
+\begin{tabular}{lcccccccc|ccc}
+\toprule
+& \multicolumn{8}{c|}{RoBERTa-large} & \multicolumn{3}{c}{Gemma-7B} \\
+\cmidrule(lr){2-9}\cmidrule(lr){10-12}
+Method & Params & SST-2 & MRPC & CoLA & QNLI & RTE & STS-B & Avg. & Params & GSM8K & MATH \\
+\midrule
+LoRA ($r=4$) & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+Uni-LoRA     & 0.023M & -- & -- & -- & -- & -- & -- & -- & 0.52M & -- & -- \\
+ProLoSA      & 0.023M & -- & -- & -- & -- & -- & -- & -- & 0.52M & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% ======================================================================
+% ICLR 2026 起的硬性要求: 若 LLM 在研究构思或写作中起显著作用, 必须在
+% 附录中单独披露, 否则可能被 desk reject。
+% TODO(作者): 请根据实际使用情况核实并修改下面的描述。
+% ======================================================================

@@ -1,0 +1,13 @@
+{
+  "id": "tune_mrpc_prolosa_c01_s101",
+  "phase": "tune",
+  "task": "mrpc",
+  "method": "prolosa",
+  "seed": 101,
+  "config_id": 1,
+  "adapter_lr": 0.001,
+  "head_lr": 0.001,
+  "weight_decay": 0.01,
+  "dropout": 0.05,
+  "stopping": "best"
+}

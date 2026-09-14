@@ -1,0 +1,258 @@
+{
+  "base/cifar100": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.9185000000000001,
+    "mean_val_loss": 0.2801681011915207,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_base_cifar100_da2a67409f53/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_base_cifar100_95a5c92f10b4/attempt1/result.json"
+    ],
+    "selected_at": 1789300460.157748
+  },
+  "base/dtd": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.8111111111111111,
+    "mean_val_loss": 0.6981133222579956,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_base_dtd_2cb5a2f33d9e/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_base_dtd_a30d7c75d581/attempt1/result.json"
+    ],
+    "selected_at": 1789304991.3773692
+  },
+  "large/dtd": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.8088888888888889,
+    "mean_val_loss": 0.7765418291091919,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_large_dtd_ca6fd2999753/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_large_dtd_32c0f6a25f57/attempt1/result.json"
+    ],
+    "selected_at": 1789309248.6497126
+  },
+  "large/cifar100": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.002,
+      "ratio": 4,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.9348000000000001,
+    "mean_val_loss": 0.22552765160799026,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_large_cifar100_723f9077289e/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_large_cifar100_f95ba4b47ade/attempt1/result.json"
+    ],
+    "selected_at": 1789313392.420892
+  },
+  "base/cifar10": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 4,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.9904,
+    "mean_val_loss": 0.03440059535205364,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_base_cifar10_a7f20f6c7333/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_base_cifar10_d21b8f1cc80d/attempt1/result.json"
+    ],
+    "selected_at": 1789316207.1325202
+  },
+  "base/oxfordpets": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.9565217391304348,
+    "mean_val_loss": 0.16738660633563995,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_base_oxfordpets_53477b0e74fa/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_base_oxfordpets_6c0a41d839e3/attempt1/result.json"
+    ],
+    "selected_at": 1789321309.3902962
+  },
+  "large/oxfordpets": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.002,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.9728260869565217,
+    "mean_val_loss": 0.11392376944422722,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_large_oxfordpets_6cfe658a6cb8/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_large_oxfordpets_091b43609c49/attempt1/result.json"
+    ],
+    "selected_at": 1789324695.0214007
+  },
+  "base/stanfordcars": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 4,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.7797546012269938,
+    "mean_val_loss": 0.8125559687614441,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_base_stanfordcars_d9840ced6f69/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_base_stanfordcars_ebbc91ec07f0/attempt1/result.json"
+    ],
+    "selected_at": 1789326623.2674155
+  },
+  "large/cifar10": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 2,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.9948,
+    "mean_val_loss": 0.024662521667778492,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_large_cifar10_8f290d3d5241/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_large_cifar10_934ead8d57e5/attempt1/result.json"
+    ],
+    "selected_at": 1789329626.2988532
+  },
+  "large/stanfordcars": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.8478527607361963,
+    "mean_val_loss": 0.5696499049663544,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_large_stanfordcars_492b31635c22/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_large_stanfordcars_4e4ea1f5b925/attempt1/result.json"
+    ],
+    "selected_at": 1789331011.7916443
+  },
+  "base/eurosat": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 4,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.989074074074074,
+    "mean_val_loss": 0.04173849895596504,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_base_eurosat_de5929eda441/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_base_eurosat_398bce98b1af/attempt1/result.json"
+    ],
+    "selected_at": 1789332160.5208151
+  },
+  "large/eurosat": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.9899074074074075,
+    "mean_val_loss": 0.04219932109117508,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_large_eurosat_3e06c716fc40/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_large_eurosat_4d0cd3295ed8/attempt1/result.json"
+    ],
+    "selected_at": 1789337708.183594
+  },
+  "base/resisc45": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.9534126984126984,
+    "mean_val_loss": 0.1473158746957779,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_base_resisc45_daa0fb13a1ea/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_base_resisc45_5f789468f0b1/attempt1/result.json"
+    ],
+    "selected_at": 1789338227.8262272
+  },
+  "base/fgvc": {
+    "config": {
+      "vector_lr": 0.05,
+      "head_lr": 0.01,
+      "ratio": 2,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.5573057305730573,
+    "mean_val_loss": 1.4656030535697937,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_base_fgvc_236852ccc6f6/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_base_fgvc_93bfd806d2b6/attempt1/result.json"
+    ],
+    "selected_at": 1789343238.254276
+  },
+  "large/resisc45": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 12,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.9592063492063492,
+    "mean_val_loss": 0.1317320466041565,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_large_resisc45_89176d15b7f2/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_large_resisc45_ee17e228f8c0/attempt1/result.json"
+    ],
+    "selected_at": 1789344700.2916818
+  },
+  "large/fgvc": {
+    "config": {
+      "vector_lr": 0.01,
+      "head_lr": 0.01,
+      "ratio": 8,
+      "sparse_lr_mult": 0.2,
+      "support_warmup_ratio": 0.1
+    },
+    "mean_val_accuracy": 0.5987098709870987,
+    "mean_val_loss": 1.4179983735084534,
+    "validation_results": [
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/validate_large_fgvc_870c98d8316a/attempt1/result.json",
+      "/home/hzhaobi/Uni-LoRA/ViT/table5/runs/confirm_large_fgvc_a804ccbcfacb/attempt1/result.json"
+    ],
+    "selected_at": 1789345678.1574543
+  }
+}

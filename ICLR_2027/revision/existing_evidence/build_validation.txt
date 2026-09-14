@@ -1,0 +1,7 @@
+latexmk: success
+Main text: 8 pages
+Full PDF: 44 pages
+References start: page 9
+No undefined references, duplicate labels, or overfull warnings.
+Numerical validation and fixed-target audit: passed.
+Original synthetic CSV hashes: unchanged.

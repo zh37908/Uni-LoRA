@@ -1,0 +1,43 @@
+{
+  "status": "running",
+  "counts": {
+    "smoke": {
+      "done": 4
+    },
+    "screen": {
+      "done": 8,
+      "running": 4,
+      "pending": 372
+    },
+    "validate": {},
+    "confirm": {},
+    "final": {}
+  },
+  "selected_groups": 0,
+  "updated_at": 1789295463.5264583,
+  "workers": {
+    "1858910/0": {
+      "last_seen": 1789295241.922255,
+      "pid": 3504951
+    },
+    "1858910/1": {
+      "last_seen": 1789295243.2963457,
+      "pid": 3504952
+    },
+    "1858910/2": {
+      "last_seen": 1789295237.2396274,
+      "pid": 3504953
+    },
+    "1858910/3": {
+      "last_seen": 1789295256.3226411,
+      "pid": 3504954
+    }
+  },
+  "data_preparation": "8 datasets validated; split IDs disjoint and hashes verified",
+  "model_preparation": "Base and Large pinned snapshots present",
+  "queue_tests": "3 passed",
+  "gpu_job": "1858910",
+  "finisher_job": "1858991",
+  "gpus": 4,
+  "formal_runs_completed": 0
+}

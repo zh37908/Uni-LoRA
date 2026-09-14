@@ -1,0 +1,13 @@
+{
+  "id": "tune_cola_rosa_c08_s102",
+  "phase": "tune",
+  "task": "cola",
+  "method": "rosa",
+  "seed": 102,
+  "config_id": 8,
+  "adapter_lr": 0.001,
+  "head_lr": 0.005,
+  "weight_decay": 0.0,
+  "dropout": 0.0,
+  "stopping": "best"
+}

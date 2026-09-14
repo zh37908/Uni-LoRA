@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering\small
+\caption{Sensitivity of squared bias proxies to the full-data reference: mixed (3 rank-4 + 5 rank-64 runs), rank-4 only, rank-64 only, and the range over eight leave-one-reference-out ensembles. Ranges are sensitivity checks, not confidence intervals.}
+\label{tab:e3_reference}
+\begin{tabular}{llrrrr}
+\toprule
+Task & Method & Mixed & Rank 4 & Rank 64 & Leave-one-out range \\
+\midrule
+CoLA & LoRA & 0.01363 & 0.02275 & 0.01769 & [0.01328, 0.01523] \\
+CoLA & Uni-LoRA & 0.03091 & 0.03195 & 0.03982 & [0.02972, 0.03503] \\
+CoLA & ProLoSA & 0.03189 & 0.03440 & 0.03990 & [0.03081, 0.03594] \\
+MRPC & LoRA & 0.01236 & 0.02146 & 0.01703 & [0.01184, 0.01426] \\
+MRPC & Uni-LoRA & 0.02187 & 0.03247 & 0.02563 & [0.02103, 0.02418] \\
+MRPC & ProLoSA & 0.01804 & 0.02927 & 0.02142 & [0.01762, 0.02003] \\
+\bottomrule
+\end{tabular}
+\end{table*}

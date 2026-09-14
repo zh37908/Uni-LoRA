@@ -1,0 +1,42 @@
+{
+  "results_matched_budget_baselines/matched_budget_results.csv": {
+    "rows": 120,
+    "max_identity_error": 3.799478093258202e-15,
+    "sha256": "dd946a27d7ccf73b214750b743b37b953361297c52a922450cf0d2809da44564"
+  },
+  "results_spike_slab_budget_matched_theory/spike_slab_results.csv": {
+    "rows": 60,
+    "max_identity_error": 2.9106491522545852e-15,
+    "sha256": "8e1bfd9eefec3cb687248eb6b74a5993460b99acc572e3c072fb539f1cd19ced"
+  },
+  "results_gaussian_synthetic_theory_std_0.125/gaussian_results.csv": {
+    "rows": 60,
+    "max_identity_error": 7.41073868937292e-15,
+    "sha256": "cf0eb70e881f1e986b8a82e374013fbe3ce1cb4251884659404b5c134b2405a1"
+  },
+  "results_transformer_lab_level2_v2_full/summary.csv": {
+    "rows": 518,
+    "max_identity_error": 2.6645352591003757e-15,
+    "sha256": "c7d337889a02834434561158fefabbab218e4bc7cdc179baf1a4a45c288feddf"
+  },
+  "concentrated_target": {
+    "target_id": "5d20a7af402810bdfcf3df71a2dbdbbe774ac0bea7c8475d6704129d317e1b1c",
+    "theta_norm": 3.2910938462093964,
+    "off_energy": 10.806346710840838,
+    "noise_threshold": 1.1645130173746143
+  },
+  "diffuse_target": {
+    "target_id": "4c5b7aa0d82cfc9bc25f2fae32f8f849218f3a725e9c64f649fd3cc27b320e35",
+    "theta_norm": 8.014896972368764,
+    "off_energy": 63.99627238878969,
+    "noise_threshold": 2.8338851018271582
+  },
+  "transformer_merge": {
+    "trials": 10108,
+    "cells": 518,
+    "main_cells": 504,
+    "calibration_cells": 14,
+    "note": "Main and calibration cells are disjoint. Source .py and raw predictions are absent; retained runner bytecode and logs show planting outside trial loops. Aggregate identities do not independently prove target equality."
+  },
+  "guards": "fixed target identity, mixed-target rejection, unchanged teacher across projection modes, raw-run merge keys: passed"
+}

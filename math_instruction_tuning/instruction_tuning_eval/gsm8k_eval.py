@@ -70,7 +70,14 @@ def batch_data(data_list, batch_size=1):
 
 
 def gsm8k_test(
-    model, data_path, start=0, end=MAX_INT, batch_size=1, tensor_parallel_size=1
+    model,
+    data_path,
+    start=0,
+    end=MAX_INT,
+    batch_size=1,
+    tensor_parallel_size=1,
+    gpu_memory_utilization=0.5,
+    max_model_len=None,
 ):
     INVALID_ANS = "[invalid]"
     gsm8k_ins = []
@@ -99,7 +106,14 @@ def gsm8k_test(
         temperature=0, top_p=1, max_tokens=1024, stop=stop_tokens
     )
     print("sampling =====", sampling_params)
-    llm = LLM(model=model, tensor_parallel_size=tensor_parallel_size,gpu_memory_utilization=0.5)
+    llm_kwargs = dict(
+        model=model,
+        tensor_parallel_size=tensor_parallel_size,
+        gpu_memory_utilization=gpu_memory_utilization,
+    )
+    if max_model_len is not None:
+        llm_kwargs["max_model_len"] = max_model_len
+    llm = LLM(**llm_kwargs)
     result = []
     res_completions = []
     for idx, (prompt, prompt_answer) in enumerate(zip(batch_gsm8k_ins, gsm8k_answers)):
@@ -152,6 +166,8 @@ def parse_args():
     parser.add_argument(
         "--tensor_parallel_size", type=int, default=1
     )  # tensor_parallel_size
+    parser.add_argument("--gpu_memory_utilization", type=float, default=0.5)
+    parser.add_argument("--max_model_len", type=int, default=None)
     return parser.parse_args()
 
 
@@ -164,4 +180,6 @@ if __name__ == "__main__":
         end=args.end,
         batch_size=args.batch_size,
         tensor_parallel_size=args.tensor_parallel_size,
+        gpu_memory_utilization=args.gpu_memory_utilization,
+        max_model_len=args.max_model_len,
     )

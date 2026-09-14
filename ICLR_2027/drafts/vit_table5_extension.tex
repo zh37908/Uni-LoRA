@@ -1,0 +1,38 @@
+% Author draft only; not included in the submission.
+% Source: Uni-LoRA, NeurIPS 2025, Section 4.4 / Table 5.
+% https://proceedings.neurips.cc/paper_files/paper/2025/file/3e596a70b60dcf7c6e0ac1a2d73e7470-Paper-Conference.pdf
+% All numeric baseline cells below are quoted historical results.
+% ProLoSA measurements are unavailable under this protocol: do not fill them
+% using the p1_vision or p1_vision_d72k few-shot/single-seed experiments.
+\begin{table*}[t]
+\centering
+\caption{\textbf{Draft: extension of Uni-LoRA Table~5.} Published image-classification accuracy (\%, mean $\pm$ standard deviation) is transcribed from Uni-LoRA \citep{li2025unilora}; its LP, full fine-tuning (FF), and FourierFT rows were sourced from FourierFT. ProLoSA rows specify planned adapter budgets; ``--'' means experiments are pending, including the eight-task average. All original parameter-count conventions are retained. New ProLoSA results require matched data and evaluation settings and five runs per cell.}
+\label{draft:tab_vit_table5}
+\begingroup
+\setlength{\tabcolsep}{3pt}
+\newcommand{\vitscore}[2]{$#1_{\pm #2}$}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrccccccccc}
+\toprule
+Model & Method & Parameters & OxfordPets & StanfordCars & CIFAR10 & DTD & EuroSAT & FGVC & RESISC45 & CIFAR100 & Avg. \\
+\midrule
+\multirow{6}{*}{ViT-Base}
+& LP & -- & \vitscore{90.28}{0.43} & \vitscore{25.76}{0.28} & \vitscore{96.41}{0.02} & \vitscore{69.77}{0.67} & \vitscore{88.72}{0.13} & \vitscore{17.44}{0.43} & \vitscore{74.22}{0.10} & \vitscore{84.28}{0.11} & 68.36 \\
+& FF & 85.8M & \vitscore{93.14}{0.40} & \vitscore{79.78}{1.15} & \vitscore{98.92}{0.05} & \vitscore{77.68}{1.21} & \vitscore{99.05}{0.09} & \vitscore{54.84}{1.23} & \vitscore{96.13}{0.13} & \vitscore{92.38}{0.13} & 86.49 \\
+& FourierFT & 72K & \vitscore{93.21}{0.26} & \vitscore{46.11}{0.24} & \vitscore{98.58}{0.07} & \vitscore{75.09}{0.37} & \vitscore{98.29}{0.04} & \vitscore{27.51}{0.64} & \vitscore{91.97}{0.31} & \vitscore{91.20}{0.14} & 77.75 \\
+& FourierFT & 239K & \vitscore{93.05}{0.34} & \vitscore{56.36}{0.66} & \vitscore{98.69}{0.06} & \vitscore{77.30}{0.61} & \vitscore{98.78}{0.11} & \vitscore{32.44}{0.99} & \vitscore{94.26}{0.20} & \vitscore{91.45}{0.18} & 80.29 \\
+& Uni-LoRA & 72K & \vitscore{94.00}{0.13} & \vitscore{76.06}{0.23} & \vitscore{98.77}{0.03} & \vitscore{76.99}{0.96} & \vitscore{98.86}{0.10} & \vitscore{50.36}{0.63} & \vitscore{94.08}{0.19} & \vitscore{92.10}{0.25} & 85.15 \\
+& ProLoSA (pending) & 72K & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+\midrule
+\multirow{6}{*}{ViT-Large}
+& LP & -- & \vitscore{91.11}{0.30} & \vitscore{37.91}{0.27} & \vitscore{97.78}{0.04} & \vitscore{73.33}{0.26} & \vitscore{92.64}{0.08} & \vitscore{24.62}{0.24} & \vitscore{82.02}{0.11} & \vitscore{84.28}{0.11} & 72.96 \\
+& FF & 303.3M & \vitscore{94.43}{0.56} & \vitscore{88.90}{0.26} & \vitscore{99.15}{0.04} & \vitscore{81.79}{1.01} & \vitscore{99.04}{0.08} & \vitscore{68.25}{1.63} & \vitscore{96.43}{0.07} & \vitscore{93.58}{0.19} & 90.20 \\
+& FourierFT & 144K & \vitscore{94.46}{0.28} & \vitscore{69.56}{0.30} & \vitscore{99.10}{0.04} & \vitscore{80.83}{0.43} & \vitscore{98.65}{0.09} & \vitscore{39.92}{0.68} & \vitscore{93.86}{0.14} & \vitscore{93.31}{0.09} & 83.71 \\
+& FourierFT & 480K & \vitscore{94.84}{0.05} & \vitscore{79.14}{0.67} & \vitscore{99.08}{0.05} & \vitscore{81.88}{0.50} & \vitscore{98.66}{0.03} & \vitscore{51.28}{0.66} & \vitscore{95.20}{0.07} & \vitscore{93.37}{0.11} & 86.68 \\
+& Uni-LoRA & 144K & \vitscore{94.65}{0.23} & \vitscore{83.16}{0.62} & \vitscore{98.77}{0.03} & \vitscore{81.35}{0.48} & \vitscore{98.89}{0.07} & \vitscore{58.89}{0.62} & \vitscore{95.24}{0.12} & \vitscore{93.08}{0.11} & 88.00 \\
+& ProLoSA (pending) & 144K & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}%
+}
+\endgroup
+\end{table*}

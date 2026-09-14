@@ -1,0 +1,369 @@
+{
+  "cola": {
+    "D": 1769472,
+    "d": 14400,
+    "K": 8640,
+    "support_path": "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/prolosa_td14400_sb8640_w128_m1_slrm0p2/seed_0/unilora_rosa_snip_cola_roberta-large_lr0.005_seed0_theory.pt",
+    "support_seed": 0,
+    "support_train_fraction": 1.0,
+    "full_target_paths": [
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/lora_r4_lr4e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/lora_r4_lr4e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt"
+    ],
+    "pooled_target_sensitivity_paths": [
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p0.25/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p0.25/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p0.25/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p0.25/lora_r4_lr4e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p0.25/lora_r4_lr4e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p0.5/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p0.5/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p0.5/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p0.5/lora_r4_lr4e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p0.5/lora_r4_lr4e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/lora_r4_lr4e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/cola/p1/lora_r4_lr4e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_101/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_101/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_102/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_102/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_103/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_103/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_104/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_104/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_105/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_105/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt"
+    ],
+    "fisher_path": "NLU/peft/examples/sequence_classification/fisher_diag/cola_fisher.pt",
+    "euclidean_then_fisher": {
+      "energy": 0.00043239621966267166,
+      "oracle": 0.4987151704079855,
+      "snip": 0.07914734217018332
+    },
+    "h_projection": {
+      "energy": 0.00033172009187085015,
+      "oracle": 0.3353554844533146,
+      "snip": 0.01187792296705288
+    },
+    "h_joint_recovery": 0.023471393494384873,
+    "pooled_target_sensitivity": {
+      "energy": 0.0002426432407815126,
+      "oracle": 0.5775035610553971,
+      "snip": 0.12610820776421916
+    },
+    "random_expected": 0.0048828125,
+    "enrichment": 16.209375676453543,
+    "bare_enrichment": 0.3945342816172406,
+    "random_mean": 0.0048749319028976185,
+    "random_sd": 0.0010758171357621476,
+    "random_exact_sd": 0.0010624636985587877,
+    "random_q025": 0.003639240758306683,
+    "random_q975": 0.008056638626961652,
+    "random_mc_se": 1.0624636985587876e-05,
+    "random_exceedances": 0,
+    "n_draws": 10000,
+    "fisher_metadata": {
+      "num_batches": 200,
+      "batch_size": 16,
+      "split": "train",
+      "rank": 4,
+      "artifact": "results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt"
+    }
+  },
+  "mrpc": {
+    "D": 1769472,
+    "d": 14400,
+    "K": 8640,
+    "support_path": "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/prolosa_td14400_sb8640_w128_m1_slrm0p2/seed_0/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+    "support_seed": 0,
+    "support_train_fraction": 1.0,
+    "full_target_paths": [
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/lora_r4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/lora_r4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt"
+    ],
+    "pooled_target_sensitivity_paths": [
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p0.25/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p0.25/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p0.25/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p0.25/lora_r4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p0.25/lora_r4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p0.5/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p0.5/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p0.5/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p0.5/lora_r4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p0.5/lora_r4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/lora_r4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/mrpc/p1/lora_r4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_101/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_101/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_102/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_102/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_103/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_103/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_104/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_104/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_105/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_105/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt"
+    ],
+    "fisher_path": "NLU/peft/examples/sequence_classification/fisher_diag/mrpc_fisher.pt",
+    "euclidean_then_fisher": {
+      "energy": 1.8500455081794272e-05,
+      "oracle": 0.6944943231544014,
+      "snip": 0.1803724252182979
+    },
+    "h_projection": {
+      "energy": 1.0486367573354078e-05,
+      "oracle": 0.4313587000673969,
+      "snip": 0.026670000022020166
+    },
+    "h_joint_recovery": 0.05682569055092679,
+    "pooled_target_sensitivity": {
+      "energy": 1.42456738029475e-05,
+      "oracle": 0.737458418146742,
+      "snip": 0.20283477527165786
+    },
+    "random_expected": 0.0048828125,
+    "enrichment": 36.94027268470741,
+    "bare_enrichment": 0.39940044897393756,
+    "random_mean": 0.004889438152166791,
+    "random_sd": 0.0029920497129983666,
+    "random_exact_sd": 0.0030010217144793186,
+    "random_q025": 0.0025859917549816078,
+    "random_q975": 0.013674964602238578,
+    "random_mc_se": 3.0010217144793187e-05,
+    "random_exceedances": 0,
+    "n_draws": 10000,
+    "fisher_metadata": {
+      "num_batches": 200,
+      "batch_size": 16,
+      "split": "train",
+      "rank": 4,
+      "artifact": "results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt"
+    }
+  },
+  "qnli": {
+    "D": 1769472,
+    "d": 22320,
+    "K": 721,
+    "support_path": "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/prolosa_td22320_sb720_w128_m1_slrm0p2/seed_0/unilora_rosa_snip_qnli_roberta-large_lr0.0005_seed0_theory.pt",
+    "support_seed": 0,
+    "support_train_fraction": 1.0,
+    "full_target_paths": [
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_0/lora_qnli_roberta-large_lr0.0005_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_1/lora_qnli_roberta-large_lr0.0005_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_2/lora_qnli_roberta-large_lr0.0005_seed2_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_3/lora_qnli_roberta-large_lr0.0005_seed3_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_4/lora_qnli_roberta-large_lr0.0005_seed4_theory.pt"
+    ],
+    "pooled_target_sensitivity_paths": [
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.01/lora_r4/seed_0/lora_qnli_roberta-large_lr0.0005_seed0_p0.01_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.01/lora_r4/seed_1/lora_qnli_roberta-large_lr0.0005_seed1_p0.01_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.01/lora_r4/seed_2/lora_qnli_roberta-large_lr0.0005_seed2_p0.01_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.01/lora_r4/seed_3/lora_qnli_roberta-large_lr0.0005_seed3_p0.01_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.01/lora_r4/seed_4/lora_qnli_roberta-large_lr0.0005_seed4_p0.01_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.02/lora_r4/seed_0/lora_qnli_roberta-large_lr0.0005_seed0_p0.02_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.02/lora_r4/seed_1/lora_qnli_roberta-large_lr0.0005_seed1_p0.02_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.02/lora_r4/seed_2/lora_qnli_roberta-large_lr0.0005_seed2_p0.02_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.02/lora_r4/seed_3/lora_qnli_roberta-large_lr0.0005_seed3_p0.02_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.02/lora_r4/seed_4/lora_qnli_roberta-large_lr0.0005_seed4_p0.02_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.05/lora_r4/seed_0/lora_qnli_roberta-large_lr0.0005_seed0_p0.05_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.05/lora_r4/seed_1/lora_qnli_roberta-large_lr0.0005_seed1_p0.05_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.05/lora_r4/seed_2/lora_qnli_roberta-large_lr0.0005_seed2_p0.05_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.05/lora_r4/seed_3/lora_qnli_roberta-large_lr0.0005_seed3_p0.05_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.05/lora_r4/seed_4/lora_qnli_roberta-large_lr0.0005_seed4_p0.05_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.1/lora_r4/seed_0/lora_qnli_roberta-large_lr0.0005_seed0_p0.1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.1/lora_r4/seed_1/lora_qnli_roberta-large_lr0.0005_seed1_p0.1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.1/lora_r4/seed_2/lora_qnli_roberta-large_lr0.0005_seed2_p0.1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.1/lora_r4/seed_3/lora_qnli_roberta-large_lr0.0005_seed3_p0.1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.1/lora_r4/seed_4/lora_qnli_roberta-large_lr0.0005_seed4_p0.1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.25/lora_r4/seed_0/lora_qnli_roberta-large_lr0.0005_seed0_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.25/lora_r4/seed_1/lora_qnli_roberta-large_lr0.0005_seed1_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.25/lora_r4/seed_2/lora_qnli_roberta-large_lr0.0005_seed2_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.25/lora_r4/seed_3/lora_qnli_roberta-large_lr0.0005_seed3_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.25/lora_r4/seed_4/lora_qnli_roberta-large_lr0.0005_seed4_p0.25_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.5/lora_r4/seed_0/lora_qnli_roberta-large_lr0.0005_seed0_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.5/lora_r4/seed_1/lora_qnli_roberta-large_lr0.0005_seed1_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.5/lora_r4/seed_2/lora_qnli_roberta-large_lr0.0005_seed2_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.5/lora_r4/seed_3/lora_qnli_roberta-large_lr0.0005_seed3_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p0.5/lora_r4/seed_4/lora_qnli_roberta-large_lr0.0005_seed4_p0.5_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_0/lora_qnli_roberta-large_lr0.0005_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_1/lora_qnli_roberta-large_lr0.0005_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_2/lora_qnli_roberta-large_lr0.0005_seed2_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_3/lora_qnli_roberta-large_lr0.0005_seed3_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_4/lora_qnli_roberta-large_lr0.0005_seed4_theory.pt"
+    ],
+    "fisher_path": "NLU/peft/examples/sequence_classification/fisher_diag/qnli_fisher.pt",
+    "euclidean_then_fisher": {
+      "energy": 0.0001207709113093704,
+      "oracle": 0.14464915014482277,
+      "snip": 0.03118036832530694
+    },
+    "h_projection": {
+      "energy": 0.00010091746510542761,
+      "oracle": 0.049882315566759046,
+      "snip": 0.0013798806744909195
+    },
+    "h_joint_recovery": 0.0038380614550371783,
+    "pooled_target_sensitivity": {
+      "energy": 3.429810963689629e-05,
+      "oracle": 0.35494134042920716,
+      "snip": 0.12332643575270591
+    },
+    "random_expected": 0.0004074661820023148,
+    "enrichment": 76.5225918187483,
+    "bare_enrichment": 0.5315226644149039,
+    "random_mean": 0.00040718172322883273,
+    "random_sd": 0.000209763650623681,
+    "random_exact_sd": 0.00021716228472805113,
+    "random_q025": 0.00025913311749397764,
+    "random_q975": 0.0008380399866679003,
+    "random_mc_se": 2.171622847280511e-06,
+    "random_exceedances": 0,
+    "n_draws": 10000,
+    "fisher_metadata": {
+      "num_batches": 200,
+      "batch_size": 16,
+      "split": "train",
+      "rank": 4,
+      "artifact": "results_theory_e1_crossover/roberta-large/qnli/p1/lora_r4/seed_0/lora_qnli_roberta-large_lr0.0005_seed0_theory.pt"
+    }
+  },
+  "rte": {
+    "D": 1769472,
+    "d": 22320,
+    "K": 721,
+    "support_path": "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/prolosa_td22320_sb720_w128_m1_slrm0p2/seed_0/unilora_rosa_snip_rte_roberta-large_lr0.005_seed0_theory.pt",
+    "support_seed": 0,
+    "support_train_fraction": 1.0,
+    "full_target_paths": [
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_0/lora_rte_roberta-large_lr0.005_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_1/lora_rte_roberta-large_lr0.005_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_2/lora_rte_roberta-large_lr0.005_seed2_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_3/lora_rte_roberta-large_lr0.005_seed3_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_4/lora_rte_roberta-large_lr0.005_seed4_theory.pt"
+    ],
+    "pooled_target_sensitivity_paths": [
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_0/lora_rte_roberta-large_lr0.005_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_1/lora_rte_roberta-large_lr0.005_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_2/lora_rte_roberta-large_lr0.005_seed2_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_3/lora_rte_roberta-large_lr0.005_seed3_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_4/lora_rte_roberta-large_lr0.005_seed4_theory.pt"
+    ],
+    "fisher_path": "NLU/peft/examples/sequence_classification/fisher_diag/rte_fisher.pt",
+    "euclidean_then_fisher": {
+      "energy": 2.1767712622314448e-06,
+      "oracle": 0.33740962577218603,
+      "snip": 0.01140117838510147
+    },
+    "h_projection": {
+      "energy": 1.2842167997332038e-06,
+      "oracle": 0.10843909100734409,
+      "snip": 0.0007806727693538741
+    },
+    "h_joint_recovery": 0.0023941820362040067,
+    "pooled_target_sensitivity": {
+      "energy": 2.1767712622314448e-06,
+      "oracle": 0.33740962577218603,
+      "snip": 0.01140117838510147
+    },
+    "random_expected": 0.0004074661820023148,
+    "enrichment": 27.980673952069722,
+    "bare_enrichment": 0.13622260150519502,
+    "random_mean": 0.00040218201250009537,
+    "random_sd": 0.0005353757465552994,
+    "random_exact_sd": 0.0005691629456960529,
+    "random_q025": 0.0001504527838185968,
+    "random_q975": 0.0012892090172510373,
+    "random_mc_se": 5.691629456960529e-06,
+    "random_exceedances": 8,
+    "n_draws": 10000,
+    "fisher_metadata": {
+      "num_batches": 156,
+      "batch_size": 16,
+      "split": "train",
+      "rank": 4,
+      "artifact": "results_theory_e4_remaining_glue/roberta-large/rte/lora_r4_lr4e-4/seed_0/lora_rte_roberta-large_lr0.005_seed0_theory.pt"
+    }
+  },
+  "stsb": {
+    "D": 1769472,
+    "d": 22320,
+    "K": 721,
+    "support_path": "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/prolosa_td22320_sb720_w128_m1_slrm0p2/seed_0/unilora_rosa_snip_stsb_roberta-large_lr0.0002_seed0_theory.pt",
+    "support_seed": 0,
+    "support_train_fraction": 1.0,
+    "full_target_paths": [
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_0/lora_stsb_roberta-large_lr0.0002_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_1/lora_stsb_roberta-large_lr0.0002_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_2/lora_stsb_roberta-large_lr0.0002_seed2_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_3/lora_stsb_roberta-large_lr0.0002_seed3_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_4/lora_stsb_roberta-large_lr0.0002_seed4_theory.pt"
+    ],
+    "pooled_target_sensitivity_paths": [
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_0/lora_stsb_roberta-large_lr0.0002_seed0_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_1/lora_stsb_roberta-large_lr0.0002_seed1_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_2/lora_stsb_roberta-large_lr0.0002_seed2_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_3/lora_stsb_roberta-large_lr0.0002_seed3_theory.pt",
+      "NLU/peft/examples/sequence_classification/results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_4/lora_stsb_roberta-large_lr0.0002_seed4_theory.pt"
+    ],
+    "fisher_path": "NLU/peft/examples/sequence_classification/fisher_diag/stsb_fisher.pt",
+    "euclidean_then_fisher": {
+      "energy": 0.0003896838583903925,
+      "oracle": 0.5191256470195027,
+      "snip": 0.07910280250388023
+    },
+    "h_projection": {
+      "energy": 0.00018344593814104186,
+      "oracle": 0.1489904520595541,
+      "snip": 0.0019782209287873766
+    },
+    "h_joint_recovery": 0.008736896243268455,
+    "pooled_target_sensitivity": {
+      "energy": 0.0003896838583903925,
+      "oracle": 0.5191256470195027,
+      "snip": 0.07910280250388023
+    },
+    "random_expected": 0.0004074661820023148,
+    "enrichment": 194.1334176867489,
+    "bare_enrichment": 0.2528330546787954,
+    "random_mean": 0.00042003305158954616,
+    "random_sd": 0.001252656098182557,
+    "random_exact_sd": 0.0012149211182404518,
+    "random_q025": 0.00010172000652437752,
+    "random_q975": 0.001840129959954996,
+    "random_mc_se": 1.2149211182404519e-05,
+    "random_exceedances": 0,
+    "n_draws": 10000,
+    "fisher_metadata": {
+      "num_batches": 200,
+      "batch_size": 16,
+      "split": "train",
+      "rank": 4,
+      "artifact": "results_theory_e4_remaining_glue/roberta-large/stsb/lora_r4/seed_0/lora_stsb_roberta-large_lr0.0002_seed0_theory.pt"
+    }
+  }
+}

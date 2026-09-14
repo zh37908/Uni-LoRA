@@ -1,0 +1,31 @@
+\begin{table*}[t]
+\centering\small
+\caption{Paired E1 mean loss gaps and pointwise 95\% Student-$t$ intervals (five training seeds, four degrees of freedom). The training subset is fixed at each fraction; these intervals do not measure uncertainty over new training sets or new dev sets.}
+\label{tab:e1_paired_ci}
+\begin{tabular}{lrrrr}
+\toprule
+Task & Fraction & $n$ & Mean gap & 95\% interval \\
+\midrule
+SST-2 & 1\% & 673 & 0.0671 & [-0.0206, 0.1549] \\
+SST-2 & 2\% & 1346 & 0.0975 & [0.0395, 0.1556] \\
+SST-2 & 5\% & 3367 & 0.0735 & [-0.0177, 0.1647] \\
+SST-2 & 10\% & 6734 & 0.0227 & [0.0077, 0.0377] \\
+SST-2 & 25\% & 16837 & -0.0002 & [-0.0200, 0.0196] \\
+SST-2 & 50\% & 33674 & 0.0018 & [-0.0106, 0.0143] \\
+SST-2 & 100\% & 67349 & 0.0023 & [-0.0083, 0.0129] \\
+QNLI & 1\% & 1047 & -0.0395 & [-0.0736, -0.0054] \\
+QNLI & 2\% & 2094 & 0.0776 & [-0.0159, 0.1710] \\
+QNLI & 5\% & 5237 & 0.1474 & [0.0548, 0.2400] \\
+QNLI & 10\% & 10474 & 0.0250 & [-0.0006, 0.0507] \\
+QNLI & 25\% & 26185 & 0.0131 & [-0.0074, 0.0335] \\
+QNLI & 50\% & 52371 & 0.0102 & [0.0053, 0.0151] \\
+QNLI & 100\% & 104743 & 0.0125 & [0.0075, 0.0175] \\
+CoLA & 25\% & 2137 & 0.0362 & [-0.0794, 0.1517] \\
+CoLA & 50\% & 4275 & 0.0669 & [-0.0158, 0.1497] \\
+CoLA & 100\% & 8551 & 0.0224 & [-0.0083, 0.0531] \\
+MRPC & 25\% & 917 & -0.0003 & [-0.1204, 0.1197] \\
+MRPC & 50\% & 1834 & 0.0009 & [-0.0208, 0.0226] \\
+MRPC & 100\% & 3668 & 0.0156 & [0.0008, 0.0303] \\
+\bottomrule
+\end{tabular}
+\end{table*}

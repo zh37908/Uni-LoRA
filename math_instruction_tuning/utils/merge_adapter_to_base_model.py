@@ -29,10 +29,18 @@ def find_all_linear_names(model):
     return list(lora_module_names)
 
 
+DTYPE_MAP = {
+    "auto": None,
+    "float16": torch.float16,
+    "bfloat16": torch.bfloat16,
+    "float32": torch.float32,
+}
+
+
 def main(args):
     model = AutoModelForCausalLM.from_pretrained(
         args.base_model,
-        # torch_dtype=torch.float16,
+        torch_dtype=DTYPE_MAP[args.dtype],
         device_map="auto",
     )
     tokenizer = AutoTokenizer.from_pretrained(args.base_model, device_map="auto")
@@ -49,5 +57,12 @@ if __name__ == "__main__":
     parser.add_argument("--base_model", type=str)
     parser.add_argument("--adapter", type=str)
     parser.add_argument("--output_path", type=str)
+    parser.add_argument(
+        "--dtype",
+        type=str,
+        default="auto",
+        choices=sorted(DTYPE_MAP),
+        help="dtype for loading the base model and saving the merged model",
+    )
     args = parser.parse_args()
     main(args)

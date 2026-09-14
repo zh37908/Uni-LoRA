@@ -1,0 +1,13 @@
+{
+  "id": "tune_mrpc_lora_c03_s101",
+  "phase": "tune",
+  "task": "mrpc",
+  "method": "lora",
+  "seed": 101,
+  "config_id": 3,
+  "adapter_lr": 0.0001,
+  "head_lr": 0.0002,
+  "weight_decay": 0.01,
+  "dropout": 0.05,
+  "stopping": "last"
+}

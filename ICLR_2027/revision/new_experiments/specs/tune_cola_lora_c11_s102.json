@@ -1,0 +1,13 @@
+{
+  "id": "tune_cola_lora_c11_s102",
+  "phase": "tune",
+  "task": "cola",
+  "method": "lora",
+  "seed": 102,
+  "config_id": 11,
+  "adapter_lr": 0.001,
+  "head_lr": 0.005,
+  "weight_decay": 0.01,
+  "dropout": 0.05,
+  "stopping": "last"
+}

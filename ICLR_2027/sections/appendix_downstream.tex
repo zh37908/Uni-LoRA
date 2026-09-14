@@ -1,0 +1,356 @@
+\section{Downstream Benchmarks and Settings}
+\label{app:downstream}
+\label{app:exp_details}
+
+This appendix provides implementation details omitted from the main text for reproducibility.
+Unless otherwise specified, the pretrained backbone is frozen and only PEFT parameters are updated.
+For each benchmark, all compared methods use the same data split, target modules, optimizer, batch size, number of epochs, learning-rate schedule, and random seeds whenever applicable.
+For \textbf{ProLoSA}, the sparse support is selected after compressed warmup using the accumulated sensitivity score defined in Appendix~\ref{sec:routed_sparse_adapter}.
+Unless a benchmark specifies otherwise (Llama-3.1 and ViT below), the reported warmup ratio $\rho_{\mathrm{w}}$ refers to the score-free compressed-only phase $T_{\mathrm{pre}}=\lfloor\rho_{\mathrm{w}}T\rfloor$; the sparse branch is activated only after the additional fixed $T_{\mathrm{s}}=128$-step scoring window, i.e., at step $\lfloor\rho_{\mathrm{w}}T\rfloor+128$.
+The selected support is fixed during the remaining training stage, and the sparse coefficients are initialized to zero.
+All reported training time and memory statistics include method-specific stages, including the warmup stage of \textbf{ProLoSA}.
+
+
+\subsection{Main Results}
+
+\paragraph{Results on GLUE.}
+Table~\ref{tab:glue} reports the results on GLUE \citep{wang2018glue}. 
+ProLoSA improves the average score of Uni-LoRA \citep{li2025unilora} from 85.3 to 85.5 on RoBERTa-base and from 88.3 to 88.7 on RoBERTa-large with the same trainable budget, achieving the best average among compressed baselines.
+The stronger relative performance of compressed methods on RoBERTa-large than on RoBERTa-base (where full LoRA retains an edge) is qualitatively compatible with the variance-reduction interpretation; however, changing the backbone alters not only the full-space dimension $D$ but also the representation quality, curvature, gradient noise, and target update simultaneously, so we do not treat this comparison as a controlled test of Eq.~\eqref{eq:energy_noise_risks}---the controlled mechanism checks are reported in Appendix~\ref{sec:real_model_validation}.
+
+\begin{table*}[t]
+\centering
+\caption{Results with RoBERTa$_{\text{base}}$ and RoBERTa$_{\text{large}}$ on GLUE \citep{wang2018glue}: Matthews correlation (CoLA), Pearson correlation (STS-B), and accuracy (others); mean$_{\pm\mathrm{std}}$ over 5 seeds. Baseline results are from Uni-LoRA \citep{li2025unilora}. $^\dagger$For VB-LoRA we quote the trainable-parameter count reported by the original paper, whose counting convention (stored vs.\ trained parameters) differs from the other rows.}
+\label{tab:glue}
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{clcccccccc}
+\toprule
+Backbone & Method & Trainable Params & SST-2 & MRPC & CoLA & QNLI & RTE & STS-B & Avg. \\
+\midrule
+\multirow{8}{*}{\rotatebox[origin=c]{90}{BASE}} 
+& FT & 125M & 94.8 & 90.2 & 63.6 & 92.8 & 78.7 & 91.2 & 85.2 \\
+& LoRA & 0.295M & $\textbf{95.1}_{\pm 0.2}$ & $89.7_{\pm 0.7}$ & $63.4_{\pm 1.2}$ & $\textbf{93.3}_{\pm 0.3}$ & $\textbf{86.6}_{\pm 0.7}$ & $\textbf{91.5}_{\pm 0.2}$ & \textbf{86.6} \\
+\cmidrule{2-10}
+& VeRA & 0.043M & $94.6_{\pm 0.1}$ & $89.5_{\pm 0.5}$ & $\textbf{65.6}_{\pm 0.8}$ & $91.8_{\pm 0.2}$ & $78.7_{\pm 0.7}$ & $90.7_{\pm 0.2}$ & 85.2 \\
+& Tied-LoRA & 0.043M & $94.4_{\pm 0.5}$ & $88.5_{\pm 1.0}$ & $61.9_{\pm 1.6}$ & $92.0_{\pm 0.4}$ & $76.2_{\pm 1.3}$ & $89.8_{\pm 0.3}$ & 83.8 \\
+& VB-LoRA & 0.075M$^\dagger$ & $94.4_{\pm 0.2}$ & $89.5_{\pm 0.5}$ & $63.3_{\pm 0.7}$ & $92.2_{\pm 0.2}$ & $82.3_{\pm 1.3}$ & $90.8_{\pm 0.1}$ & 85.4 \\
+& FourierFT & 0.024M & $94.2_{\pm 0.3}$ & $\textbf{90.0}_{\pm 0.8}$ & $63.8_{\pm 1.6}$ & $92.2_{\pm 0.1}$ & $79.1_{\pm 0.5}$ & $90.8_{\pm 0.2}$ & 85.0 \\
+& Uni-LoRA & 0.023M & $94.5_{\pm 0.2}$ & $89.7_{\pm 0.4}$ & $64.6_{\pm 1.0}$ & $92.3_{\pm 0.4}$ & $79.8_{\pm 1.1}$ & $90.9_{\pm 0.2}$ & 85.3 \\
+& ProLoSA & 0.023M & $94.9_{\pm 0.3}$ & $89.5_{\pm 0.6}$ & $63.5_{\pm 0.2}$ & $92.5_{\pm 0.2}$ & $81.7_{\pm 0.6}$ & $90.8_{\pm 0.2}$ & 85.5 \\
+\midrule
+\multirow{8}{*}{\rotatebox[origin=c]{90}{LARGE}} 
+& LoRA & 0.786M & $96.2_{\pm 0.5}$ & $90.2_{\pm 1.0}$ & $68.2_{\pm 1.9}$ & $\textbf{94.8}_{\pm 0.3}$ & $85.2_{\pm 1.1}$ & $\textbf{92.3}_{\pm 0.5}$ & 87.8 \\
+\cmidrule{2-10}
+& VeRA & 0.061M & $96.1_{\pm 0.1}$ & $90.9_{\pm 0.7}$ & $68.0_{\pm 0.8}$ & $94.4_{\pm 0.2}$ & $85.9_{\pm 0.7}$ & $91.7_{\pm 0.8}$ & 87.8 \\
+& Tied-LoRA & 0.066M & $94.8_{\pm 0.6}$ & $89.7_{\pm 1.0}$ & $64.7_{\pm 1.2}$ & $94.1_{\pm 0.1}$ & $81.2_{\pm 0.1}$ & $90.8_{\pm 0.3}$ & 85.9 \\
+& VB-LoRA & 0.162M$^\dagger$ & $96.1_{\pm 0.2}$ & $91.4_{\pm 0.6}$ & $68.3_{\pm 0.7}$ & $94.7_{\pm 0.5}$ & $86.6_{\pm 1.3}$ & $91.8_{\pm 0.1}$ & 88.2 \\
+& LoRA-XS & 0.025M & $95.9_{\pm 0.3}$ & $90.7_{\pm 0.4}$ & $67.0_{\pm 1.2}$ & $93.9_{\pm 0.1}$ & $\textbf{88.1}_{\pm 0.3}$ & $92.0_{\pm 0.1}$ & 87.9 \\
+& FourierFT & 0.048M & $96.0_{\pm 0.2}$ & $90.9_{\pm 0.3}$ & $67.1_{\pm 1.4}$ & $94.4_{\pm 0.4}$ & $87.4_{\pm 1.6}$ & $92.0_{\pm 0.4}$ & 88.0 \\
+& Uni-LoRA & 0.023M & $96.3_{\pm 0.2}$ & $91.3_{\pm 0.6}$ & $68.5_{\pm 1.1}$ & $94.6_{\pm 0.4}$ & $86.6_{\pm 1.6}$ & $92.1_{\pm 0.1}$ & $88.3$ \\
+& ProLoSA & 0.023M & $\textbf{96.5}_{\pm 0.2}$ & $\textbf{91.7}_{\pm 0.6}$ & $\textbf{70.3}_{\pm 0.6}$ & $94.6_{\pm 0.1}$ & $87.4_{\pm 0.6}$ & $91.9_{\pm 0.2}$ & \textbf{88.7} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+
+\paragraph{Results on mathematical reasoning.}
+Table~\ref{tab:math} reports results for Gemma-7B \citep{team2024gemma} on GSM8K \citep{cobbe2021training} and MATH \citep{hendrycks2021measuring}, and for Llama-3.1-8B on GSM8K and MATH500. On Gemma-7B, ProLoSA shows its main advantage on the harder MATH benchmark, improving over Uni-LoRA from 28.94 to 29.90 under the same 0.52M budget, while remaining competitive on GSM8K, where Uni-LoRA is strongest among all methods (75.59) and ProLoSA's sparse branch does not pay off (74.69).
+On Llama-3.1-8B, LoRA ($r=64$, 167.77M parameters) achieves 79.61/33.20 on GSM8K/MATH500. At a shared 1.05M budget, Uni-LoRA achieves 75.44/26.20 and ProLoSA achieves 75.06/26.60: ProLoSA scores 0.40 points higher on MATH500 and 0.38 points lower on GSM8K. These single-seed results show a tradeoff rather than a consistent improvement; both compressed methods remain below rank-64 LoRA. The displayed compressed configurations maximize the two-benchmark mean within each method at this budget among the available runs; this is a post-hoc test-set summary, with the full sweep reported in Appendix~\ref{app:llama31_math_sweep}.
+We treat these results purely as a practical benchmark: because the model is fine-tuned once on MetaMathQA and then evaluated on both benchmarks (Appendix~\ref{app:exp_details}), the two evaluations share a single training update, so per-benchmark differences cannot be attributed to differences in task-specific update energy; a theoretical attribution would require training separately on each task's data and measuring the corresponding curvature-weighted off-subspace energies, which we leave to the controlled experiments of Appendix~\ref{sec:real_model_validation}.
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\multicolumn{4}{c}{\textit{Gemma-7B}} \\
+\midrule
+Method & Trainable Params & GSM8K & MATH \\
+\midrule
+LoRA        & 200M    & {74.90} & \textbf{31.28} \\
+VeRA        & 1.90M   & 74.98 & 28.84 \\
+FourierFT   & 0.59M   & 72.97 & 25.14 \\
+Uni-LoRA    & 0.52M   & \textbf{75.59} & 28.94 \\
+{ProLoSA}   & 0.52M   & 74.69 & 29.90    \\
+\midrule
+\multicolumn{4}{c}{\textit{Llama-3.1-8B}} \\
+\midrule
+Method & Trainable Params & GSM8K & MATH500 \\
+\midrule
+LoRA ($r=64$) & 167.77M & \textbf{79.61} & \textbf{33.20} \\
+Uni-LoRA & 1.05M & 75.44 & 26.20 \\
+ProLoSA ($d:K=12:1$) & 1.05M & 75.06 & 26.60 \\
+\bottomrule
+\end{tabular}
+\caption{Mathematical reasoning exact-match accuracy (\%). Gemma-7B uses full MATH; Llama-3.1-8B uses MATH500. Llama results use seed 42, with compressed configurations selected as described in the text; 1.05M denotes exactly 1,048,576 trainable parameters.}
+\label{tab:math}
+\end{table}
+
+
+
+
+\paragraph{Results on instruction tuning.}
+Table~\ref{tab:instruction} in Appendix~\ref{app:exp_details} summarizes instruction tuning under the QLoRA recipe \citep{dettmers2023qlora}. On multi-turn MT-Bench \citep{zheng2023judging}, ProLoSA outperforms both Uni-LoRA and standard LoRA \citep{hu2022lora} while using orders of magnitude fewer trainable parameters than the latter ($4.25$ vs.\ $3.23$ on LLaMA2-7B and $4.72$ vs.\ $4.13$ on LLaMA2-13B with $0.3\%$ of the LoRA budget); on single-turn scores it is competitive with Uni-LoRA but remains below LoRA on the 7B model ($5.36$ vs.\ $5.62$).
+
+
+\subsection{Ablation Study}
+\label{sec:ablation}
+
+We ablate three design choices on CoLA and MRPC under matched trainable-parameter budgets: budget allocation between the two branches, sparse support selection, and warmup ratio; full results are reported in Appendix~\ref{app:ablation} (Table~\ref{tab:ablation_budget_full}).
+Neither pure compression nor pure sparsity is optimal: hybrid allocations outperform the sparse-only variant by a large margin (e.g., $69.62$ vs.\ $59.99$ CoLA Matthews correlation at $d{+}K=23040$) and improve over compressed-only on at least one task.
+Under the same $d=22320$ and $K=720$, warmup SNIP support selection outperforms both random and accumulated-gradient supports ($69.62$ vs.\ $66.58$ and $67.95$ on CoLA), where the accumulated-gradient variant scores coordinates by $\sum_t|g_i^{(t)}|$ without the $\theta$-weighting of Eq.~\eqref{eq:warmup_snip_score}.
+Under the idealized isotropic matched-budget model, a random support is expected to provide no systematic gain over pure compression (Corollary~\ref{cor:random_support}); in the real network it performs slightly worse than compressed-only ($66.58$ vs.\ $68.99$), which may reflect anisotropic curvature, optimization and conditioning effects of the augmented parameterization, or finite-sample variability.
+The consistent ordering SNIP $>$ random supports the central prediction that the gain comes from \emph{informed residual allocation} rather than from sparsity itself.
+Finally, varying the score-free warmup phase $T_{\mathrm{pre}}=\lfloor\rho_{\mathrm{w}}T\rfloor$ that precedes the fixed $128$-step scoring window, a ratio of $10\%$ performs best, whereas $20\%$ degrades both tasks, likely because the sparse branch is activated too late and the joint-optimization phase becomes too short.
+
+
+\subsection{GLUE Hyperparameters}
+
+Table~\ref{tab:glue_hyperparams} reports the main hyperparameters for GLUE.
+We use the same settings for all compared PEFT methods under the corresponding backbone unless otherwise stated.
+For CoLA, STS-B, and the remaining tasks, we report Matthews correlation, Pearson correlation, and accuracy, respectively.
+The median performance over five random seeds is reported.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{llcccccc}
+\toprule
+Backbone & Task & $d$ & $K$ & Epochs & BS & LR \\
+\midrule
+RoBERTa-base  & SST-2 & 22320 & 720 & 60  & 32 & 5e-4 \\
+RoBERTa-base  & MRPC  & 22320 & 720 & 30  & 32 & 1e-3 \\
+RoBERTa-base  & CoLA  & 14400 & 8640 & 80  & 32 & 2e-2 \\
+RoBERTa-base  & QNLI  & 22320 & 720 & 25  & 32 & 1e-3 \\
+RoBERTa-base  & RTE   & 22320 & 720 & 160 & 32 & 1e-2 \\
+RoBERTa-base  & STS-B & 22320 & 720 & 80  & 32 & 2e-4 \\
+RoBERTa-large & SST-2 & 22320 & 720 & 20  & 32 & 1e-3 \\
+RoBERTa-large & MRPC  & 22320 & 720 & 40  & 32 & 2e-4 \\
+RoBERTa-large & CoLA  & 14400 & 8640 & 40  & 32 & 5e-3 \\
+RoBERTa-large & QNLI  & 22320 & 720 & 20  & 32 & 5e-4 \\
+RoBERTa-large & RTE   & 22320 & 720 & 40  & 32 & 5e-3 \\
+RoBERTa-large & STS-B & 22320 & 720 & 40  & 32 & 2e-4 \\
+\midrule
+Optimizer & \multicolumn{6}{c}{AdamW} \\
+Scheduler & \multicolumn{6}{c}{Linear} \\
+Seeds & \multicolumn{6}{c}{5} \\
+ProLoSA warmup ratio & \multicolumn{6}{c}{10\%} \\
+SNIP score-collection window & \multicolumn{6}{c}{128 steps}\\
+\bottomrule
+\end{tabular}
+\caption{Core hyperparameter settings for GLUE experiments. BS denotes batch size. The $d$ and $K$ columns denote the compressed latent dimension and sparse residual budget used by ProLoSA.}
+\label{tab:glue_hyperparams}
+\end{table}
+
+\subsection{Mathematical Reasoning Hyperparameters}
+
+Table~\ref{tab:math_hyperparams} reports the Gemma-7B configuration for GSM8K and MATH.
+Within each backbone, all methods use the same target modules, numerical precision, and decoding protocol; the Llama-3.1-8B settings and sweep are reported below.
+Exact-match scores are computed with the same answer extraction rule for all methods.
+
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Hyperparameter} & \textbf{GSM8K} & \textbf{MATH} \\
+\midrule
+\multicolumn{3}{c}{\textit{Shared Training Configuration}} \\
+\midrule
+Backbone & \multicolumn{2}{c}{Gemma-7B} \\
+Train data & \multicolumn{2}{c}{MetaMathQA train} \\
+Epochs & \multicolumn{2}{c}{2} \\
+Train batch size & \multicolumn{2}{c}{1} \\
+Gradient accumulation & \multicolumn{2}{c}{64} \\
+Learning rate & \multicolumn{2}{c}{$2\times10^{-4}$} \\
+Scheduler & \multicolumn{2}{c}{Cosine} \\
+Max sequence length & \multicolumn{2}{c}{512} \\
+ProLoSA $d$ & \multicolumn{2}{c}{349525} \\
+ProLoSA $K$ & \multicolumn{2}{c}{174763} \\
+ProLoSA warmup ratio & \multicolumn{2}{c}{10\%} \\
+SNIP score-collection window & \multicolumn{2}{c}{128 steps}\\
+Seeds & \multicolumn{2}{c}{42} \\
+\midrule
+\multicolumn{3}{c}{\textit{Task-Specific Evaluation Configuration}} \\
+\midrule
+Metric & \multicolumn{2}{c}{Exact match} \\
+Eval batch size & 32 & 32 \\
+Max new tokens & 1024 & 2048 \\
+\bottomrule
+\end{tabular}
+\caption{Core training and evaluation settings for mathematical reasoning experiments. The model is fine-tuned once on MetaMathQA and evaluated across both benchmarks.}
+\label{tab:math_hyperparams}
+\end{table}
+
+
+\paragraph{Llama-3.1-8B configuration and sweep.}
+\label{app:llama31_math_sweep}
+We fine-tune the Llama-3.1-8B base model (NousResearch mirror) on the first 100,000 MetaMathQA training examples for two epochs, using BF16 without weight quantization, a maximum training length of 512, batch size 1, gradient accumulation 64, cosine learning-rate decay, a 2\% scheduler warmup, and zero weight decay. All methods target the attention and MLP linear projections. LoRA uses $r=64$, $\alpha=64$, and learning rate $2\times10^{-4}$; Uni-LoRA and ProLoSA use $r=4$. Evaluation uses greedy decoding (temperature 0, top-$p=1$), batch size 32, and at most 1,024/2,048 generated tokens for GSM8K/MATH500. Each evaluated configuration uses seed 42 and the same fine-tuned checkpoint across the two benchmarks (1,319 and 500 examples, respectively); full MATH results are unavailable for this backbone.
+
+In Table~\ref{tab:math}, Uni-LoRA uses $d=1{,}048{,}576$ and learning rate $2\times10^{-3}$. ProLoSA uses $d=967{,}916$, $K=80{,}660$ (approximately $12:1$), and a projected-vector learning rate of $1.6\times10^{-3}$. Its base learning rate is $2\times10^{-4}$, with sparse learning-rate multiplier 0.2, sparse warmup 128 steps, a one-step SNIP mask-collection window, and optimizer reset on mask activation. Its trainable budget counts both $d$ and $K$, including the sparse parameters activated after warmup.
+
+Table~\ref{tab:llama31_math_sweep} lists all completed Llama-3.1-8B configurations found in the local evaluation results. At the shared 1,048,576-parameter budget, we display in the main table the configuration with the largest arithmetic mean of GSM8K and MATH500 for each compressed method. This descriptive selection uses the reported test scores, not an independent validation set; it does not establish statistical significance or a multi-seed advantage. The larger-budget Uni-LoRA runs and alternative ProLoSA ratios are retained below so that budget and hyperparameter effects remain visible.
+
+\begin{table}[p]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrrrrr}
+\toprule
+Method & Params & $d:K$ & Learning rate & GSM8K & MATH500 \\
+\midrule
+LoRA ($r=4$) & 10,485,760 & -- & $2\times10^{-4}$ & 75.59 & 26.80 \\
+LoRA ($r=64$) & 167,772,160 & -- & $2\times10^{-4}$ & 79.61 & 33.20 \\
+\midrule
+Uni-LoRA & 262,144 & -- & $2\times10^{-3}$ & 70.28 & 23.40 \\
+Uni-LoRA & 524,288 & -- & $5\times10^{-4}$ & 68.39 & 25.40 \\
+Uni-LoRA & 524,288 & -- & $1\times10^{-3}$ & 72.33 & 23.00 \\
+Uni-LoRA & 524,288 & -- & $2\times10^{-3}$ & 73.84 & 24.80 \\
+Uni-LoRA & 524,288 & -- & $4\times10^{-3}$ & 74.15 & 26.60 \\
+Uni-LoRA & 524,288 & -- & $8\times10^{-3}$ & 74.75 & 24.20 \\
+Uni-LoRA & 524,288 & -- & $1\times10^{-2}$ & 72.40 & 21.00 \\
+Uni-LoRA & 1,048,576 & -- & $5\times10^{-4}$ & 72.25 & 25.00 \\
+Uni-LoRA & 1,048,576 & -- & $1\times10^{-3}$ & 74.22 & 26.20 \\
+Uni-LoRA & 1,048,576 & -- & $2\times10^{-3}$ & 75.44 & 26.20 \\
+Uni-LoRA & 1,048,576 & -- & $4\times10^{-3}$ & 74.07 & 25.60 \\
+Uni-LoRA & 2,097,152 & -- & $5\times10^{-4}$ & 74.45 & 26.00 \\
+Uni-LoRA & 2,097,152 & -- & $1\times10^{-3}$ & 75.97 & 25.60 \\
+Uni-LoRA & 2,097,152 & -- & $2\times10^{-3}$ & 76.95 & 26.00 \\
+Uni-LoRA & 2,097,152 & -- & $4\times10^{-3}$ & 74.30 & 25.80 \\
+Uni-LoRA & 4,194,304 & -- & $2\times10^{-3}$ & 76.12 & 26.20 \\
+\midrule
+ProLoSA & 524,288 & 2:1 & $8\times10^{-4}$ & 69.75 & 24.80 \\
+ProLoSA & 524,288 & 4:1 & $8\times10^{-4}$ & 69.07 & 21.40 \\
+ProLoSA & 524,288 & 8:1 & $8\times10^{-4}$ & 69.83 & 21.00 \\
+ProLoSA & 524,288 & 12:1 & $4\times10^{-4}$ & 68.23 & 21.00 \\
+ProLoSA & 524,288 & 12:1 & $8\times10^{-4}$ & 71.27 & 21.00 \\
+ProLoSA & 524,288 & 12:1 & $1.6\times10^{-3}$ & 73.31 & 20.60 \\
+ProLoSA & 524,288 & 12:1 & $3.2\times10^{-3}$ & 73.92 & 23.80 \\
+ProLoSA & 1,048,576 & 2:1 & $1.6\times10^{-3}$ & 73.77 & 24.80 \\
+ProLoSA & 1,048,576 & 2:1 & $3.2\times10^{-3}$ & 74.98 & 24.60 \\
+ProLoSA & 1,048,576 & 4:1 & $1.6\times10^{-3}$ & 75.66 & 24.80 \\
+ProLoSA & 1,048,576 & 4:1 & $3.2\times10^{-3}$ & 74.60 & 25.00 \\
+ProLoSA & 1,048,576 & 8:1 & $1.6\times10^{-3}$ & 74.07 & 26.20 \\
+ProLoSA & 1,048,576 & 8:1 & $3.2\times10^{-3}$ & 74.37 & 25.60 \\
+ProLoSA & 1,048,576 & 12:1 & $1.6\times10^{-3}$ & 75.06 & 26.60 \\
+ProLoSA & 1,048,576 & 12:1 & $3.2\times10^{-3}$ & 74.53 & 21.60 \\
+\bottomrule
+\end{tabular}
+\caption{Complete available Llama-3.1-8B sweep (exact-match accuracy in \%, seed 42). The learning-rate column gives the projected-vector rate for ProLoSA, whose base rate is fixed at $2\times10^{-4}$, and the optimizer rate for LoRA/Uni-LoRA. Ratios $d:K$ are approximate due to integer budgets. Rank-4 LoRA is included only as a supplementary reference; the main baseline uses rank 64. Each row reports both benchmarks from one configuration.}
+\label{tab:llama31_math_sweep}
+\end{table}
+
+\subsection{Instruction-Tuning Hyperparameters}
+
+Table~\ref{tab:instruction} reports the full instruction-tuning results referenced in the main text, and Table~\ref{tab:instruction_hyperparams} reports the core configuration.
+All methods are trained on the same instruction data and evaluated with the same MT-Bench protocol.
+For QLoRA-style experiments, the backbone is quantized and frozen, and only PEFT parameters are updated.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Method} & \textbf{\# Params} & \textbf{Score$_1$} & \textbf{Score$_2$} \\
+\midrule
+w/o FT       & -       & 1.31 / 1.46 & 1.11 / 1.06 \\
+LoRA$^{\#}$  & 159.9M / 250.3M & \textbf{5.62} / 6.20 & 3.23 / 4.13 \\
+Uni-LoRA     & 0.52M / 1.0M    & 5.34 / 6.34 & 3.56 / 4.43 \\
+ProLoSA      & 0.52M / 1.0M    & 5.36 / \textbf{6.57} & \textbf{4.25} / \textbf{4.72} \\
+\bottomrule
+\end{tabular}
+\caption{
+Instruction-tuning results under the QLoRA training recipe \citep{dettmers2023qlora}. 
+Each entry reports LLaMA2-7B / LLaMA2-13B results. 
+Score$_1$ and Score$_2$ denote MT-Bench single-turn and multi-turn scores, respectively.
+}
+\label{tab:instruction}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\renewcommand{\arraystretch}{0.9} % 稍微压缩行距，节省纵向空间
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcc}
+\toprule
+Hyperparameter & Shared / LLaMA2-7B & LLaMA2-13B \\
+\midrule
+Training data & \multicolumn{2}{c}{Cleaned Alpaca} \\
+Evaluation & \multicolumn{2}{c}{MT-Bench} \\
+Quantization & \multicolumn{2}{c}{4-bit NF4 + double quantization} \\
+Epochs & \multicolumn{2}{c}{1} \\
+Effective batch size & \multicolumn{2}{c}{16} \\
+Per-device batch size & 4 & 2 \\
+Gradient accumulation & 4 & 8 \\
+Scheduler & \multicolumn{2}{c}{Linear} \\
+Max sequence length & \multicolumn{2}{c}{16 / 512} \\
+Decoding strategy & \multicolumn{2}{c}{Category-specific sampling/greedy} \\
+Temperature & \multicolumn{2}{c}{0.7 / 0.1 / 0 by category} \\
+Max new tokens & \multicolumn{2}{c}{1024} \\
+Evaluator / judge & \multicolumn{2}{c}{GPT-4 single} \\
+LoRA params & 159.9M & 250.3M \\
+Uni-LoRA params & 0.52M & 1.0M \\
+ProLoSA params & 0.52M & 1.0M \\
+ProLoSA $d$ & 507904 & 983040 \\
+ProLoSA $K$ & 16384 & 65536 \\
+ProLoSA warmup ratio & \multicolumn{2}{c}{10\%} \\
+SNIP score-collection window & \multicolumn{2}{c}{128 steps}\\
+Seeds & \multicolumn{2}{c}{0} \\
+\bottomrule
+\end{tabular}
+\caption{Core training and evaluation settings for instruction-tuning experiments. Score$_1$ and Score$_2$ denote MT-Bench single-turn and multi-turn scores, respectively.}
+\label{tab:instruction_hyperparams}
+\end{table}
+
+\subsection{Ablation Details}
+\label{app:ablation}
+
+Table~\ref{tab:ablation_budget_full} reports the full budget-allocation sweep between the projected branch and the sparse residual branch.
+All variants use the same total trainable-parameter budget $B=d+K=23040$.
+The compressed-only variant corresponds to $K=0$, the sparse-only variant corresponds to $d=0$, and intermediate configurations correspond to \textbf{ProLoSA} with both branches active.
+Since $B$ is fixed, increasing the sparse budget $K$ necessarily reduces the compressed latent dimension $d$.
+
+\begin{table}[t]
+\centering
+\small
+\renewcommand{\arraystretch}{0.9} % 纵向稍微压缩行距，节省高度
+\setlength{\tabcolsep}{2.5pt}     % 缩小列与列之间的空白间距，避免缩小字号
+\begin{tabular}{@{}llcccc@{}}      % @{} 去除表格最左和最右的额外空白占位
+\toprule
+Study & Variant & $d$ & $K$ & CoLA & MRPC \\
+\midrule
+\multirow{9}{*}{Budget}
+& Compressed-only & 23040 & 0     & $68.99_{\pm 0.58}$ & $90.93_{\pm 0.00}$ \\
+& ProLoSA & 22680 & 360   & $68.29_{\pm 1.40}$ & $90.11_{\pm 0.50}$ \\
+& ProLoSA & 22320 & 720   & $69.62_{\pm 1.84}$ & $\mathbf{91.69}_{\pm 0.40}$ \\
+& ProLoSA & 21600 & 1440  & $67.21_{\pm 0.84}$ & $90.87_{\pm 0.46}$ \\
+& ProLoSA & 20160 & 2880  & $68.72_{\pm 0.45}$ & $83.74_{\pm 9.65}$ \\
+& ProLoSA & 18720 & 4320  & $67.51_{\pm 0.51}$ & $90.03_{\pm 0.42}$ \\
+& ProLoSA & 14400 & 8640  & $\mathbf{70.27}_{\pm 0.60}$ & $90.77_{\pm 0.42}$ \\
+& ProLoSA & 5760  & 17280 & $68.75_{\pm 1.27}$ & $89.71_{\pm 0.20}$ \\
+& Sparse-only & 0 & 23040 & $59.99_{\pm 1.40}$ & $84.89_{\pm 0.83}$ \\
+\midrule
+\multirow{3}{*}{Support}
+& Random & 22320 & 720 & $66.58_{\pm 0.63}$ & $90.28_{\pm 0.61}$ \\
+& Accum. gradient & 22320 & 720 & $67.95_{\pm 0.59}$ & $90.03_{\pm 0.31}$ \\
+& Warmup SNIP & 22320 & 720 & $\mathbf{69.62}_{\pm 1.84}$ & $\mathbf{91.69}_{\pm 0.40}$ \\
+\midrule
+\multirow{4}{*}{Warmup}
+& $0\%$ & 22320 & 720 & $67.32_{\pm 0.47}$ & $90.36_{\pm 0.20}$ \\
+& $5\%$ & 22320 & 720 & $69.05_{\pm 0.51}$ & $91.12_{\pm 0.70}$ \\
+& $10\%$ & 22320 & 720 & $\mathbf{69.62}_{\pm 1.84}$ & $\mathbf{91.69}_{\pm 0.40}$ \\
+& $20\%$ & 22320 & 720 & $67.49_{\pm 0.96}$ & $90.60_{\pm 0.81}$ \\
+\bottomrule
+\end{tabular}
+\caption{
+Ablation details on budget allocation, sparse support selection, and warmup length.
+CoLA reports Matthews correlation and MRPC reports accuracy.
+}
+\label{tab:ablation_budget_full}
+\end{table}
+
+\clearpage
+\input{sections/appendix_vision}

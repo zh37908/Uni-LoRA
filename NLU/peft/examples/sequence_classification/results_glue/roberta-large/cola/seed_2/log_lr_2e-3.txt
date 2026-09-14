@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/home/hzhaobi/Uni-LoRA/NLU/peft/examples/sequence_classification/run_unilora_glue.py", line 40, in <module>
-    from peft import UniLoRAConfig, UniLoRANonormConfig, PeftType
-ImportError: cannot import name 'UniLoRANonormConfig' from 'peft' (/home/hzhaobi/Uni-LoRA/instruction_tuning/peft/src/peft/__init__.py)

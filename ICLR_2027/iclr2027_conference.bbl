@@ -1,0 +1,212 @@
+\begin{thebibliography}{36}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Aghajanyan et~al.(2021)Aghajanyan, Gupta, and Zettlemoyer]{aghajanyan2021intrinsic}
+Armen Aghajanyan, Sonal Gupta, and Luke Zettlemoyer.
+\newblock Intrinsic dimensionality explains the effectiveness of language model fine-tuning.
+\newblock In \emph{Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing}, pp.\  7319--7328, 2021.
+\newblock \doi{10.18653/v1/2021.acl-long.568}.
+\newblock URL \url{https://aclanthology.org/2021.acl-long.568}.
+
+\bibitem[Ansell et~al.(2024)Ansell, Vuli{\'c}, Sterz, Korhonen, and Ponti]{ansell2024scaling}
+Alan Ansell, Ivan Vuli{\'c}, Hannah Sterz, Anna Korhonen, and Edoardo~M. Ponti.
+\newblock Scaling sparse fine-tuning to large language models, 2024.
+
+\bibitem[Ba{\l}azy et~al.(2025)Ba{\l}azy, Banaei, Aberer, and Tabor]{balazy2025lora}
+Klaudia Ba{\l}azy, Mohammadreza Banaei, Karl Aberer, and Jacek Tabor.
+\newblock {LoRA-XS}: Low-rank adaptation with extremely small number of parameters.
+\newblock In \emph{28th European Conference on Artificial Intelligence}. IOS Press, 2025.
+\newblock \doi{10.3233/faia251185}.
+
+\bibitem[Cobbe et~al.(2021)Cobbe, Kosaraju, Bavarian, Chen, Jun, Kaiser, Plappert, Tworek, Hilton, Nakano, Hesse, and Schulman]{cobbe2021training}
+Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, Heewoo Jun, Lukasz Kaiser, Matthias Plappert, Jerry Tworek, Jacob Hilton, Reiichiro Nakano, Christopher Hesse, and John Schulman.
+\newblock Training verifiers to solve math word problems.
+\newblock \emph{arXiv preprint arXiv:2110.14168}, 2021.
+
+\bibitem[Dettmers et~al.(2023)Dettmers, Pagnoni, Holtzman, and Zettlemoyer]{dettmers2023qlora}
+Tim Dettmers, Artidoro Pagnoni, Ari Holtzman, and Luke Zettlemoyer.
+\newblock {QLoRA}: Efficient finetuning of quantized {LLMs}.
+\newblock In \emph{Advances in Neural Information Processing Systems}, volume~36, 2023.
+\newblock \doi{10.52202/075280-0441}.
+
+\bibitem[Gao et~al.(2024)Gao, Wang, Chen, Liu, Wu, Chen, and Li]{gao2024fourierft}
+Ziqi Gao, Qichao Wang, Aochuan Chen, Zijing Liu, Bingzhe Wu, Liang Chen, and Jia Li.
+\newblock Parameter-efficient fine-tuning with discrete {F}ourier transform.
+\newblock In \emph{Proceedings of the 41st International Conference on Machine Learning}, volume 235 of \emph{Proceedings of Machine Learning Research}, pp.\  14884--14901. PMLR, 2024.
+
+\bibitem[{Gemma Team}(2024)]{team2024gemma}
+{Gemma Team}.
+\newblock Gemma: Open models based on gemini research and technology.
+\newblock \emph{arXiv preprint arXiv:2403.08295}, 2024.
+
+\bibitem[Hastie et~al.(2009)Hastie, Tibshirani, and Friedman]{hastie2009elements}
+Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
+\newblock \emph{The Elements of Statistical Learning: Data Mining, Inference, and Prediction}.
+\newblock Springer, 2 edition, 2009.
+
+\bibitem[He et~al.(2022)He, Ding, Dong, Zhang, and Tao]{he2022sparseadapter}
+Shwai He, Liang Ding, Daize Dong, Jeremy Zhang, and Dacheng Tao.
+\newblock {SparseAdapter}: An easy approach for improving the parameter-efficiency of adapters.
+\newblock In \emph{Findings of the Association for Computational Linguistics: EMNLP 2022}, pp.\  2184--2190, 2022.
+\newblock \doi{10.18653/v1/2022.findings-emnlp.160}.
+
+\bibitem[Hendrycks et~al.(2021)Hendrycks, Burns, Kadavath, Arora, Basart, Tang, Song, and Steinhardt]{hendrycks2021measuring}
+Dan Hendrycks, Collin Burns, Saurav Kadavath, Akul Arora, Steven Basart, Eric Tang, Dawn Song, and Jacob Steinhardt.
+\newblock Measuring mathematical problem solving with the {MATH} dataset.
+\newblock In \emph{Proceedings of the Neural Information Processing Systems Track on Datasets and Benchmarks}, 2021.
+
+\bibitem[Hu et~al.(2022)Hu, Shen, Wallis, Allen-Zhu, Li, Wang, Wang, and Chen]{hu2022lora}
+Edward~J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu~Wang, and Weizhu Chen.
+\newblock {LoRA}: Low-rank adaptation of large language models.
+\newblock In \emph{International Conference on Learning Representations}, 2022.
+\newblock \doi{10.48550/arXiv.2106.09685}.
+\newblock URL \url{https://openreview.net/forum?id=nZeVKeeFYf9}.
+
+\bibitem[James \& Stein(1961)James and Stein]{james1961estimation}
+William James and Charles Stein.
+\newblock Estimation with quadratic loss.
+\newblock In \emph{Proceedings of the Fourth Berkeley Symposium on Mathematical Statistics and Probability}, volume~1, pp.\  361--379, Berkeley, CA, 1961. University of California Press.
+
+\bibitem[Kab{\'a}n(2014)]{kaban2014new}
+Ata Kab{\'a}n.
+\newblock New bounds on compressive linear least squares regression.
+\newblock In \emph{Proceedings of the Seventeenth International Conference on Artificial Intelligence and Statistics}, volume~33 of \emph{Proceedings of Machine Learning Research}, pp.\  448--456. PMLR, 2014.
+
+\bibitem[Koohpayegani et~al.(2024)Koohpayegani, Navaneet, Nooralinejad, Kolouri, and Pirsiavash]{koohpayegani2024nola}
+Soroush~Abbasi Koohpayegani, K~L Navaneet, Parsa Nooralinejad, Soheil Kolouri, and Hamed Pirsiavash.
+\newblock {NOLA}: Compressing {LoRA} using linear combination of random basis.
+\newblock In \emph{International Conference on Learning Representations}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=TjfXcDgvzk}.
+
+\bibitem[Kopiczko et~al.(2024)Kopiczko, Blankevoort, and Asano]{kopiczko2024vera}
+Dawid~Jan Kopiczko, Tijmen Blankevoort, and Yuki~M. Asano.
+\newblock {VeRA}: Vector-based random matrix adaptation.
+\newblock In \emph{International Conference on Learning Representations}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=NjNfLdxr3A}.
+
+\bibitem[Lee et~al.(2019)Lee, Ajanthan, and Torr]{lee2018snip}
+Namhoon Lee, Thalaiyasingam Ajanthan, and Philip H.~S. Torr.
+\newblock Snip: Single-shot network pruning based on connection sensitivity.
+\newblock In \emph{International Conference on Learning Representations}, 2019.
+\newblock URL \url{https://openreview.net/forum?id=B1VZqjAcYX}.
+
+\bibitem[Li et~al.(2025)Li, Han, Su, Li, Cai, and Ji]{li2025unilora}
+Kaiyang Li, Shaobo Han, Qing Su, Wei Li, Zhipeng Cai, and Shihao Ji.
+\newblock {Uni-LoRA}: One vector is all you need.
+\newblock In \emph{The 39th Conference on Neural Information Processing Systems}, 2025.
+
+\bibitem[Li et~al.(2024)Li, Han, and Ji]{li2024vb}
+Yang Li, Shaobo Han, and Shihao Ji.
+\newblock {VB-LoRA}: Extreme parameter efficient fine-tuning with vector banks.
+\newblock \emph{Advances in Neural Information Processing Systems}, 37:\penalty0 16724--16751, 2024.
+\newblock \doi{10.52202/079017-0533}.
+
+\bibitem[Liu et~al.(2024)Liu, Wang, Yin, Molchanov, Wang, Cheng, and Chen]{liu2024dora}
+Shih-Yang Liu, Chien-Yi Wang, Hongxu Yin, Pavlo Molchanov, Yu-Chiang~Frank Wang, Kwang-Ting Cheng, and Min-Hung Chen.
+\newblock {DoRA}: Weight-decomposed low-rank adaptation.
+\newblock In \emph{Proceedings of the 41st International Conference on Machine Learning}, volume 235 of \emph{Proceedings of Machine Learning Research}. PMLR, 2024.
+\newblock \doi{10.48550/arXiv.2402.09353}.
+\newblock URL \url{https://proceedings.mlr.press/v235/liu24bn.html}.
+
+\bibitem[Liu et~al.(2025)Liu, Du, Wang, and Yu]{liu2025landscape}
+Xu-Hui Liu, Yali Du, Jun Wang, and Yang Yu.
+\newblock On the optimization landscape of low rank adaptation methods for large language models.
+\newblock In \emph{International Conference on Learning Representations}, 2025.
+\newblock URL \url{https://proceedings.iclr.cc/paper_files/paper/2025/hash/c34262c35aa5f8c1a091822cbb2020c2-Abstract-Conference.html}.
+
+\bibitem[Maillard \& Munos(2009)Maillard and Munos]{maillard2009compressed}
+Odalric-Ambrym Maillard and R{\'e}mi Munos.
+\newblock Compressed least-squares regression.
+\newblock In \emph{Advances in Neural Information Processing Systems}, volume~22, 2009.
+
+\bibitem[Nikdan et~al.(2024)Nikdan, Tabesh, Crn{\v{c}}evi{\'c}, and Alistarh]{nikdan2024rosa}
+Mahdi Nikdan, Soroush Tabesh, Elvir Crn{\v{c}}evi{\'c}, and Dan Alistarh.
+\newblock {RoSA}: Accurate parameter-efficient fine-tuning via robust adaptation.
+\newblock In \emph{Proceedings of the 41st International Conference on Machine Learning}, volume 235 of \emph{Proceedings of Machine Learning Research}. PMLR, 2024.
+
+\bibitem[Renduchintala et~al.(2024)Renduchintala, Konuk, and Kuchaiev]{renduchintala2024tied}
+Adithya Renduchintala, Tugrul Konuk, and Oleksii Kuchaiev.
+\newblock {Tied-LoRA}: Enhancing parameter efficiency of {LoRA} with weight tying.
+\newblock In \emph{Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies}, pp.\  8694--8705, 2024.
+\newblock \doi{10.18653/v1/2024.naacl-long.481}.
+\newblock URL \url{https://aclanthology.org/2024.naacl-long.481}.
+
+\bibitem[Song et~al.(2024)Song, Li, Zhang, Zhao, and Du]{song2024sparse}
+Weixi Song, Zuchao Li, Lefei Zhang, Hai Zhao, and Bo~Du.
+\newblock Sparse is enough in fine-tuning pre-trained large language models.
+\newblock In \emph{Proceedings of the 41st International Conference on Machine Learning}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=10hu2D3hAg}.
+
+\bibitem[Thanei et~al.(2017)Thanei, Heinze, and Meinshausen]{thanei2017random}
+Gian-Andrea Thanei, Christina Heinze, and Nicolai Meinshausen.
+\newblock Random projections for large-scale regression.
+\newblock In \emph{Big and Complex Data Analysis: Methodologies and Applications}, pp.\  51--68. Springer, 2017.
+
+\bibitem[van~der Vaart(1998)]{vanderVaart1998asymptotic}
+Aad~W. van~der Vaart.
+\newblock \emph{Asymptotic Statistics}.
+\newblock Cambridge University Press, 1998.
+
+\bibitem[Vapnik(1998)]{vapnik1998statistical}
+Vladimir~N. Vapnik.
+\newblock \emph{Statistical Learning Theory}.
+\newblock Wiley, 1998.
+
+\bibitem[Wang et~al.(2018)Wang, Singh, Michael, Hill, Levy, and Bowman]{wang2018glue}
+Alex Wang, Amanpreet Singh, Julian Michael, Felix Hill, Omer Levy, and Samuel~R. Bowman.
+\newblock {GLUE}: A multi-task benchmark and analysis platform for natural language understanding.
+\newblock In \emph{Proceedings of the 2018 EMNLP Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP}, pp.\  353--355, 2018.
+\newblock \doi{10.18653/v1/w18-5446}.
+
+\bibitem[Wang et~al.(2024)Wang, Xue, Ye, Jiang, Chen, Kong, and Wu]{wang2024prolora}
+Sheng Wang, Boyang Xue, Jiacheng Ye, Jiyue Jiang, Liheng Chen, Lingpeng Kong, and Chuan Wu.
+\newblock {PRoLoRA}: Partial rotation empowers more parameter-efficient {LoRA}.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics}, pp.\  2829--2841, 2024.
+
+\bibitem[Wang et~al.(2025)Wang, Liang, He, Wang, and Tan]{wang2025lorapro}
+Zhengbo Wang, Jian Liang, Ran He, Zilei Wang, and Tieniu Tan.
+\newblock {LoRA-Pro}: Are low-rank adapters properly optimized?
+\newblock In \emph{International Conference on Learning Representations}, 2025.
+\newblock URL \url{https://proceedings.iclr.cc/paper_files/paper/2025/hash/ea184f920a0f0f8d8030aa1bd7ac9fd4-Abstract-Conference.html}.
+
+\bibitem[White(1982)]{white1982maximum}
+Halbert White.
+\newblock Maximum likelihood estimation of misspecified models.
+\newblock \emph{Econometrica}, 50\penalty0 (1):\penalty0 1--25, 1982.
+
+\bibitem[Wu et~al.(2026)Wu, Gao, Li, and Wu]{wu2026stablelora}
+Yize Wu, Ke~Gao, Ling Li, and Yanjun Wu.
+\newblock {Stable-LoRA}: Stabilizing feature learning of low-rank adaptation.
+\newblock In \emph{International Conference on Learning Representations}, 2026.
+\newblock URL \url{https://proceedings.iclr.cc/paper_files/paper/2026/hash/2962d47082d07cd6e28272ab471e0526-Abstract-Conference.html}.
+
+\bibitem[Yen et~al.(2025)Yen, Si, Meng, Yu, Duvvuri, Dhillon, Hsieh, and Kumar]{yen2025lorarite}
+Jui-Nan Yen, Si~Si, Zhao Meng, Felix Yu, Venkata Sai Surya~Subramanyam Duvvuri, Inderjit Dhillon, Cho-Jui Hsieh, and Sanjiv Kumar.
+\newblock {LoRA} done {RITE}: Robust invariant transformation equilibration for {LoRA} optimization.
+\newblock In \emph{International Conference on Learning Representations}, 2025.
+\newblock URL \url{https://proceedings.iclr.cc/paper_files/paper/2025/hash/bcbc0f660d2dde42f9d1d0ecb14a6f9a-Abstract-Conference.html}.
+
+\bibitem[Zeng \& Lee(2024)Zeng and Lee]{zeng2024expressive}
+Yuchen Zeng and Kangwook Lee.
+\newblock The expressive power of low-rank adaptation.
+\newblock In \emph{International Conference on Learning Representations}, 2024.
+\newblock URL \url{https://openreview.net/forum?id=likXVjmh3E}.
+
+\bibitem[Zhang et~al.(2023)Zhang, Chen, Bukharin, Karampatziakis, He, Cheng, Chen, and Zhao]{zhang2023adalora}
+Qingru Zhang, Minshuo Chen, Alexander Bukharin, Nikos Karampatziakis, Pengcheng He, Yu~Cheng, Weizhu Chen, and Tuo Zhao.
+\newblock {AdaLoRA}: Adaptive budget allocation for parameter-efficient fine-tuning.
+\newblock In \emph{International Conference on Learning Representations}, 2023.
+\newblock \doi{10.48550/arXiv.2303.10512}.
+\newblock URL \url{https://openreview.net/forum?id=lq62uWRJjiY}.
+
+\bibitem[Zheng et~al.(2023)Zheng, Chiang, Sheng, Zhuang, Wu, Zhuang, Lin, Li, Li, Xing, Zhang, Gonzalez, and Stoica]{zheng2023judging}
+Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi~Lin, Zhuohan Li, Dacheng Li, Eric~P. Xing, Hao Zhang, Joseph~E. Gonzalez, and Ion Stoica.
+\newblock Judging {LLM}-as-a-judge with {MT-Bench} and chatbot arena.
+\newblock In \emph{Advances in Neural Information Processing Systems}, volume~36, 2023.
+\newblock \doi{10.52202/075280-2020}.
+
+\end{thebibliography}

@@ -131,6 +131,20 @@ def get_peft_model_state_dict(
 
             to_return = {renamed_dora_weights(k): v for k, v in to_return.items()}
 
+    elif config.peft_type in {PeftType.LORA_ROSA, PeftType.LORA_ROSA_SNIP, PeftType.LORA_ROSA_RANDOM}:
+        to_return = {
+            k: state_dict[k]
+            for k in state_dict
+            if (
+                ("lora_A" in k and adapter_name in k)
+                or ("lora_B" in k and adapter_name in k)
+                or ("lora_rosa_sparse_values" in k and adapter_name in k)
+                or ("lora_rosa_selected_indices" in k and adapter_name in k)
+                or ("lora_rosa_value_offsets" in k and adapter_name in k)
+                or ("bias" in k and config.bias != "none")
+            )
+        }
+
     elif config.peft_type == PeftType.BOFT:
         bias = config.bias
         if bias == "none":
@@ -710,6 +724,10 @@ def set_peft_model_state_dict(
     }:
         peft_model_state_dict = _insert_adapter_name_into_state_dict(
             state_dict, adapter_name=adapter_name, parameter_prefix="unilora_"
+        )
+    elif config.peft_type in {PeftType.LORA_ROSA, PeftType.LORA_ROSA_SNIP, PeftType.LORA_ROSA_RANDOM}:
+        peft_model_state_dict = _insert_adapter_name_into_state_dict(
+            state_dict, adapter_name=adapter_name, parameter_prefix="lora_"
         )
     elif config.peft_type == PeftType.UNILORA_ROSA_COMPRESSION:
         peft_model_state_dict = _insert_adapter_name_into_state_dict(

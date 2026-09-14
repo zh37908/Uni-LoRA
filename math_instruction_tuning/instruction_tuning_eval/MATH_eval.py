@@ -59,7 +59,14 @@ def batch_data(data_list, batch_size=1):
 
 
 def test_hendrycks_math(
-    model, data_path, start=0, end=MAX_INT, batch_size=1, tensor_parallel_size=1
+    model,
+    data_path,
+    start=0,
+    end=MAX_INT,
+    batch_size=1,
+    tensor_parallel_size=1,
+    gpu_memory_utilization=0.8,
+    max_model_len=None,
 ):
     hendrycks_math_ins = []
     hendrycks_math_answers = []
@@ -88,7 +95,14 @@ def test_hendrycks_math(
         temperature=0, top_p=1, max_tokens=2048, stop=stop_tokens
     )
     print("sampleing =====", sampling_params)
-    llm = LLM(model=model, tensor_parallel_size=tensor_parallel_size, gpu_memory_utilization=0.8)
+    llm_kwargs = dict(
+        model=model,
+        tensor_parallel_size=tensor_parallel_size,
+        gpu_memory_utilization=gpu_memory_utilization,
+    )
+    if max_model_len is not None:
+        llm_kwargs["max_model_len"] = max_model_len
+    llm = LLM(**llm_kwargs)
     res_completions = []
     for idx, (prompt, prompt_answer) in enumerate(
         zip(batch_hendrycks_math_ins, hendrycks_math_answers)
@@ -118,7 +132,7 @@ def test_hendrycks_math(
         invalid_outputs,
     )
     print("start===", start, ", end====", end)
-    print("length====", len(results), ", acc====", acc)
+    print("length====", len(results), ", acc====", f"{acc:.6f}")
 
 
 def parse_args():
@@ -133,6 +147,8 @@ def parse_args():
     parser.add_argument(
         "--tensor_parallel_size", type=int, default=1
     )  # tensor_parallel_size
+    parser.add_argument("--gpu_memory_utilization", type=float, default=0.8)
+    parser.add_argument("--max_model_len", type=int, default=None)
     return parser.parse_args()
 
 
@@ -145,4 +161,6 @@ if __name__ == "__main__":
         end=args.end,
         batch_size=args.batch_size,
         tensor_parallel_size=args.tensor_parallel_size,
+        gpu_memory_utilization=args.gpu_memory_utilization,
+        max_model_len=args.max_model_len,
     )

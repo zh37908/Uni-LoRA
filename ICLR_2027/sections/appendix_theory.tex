@@ -1,0 +1,906 @@
+\section{Extended Theory and Proofs}
+\label{app:theory}
+\subsection{Extended Related Work}
+\label{app:related}
+
+\paragraph{LoRA and structured parameter-efficient adaptation.}
+LoRA \citep{hu2022lora} represents weight updates through low-rank factors; AdaLoRA and DoRA refine allocation and parameterization \citep{zhang2023adalora,liu2024dora}. Tied-LoRA, VeRA, NOLA, PRoLoRA, VB-LoRA, and LoRA-XS introduce sharing, frozen bases, or other structural restrictions \citep{renduchintala2024tied,kopiczko2024vera,koohpayegani2024nola,wang2024prolora,li2024vb,balazy2025lora}. Together with Uni-LoRA and FourierFT \citep{li2025unilora,gao2024fourierft}, these works motivate compact adaptation through representation efficiency and subspace design, including isometric reconstruction in Uni-LoRA and SVD-based gradient approximation in LoRA-XS. They do not develop a detailed bias--variance comparison of compression's generalization benefit over standard LoRA. Our fixed reconstruction directly describes the Uni-LoRA branch studied here; transferring its risk conditions to other parameterizations requires specifying their estimation space and verifying the assumptions.
+
+\paragraph{Intrinsic dimension and the statistical comparison.}
+Low intrinsic dimension provides evidence that effective adaptation can use few degrees of freedom. Aghajanyan et al.\ \citep{aghajanyan2021intrinsic} additionally connect intrinsic dimension to compression-based generalization bounds. Thus the existing perspective includes statistical theory as well as representation evidence. Our focus is the relative population risk of compressed and full-space estimators: a restriction can improve estimation by removing noisy directions, or harm it by excluding task signal. The projection bias and retained variance make this comparison depend on the chosen subspace and data regime. Isometry within a represented subspace does not determine the energy outside it, and dimensionality alone does not specify either term under anisotropic curvature. These distinctions motivate our success/failure conditions and the corresponding measurements.
+
+\paragraph{Recent LoRA theory and optimization.}
+Zeng and Lee \citep{zeng2024expressive} characterize LoRA's expressive power. Liu et al.\ \citep{liu2025landscape} compare optimization landscapes of LoRA, GaLore, and full-rank methods. LoRA-Pro derives gradient adjustments from a gradient-matching objective \citep{wang2025lorapro}; LoRA-RITE studies factorization invariance and constructs an adaptive preconditioner \citep{yen2025lorarite}; Stable-LoRA links feature-learning stability to an early weight-shrinkage strategy \citep{wu2026stablelora}. These works connect concrete adaptation properties to algorithm design. We analyze the risk trade-off introduced by further compression of LoRA parameters, and derive sparse residual correction as a consequence of that statistical account. Optimization theory remains complementary: the optimization variance measured in our real-model study need not follow the asymptotic statistical-variance law.
+
+\paragraph{Sparse and hybrid adaptation.}
+SparseAdapter \citep{he2022sparseadapter} prunes adapter parameters, SIFT and SpIEL optimize sparse subsets of model updates \citep{song2024sparse,ansell2024scaling}, and RoSA combines low-rank and sparse updates \citep{nikdan2024rosa}. ProLoSA augments a globally compressed LoRA-factor vector with selected residual coordinates. Its design criterion compares recovered projection bias against the opportunity cost of allocating a fixed budget to these coordinates. This provides a specific statistical motivation for the hybrid, with the reliability of practical support selection assessed separately by the experiments.
+
+\paragraph{Subspace restriction and statistical regularization.}
+The mathematical tools build on shrinkage, principal-component regression, and compressed least-squares analysis \citep{james1961estimation,hastie2009elements,maillard2009compressed,kaban2014new,thanei2017random}. We use projection-risk calculations to connect compression geometry to the statistical comparison of adaptation estimators. The sequence model isolates the fixed-task residual threshold; the local extension links it to curvature and sample size; the matched-budget analysis identifies the cost and benefit of recovering excluded directions. Their empirical relevance is evaluated at distinct levels of idealization, rather than inferred from low parameter count alone.
+
+\subsection{When and Why Compression Makes LoRA Better}
+\label{sec:theory}
+
+We view compressed LoRA as restricted estimation in the full LoRA parameter space, decompose its excess risk into projection bias and estimation variance (Appendix~\ref{sec:bias_variance}), and specialize the resulting crossover condition into an interpretable energy--noise condition that characterizes exactly when compression helps and when it must fail (Appendix~\ref{sec:when_fails}).
+
+\subsubsection{A Bias--Variance View of Compressed LoRA}
+\label{sec:bias_variance}
+
+Let $\theta_D\in\mathbb{R}^D$ collect the vectorized trainable LoRA factors across all adapted layers.
+Whereas standard LoRA optimizes these $D$ entries directly, compressed variants learn a latent vector $\theta_d\in\mathbb{R}^d$, with $d\ll D$, from which they reconstruct the full parameter vector.
+We study the following linear form, which provides a common abstraction of such parameter sharing:
+\begin{equation}
+\theta_D=P\theta_d,
+\label{eq:compressed_lora_projection}
+\end{equation}
+where $P\in\mathbb{R}^{D\times d}$ is a fixed reconstruction matrix.
+Standard LoRA is recovered by setting $d=D$ and $P=I_D$.
+Equation~\eqref{eq:compressed_lora_projection} also captures the Uni-LoRA-style parameterization \citep{li2025unilora} used by our compressed branch; its specific construction is given in Appendix~\ref{sec:prolosa_parameterization}.
+For notational simplicity, below $\theta\in\mathbb{R}^D$ denotes a generic value of the full LoRA vector $\theta_D$.
+
+Let $f(x;\theta)$ denote the prediction of the frozen backbone equipped with LoRA parameters $\theta$, and let $\ell(f(x;\theta),y)$ denote the per-example loss between that prediction and its target $y$ (e.g., cross-entropy for classification).
+Following the standard risk-minimization framework \citep{vapnik1998statistical,hastie2009elements,vanderVaart1998asymptotic}, we define the population and empirical risks as
+\begin{equation}
+R(\theta)
+:=
+\mathbb{E}_{(x,y)\sim\mathcal{D}}
+\!\left[\ell(f(x;\theta),y)\right],
+\qquad
+\widehat R_n(\theta)
+:=
+\frac{1}{n}\sum_{i=1}^{n}
+\ell(f(x_i;\theta),y_i),
+\label{eq:population_empirical_risk}
+\end{equation}
+where $\mathcal{D}$ is the downstream data distribution and $\{(x_i,y_i)\}_{i=1}^n$ are $n$ i.i.d.\ samples from $\mathcal{D}$.
+We write
+$\theta^\star=\arg\min_{\theta\in\mathbb{R}^D}R(\theta)$
+for the full-space population optimum and
+$\hat{\theta}_L=\arg\min_{\theta\in\mathbb{R}^D}\widehat R_n(\theta)$
+for the empirical minimizer obtained by standard LoRA.
+For a fixed data distribution $\mathcal D$, $\theta^\star$ is a fixed population optimum (choosing one representative if it is nonunique); randomness across training samples belongs to $\hat\theta_L$, not to $\theta^\star$.
+
+Assuming that $R$ is twice differentiable near $\theta^\star$, a second-order expansion gives
+\begin{equation}
+R(\theta)
+\approx
+R(\theta^\star)
++
+\frac{1}{2}
+(\theta-\theta^\star)^\top
+H
+(\theta-\theta^\star),
+\label{eq:local_quadratic}
+\end{equation}
+where $H:=\nabla^2R(\theta^\star)\succeq 0$ is the local curvature at the optimum; the first-order term vanishes by stationarity.
+This approximation describes only a neighborhood of $\theta^\star$ and does not require $R$ to be globally convex.
+
+To isolate the variance induced by estimating LoRA parameters from finite data, we first consider the locally centered regime
+$\mathbb{E}[\hat{\theta}_L]=\theta^\star$ and write
+\begin{equation}
+\hat{\theta}_L=\theta^\star+\xi_L,
+\label{eq:lora_centered_decomp}
+\end{equation}
+where $\xi_L:=\hat{\theta}_L-\mathbb{E}[\hat{\theta}_L]$ is the centered estimation error.
+Thus, $\mathbb{E}[\xi_L]=0$ and $\Sigma_L:=\operatorname{Cov}(\xi_L)$.
+Substitution into Eq.~\eqref{eq:local_quadratic}, followed by expectation over the training sample, yields
+\begin{equation}
+\mathbb{E}[R(\hat{\theta}_L)]-R(\theta^\star)
+\approx
+\frac{1}{2}\mathrm{tr}(H\Sigma_L).
+\label{eq:lora_excess_risk}
+\end{equation}
+Standard LoRA incurs no subspace-approximation bias, but estimating all $D$ coordinates may produce substantial variance.
+Appendix~\ref{app:general_bias_variance} relaxes the centering assumption and retains finite-sample and optimization bias.
+
+A compressed parameterization instead restricts optimization to
+$\mathcal{S}_U:=\mathrm{col}(P)\subseteq\mathbb{R}^D$.
+Define
+$\theta^\star_U=\arg\min_{\theta\in\mathcal{S}_U}R(\theta)$
+as the restricted population optimum and
+$\hat{\theta}_U=\arg\min_{\theta\in\mathcal{S}_U}\widehat R_n(\theta)$
+as its empirical counterpart.
+Under the local quadratic model, $\theta^\star_U$ is the $H$-weighted projection of $\theta^\star$ onto $\mathcal{S}_U$.
+Let $z^\star_U,\hat{z}_U\in\mathbb{R}^d$ be latent representations satisfying
+$\theta^\star_U=Pz^\star_U$ and $\hat{\theta}_U=P\hat{z}_U$.
+Under the analogous centered condition $\mathbb{E}[\hat{z}_U]=z^\star_U$, we write
+\begin{equation}
+\hat{\theta}_U=\theta^\star_U+P\zeta,
+\label{eq:compressed_centered_decomp}
+\end{equation}
+where $\zeta:=\hat{z}_U-\mathbb{E}[\hat{z}_U]$ is the centered latent error.
+Here, $\mathbb{E}[\zeta]=0$ and $\Sigma_z:=\operatorname{Cov}(\zeta)$.
+Applying the same calculation as above gives
+\begin{equation}
+\mathbb{E}[R(\hat{\theta}_{U})]-R(\theta^\star)
+\approx
+\underbrace{
+\frac{1}{2}
+(\theta^\star_U-\theta^\star)^\top
+H
+(\theta^\star_U-\theta^\star)
+}_{\text{projection bias}}
++
+\underbrace{
+\frac{1}{2}
+\mathrm{tr}(HP\Sigma_zP^\top)
+}_{\text{estimation variance}} .
+\label{eq:compressed_excess_risk}
+\end{equation}
+The two terms expose the central trade-off: compression reduces estimation variance by restricting the fitted directions, but generally introduces bias by excluding part of the full-space optimum.
+Comparing Eqs.~\eqref{eq:lora_excess_risk} and~\eqref{eq:compressed_excess_risk}, compressed LoRA has lower expected excess risk precisely when
+\begin{equation}
+(\theta^\star_U-\theta^\star)^\top
+H
+(\theta^\star_U-\theta^\star)
++
+\mathrm{tr}(HP\Sigma_zP^\top)
+<
+\mathrm{tr}(H\Sigma_L).
+\label{eq:compression_condition}
+\end{equation}
+Thus, a smaller parameter space need not weaken generalization: the restriction is beneficial whenever the variance removed from excluded directions exceeds the projection bias introduced by excluding them.
+
+\subsubsection{When Compression Helps, and When It Must Fail}
+\label{sec:when_fails}
+
+Although Condition~\eqref{eq:compression_condition} applies to general local curvature and estimator covariance, these quantities obscure the dependence of the trade-off on target energy and estimation noise.
+We first specialize to an isotropic sequence model for a \emph{fixed} task, matching the repeated-noise protocol of Appendix~\ref{sec:synthetic}.
+Fix $\theta^\star\in\mathbb R^D$ and $P\in\mathbb R^{D\times d}$ with $P^\top P=I_d$ and $0<d<D$.
+Observe $y=\theta^\star+\sigma_{\mathrm{eff}}\epsilon$, where $\epsilon\sim\mathcal N(0,I_D)$, and let
+$R(\theta)-R(\theta^\star)=\frac12\|\theta-\theta^\star\|_2^2$ ($H=I$).
+The least-squares estimators are $\hat\theta_L=y$ and $\hat\theta_U=PP^\top y$.
+Averaging over observation noise alone gives
+\begin{equation}
+\mathbb E_\epsilon\!\left[R(\hat\theta_U)-R(\theta^\star)\mid\theta^\star,P\right]
+=
+\underbrace{\frac12\|(I-PP^\top)\theta^\star\|_2^2}_{\text{fixed projection bias}}
++
+\underbrace{\frac12d\sigma_{\mathrm{eff}}^2}_{\text{estimation variance}},
+\label{eq:conditional_compressed_risk}
+\end{equation}
+while the full-space risk is $\frac12D\sigma_{\mathrm{eff}}^2$.
+Thus, for this fixed instance, compression helps if and only if
+\begin{equation}
+\hat v_\perp<\sigma_{\mathrm{eff}}^2,
+\qquad
+\hat v_\perp:=\frac{\|(I-PP^\top)\theta^\star\|_2^2}{D-d}.
+\label{eq:fixed_energy_noise_condition}
+\end{equation}
+Here $\hat v_\perp$ is a deterministic realized residual energy per excluded dimension; no distributional assumption on $\theta^\star$ is needed.
+
+\paragraph{Optional averaging over generated problem instances.}
+To summarize an ensemble of tasks, introduce a separate random target $\Theta^\star\sim\mathcal Q$, of which the fixed optimum $\theta^\star$ is one realization.
+Assume
+$\mathbb E_{\mathcal Q}[\Theta^\star]=0$ and
+$\mathbb E_{\mathcal Q}[\Theta^\star{\Theta^\star}^\top]=vI_D$, where
+$v:=D^{-1}\mathbb E_{\mathcal Q}\|\Theta^\star\|_2^2$.
+This is a \emph{problem-generation assumption}, not an expectation over repeated datasets from one task: for those repeats,
+$\mathbb E_\epsilon[\theta^\star{\theta^\star}^\top\mid\theta^\star,P]=\theta^\star{\theta^\star}^\top$.
+Let $P$ be fixed or drawn independently of $\Theta^\star$, with observation noise independent of both.
+Write $\mathbb E_{\mathrm{ens}}$ for the additional average over generated targets and, if random, projections, as well as observation noise; each risk is evaluated for its corresponding realized task.
+
+\begin{quote}\textbf{Ensemble energy--noise condition (restated).}
+
+Under the additional isotropic target law above, averaging the fixed-instance risks yields
+\begin{equation}
+\begin{aligned}
+\mathbb E_{\mathrm{ens}}[R(\hat\theta_L)-R(\theta^\star)]&=\tfrac12D\sigma_{\mathrm{eff}}^2,\\
+\mathbb E_{\mathrm{ens}}[R(\hat\theta_U)-R(\theta^\star)]&=
+\underbrace{\tfrac12(D-d)v}_{\text{mean projection bias}}
++\underbrace{\tfrac12d\sigma_{\mathrm{eff}}^2}_{\text{estimation variance}}.
+\end{aligned}
+\label{eq:energy_noise_risks}
+\end{equation}
+Consequently, compression reduces the \emph{ensemble-average} excess risk if and only if
+\begin{equation}
+v<\sigma_{\mathrm{eff}}^2.
+\label{eq:energy_noise_condition}
+\end{equation}
+\end{quote}
+Appendix~\ref{app:energy_noise_condition} proves both the fixed-instance and ensemble results.
+Under $\mathcal Q$, $\mathbb E_{\mathrm{ens}}[\hat v_\perp]=v$.
+Any target-independent orthonormal $P$, including normalized one-hot and random orthonormal constructions, has the same ensemble risk at a given $d$; their biases need not agree for a fixed target.
+The synthetic noise trials estimate Eq.~\eqref{eq:conditional_compressed_risk}, rather than the ensemble average in Eq.~\eqref{eq:energy_noise_risks}.
+
+\paragraph{Remark (parameterization dependence of $v$).}
+The scalar $v=D^{-1}\mathbb E_{\mathcal Q}\|\Theta^\star\|_2^2$ is defined in the chosen LoRA-factor parameterization and is \emph{not} invariant to equivalent factorizations of the same effective update: the gauge freedom $(A_\ell,B_\ell)\mapsto(c\,A_\ell,B_\ell/c)$ leaves $\Delta W_\ell=B_\ell A_\ell$ unchanged while rescaling the factor-space norm arbitrarily. All statements involving $v$ are therefore comparisons made \emph{within a fixed parameterization, initialization scale, and training protocol}, and we use $v<\sigma_{\mathrm{eff}}^2$ only as the interpretable specialization of the general condition~\eqref{eq:compression_condition} to the isotropic model. In real networks, the parameterization-appropriate quantity is the curvature-weighted projection bias $B_{\mathrm{proj}}=\frac{1}{2}(\theta^\star_U-\theta^\star)^\top H(\theta^\star_U-\theta^\star)$ of Eq.~\eqref{eq:compressed_excess_risk}, which weights each direction by its functional relevance; $B_{\mathrm{proj}}$ (estimated with a Fisher approximation of $H$) is the primary object measured in the Transformer experiment of Appendix~\ref{sec:transformer_synthetic} and the downstream experiments of Appendix~\ref{sec:real_model_validation}.
+
+Proposition~1 is an exact result for this isotropic sequence model, not a universal characterization of neural-network fine-tuning; it provides a controlled baseline for interpreting the more general condition in Eq.~\eqref{eq:compression_condition}.
+Within this model, it has three consequences.
+(i)~\emph{Why compression can work for fine-tuning:} for a target ensemble with modest average energy $v$, limited data can induce comparatively large $\sigma_{\mathrm{eff}}^2$, placing the average problem in the variance-dominated regime $v<\sigma_{\mathrm{eff}}^2$; for a fixed task, the corresponding comparison uses $\hat v_\perp$. Evidence that downstream adaptation often has low intrinsic dimension \citep{aghajanyan2021intrinsic} supports the broader premise that strong restrictions can be effective, but does not by itself imply that either energy quantity is small.
+(ii)~\emph{Why compression can fail when the required update is large:} for a dense, high-energy target ensemble---modeling tasks that demand large parameter changes rather than small downstream corrections---the average condition reverses to $v>\sigma_{\mathrm{eff}}^2$. For a fixed task, compression is worse whenever $\hat v_\perp>\sigma_{\mathrm{eff}}^2$, because its realized projection-bias floor exceeds the variance removed. Compressed parameterizations are therefore poorly suited to adaptation problems whose updates are large in magnitude and diffuse across coordinates.
+(iii)~\emph{Recoverability depends on the energy profile:} if the off-subspace energy is heavy-tailed---a few coordinates carry most of it, as is characteristic of fine-tuning updates---a budget of $K\ll D$ residual directions recovers most of the bias, motivating Appendix~\ref{sec:method}; if it is diffuse, as for dense Gaussian targets, the best $K$ coordinates capture only an $O\!\big((K/D)\log(D/K)\big)$ fraction (Appendix~\ref{app:energy_noise_condition}), and no small sparse correction can rescue compression.
+Both predictions are tested in Appendix~\ref{sec:synthetic}.
+
+\subsubsection{From the Bias--Variance Decomposition to Testable Downstream Predictions}
+\label{sec:testable_predictions}
+
+We now translate Eq.~\eqref{eq:compressed_excess_risk} into sample-size predictions.
+For one observation $(x,y)\sim\mathcal D$, define the per-sample score
+\begin{equation}
+\psi(x,y;\theta)
+:=
+\nabla_\theta \ell(f(x;\theta),y)
+\in\mathbb R^D,
+\qquad
+G
+:=
+\operatorname{Cov}_{(x,y)\sim\mathcal D}
+\!\left[\psi(x,y;\theta^\star)\right].
+\label{eq:score_covariance}
+\end{equation}
+Thus, $G\succeq0$ is the covariance of the stochastic loss gradient at the full-space population optimum; it measures gradient noise across examples.
+It is distinct from $H=\nabla^2R(\theta^\star)$, which measures the local curvature of the mean loss.
+
+Under the regularity conditions for a fixed-dimensional M-estimator---i.i.d.\ sampling, a locally unique identifiable optimum, finite second moments of $\psi$, and consistent empirical minimization---the M-estimator central limit theorem gives the sandwich covariance \citep{vanderVaart1998asymptotic,white1982maximum}
+\begin{equation}
+\sqrt n\,(\hat\theta_L-\theta^\star)
+\ \rightsquigarrow\
+\mathcal N\!\left(0,H^\dagger G H^\dagger\right).
+\label{eq:lora_m_estimator_clt}
+\end{equation}
+Here $\rightsquigarrow$ denotes convergence in distribution and ${}^\dagger$ the Moore--Penrose pseudoinverse.
+The pseudoinverse is shorthand for restricting the calculation to the locally identifiable tangent space: bilinear LoRA has gauge directions along which $H$ is singular, whereas $H$ is assumed positive definite after those directions are quotiented out.
+
+The central limit theorem is used to obtain Eq.~\eqref{eq:lora_m_estimator_clt}; it does \emph{not} imply $G=H$.
+That equality is the information-matrix identity and holds, under additional regularity conditions, for a correctly specified negative-log-likelihood model.
+We do not require it here, so the general sandwich form retains both matrices.
+
+For the compressed estimator, the per-sample latent score is $P^\top\psi(x,y;Pz)$.
+To obtain a tractable two-parameter prediction, we use the same local quadratic neighborhood as Appendix~\ref{sec:bias_variance}: the curvature and score covariance at $\theta^\star_U$ are approximated by those at $\theta^\star$.
+The latent Hessian and score covariance are then $P^\top HP$ and $P^\top GP$, respectively, and
+\begin{equation}
+\Sigma_L
+\approx
+\frac{1}{n}H^\dagger G H^\dagger,
+\qquad
+\Sigma_z
+\approx
+\frac{1}{n}
+(P^\top HP)^\dagger
+P^\top GP
+(P^\top HP)^\dagger,
+\label{eq:local_asymptotic_covariances}
+\end{equation}
+where $\Sigma_L=\operatorname{Cov}(\hat\theta_L)$ and $\Sigma_z=\operatorname{Cov}(\hat z_U)$ are the estimator covariances introduced in Appendix~\ref{sec:bias_variance}.
+If $\theta^\star_U$ is not close enough to $\theta^\star$ for this shared-local approximation, its own Hessian and score covariance must replace $P^\top HP$ and $P^\top GP$, and the simple expression below need not hold.
+Moreover, Eq.~\eqref{eq:local_asymptotic_covariances} is a large-$n$, fixed-dimensional approximation for empirical risk minimizers.
+Early stopping, SGD's implicit regularization, and regimes with parameter dimension comparable to or larger than $n$ can alter the covariance, so the resulting $1/n$ law is a prediction to be tested rather than an exact description of practical fine-tuning.
+
+Substituting Eq.~\eqref{eq:local_asymptotic_covariances} into Eqs.~\eqref{eq:lora_excess_risk} and~\eqref{eq:compressed_excess_risk} gives the \emph{compression advantage}
+\begin{equation}
+\Delta(n)
+:=
+\mathbb{E}\big[R(\hat{\theta}_L)\big]-\mathbb{E}\big[R(\hat{\theta}_U)\big]
+\approx
+\frac{A_{\mathrm{var}}}{n}-B_{\mathrm{proj}},
+\label{eq:risk_gap_n}
+\end{equation}
+where
+\begin{equation}
+A_{\mathrm{var}}
+:=
+\frac{1}{2}
+\left[
+\mathrm{tr}(H^\dagger G)
+-
+\mathrm{tr}\!\left((P^\top HP)^\dagger P^\top GP\right)
+\right]
+\ge 0,
+\qquad
+B_{\mathrm{proj}}
+:=
+\frac{1}{2}
+(\theta^\star_U-\theta^\star)^\top
+H
+(\theta^\star_U-\theta^\star).
+\label{eq:variance_projection_coefficients}
+\end{equation}
+Here $A_{\mathrm{var}}$ is the per-sample estimation-variance coefficient removed by restricting optimization to $\mathcal S_U=\operatorname{col}(P)$, and $B_{\mathrm{proj}}$ is the $n$-independent curvature-weighted projection bias.
+Under the shared $H,G$ approximation, $A_{\mathrm{var}}\ge0$: in identifiable coordinates the second trace integrates the positive-semidefinite matrix $H^{-1/2}GH^{-1/2}$ over the whitened compressed subspace, whereas the first integrates it over the full tangent space.
+
+When $A_{\mathrm{var}}>0$ and $B_{\mathrm{proj}}>0$, define the crossover $n^\star:=A_{\mathrm{var}}/B_{\mathrm{proj}}$; Eq.~\eqref{eq:risk_gap_n} then predicts lower risk for compression when $n<n^\star$.
+If $B_{\mathrm{proj}}=0$, the model instead predicts a nonnegative compression advantage for every finite $n$ (formally, $n^\star=\infty$); if $A_{\mathrm{var}}=0<B_{\mathrm{proj}}$, compression cannot help.
+In the fixed-instance isotropic model, $A_{\mathrm{var}}/n=\frac12(D-d)\sigma_{\mathrm{eff}}^2$ and $B_{\mathrm{proj}}=\frac12(D-d)\hat v_\perp$, recovering Eq.~\eqref{eq:fixed_energy_noise_condition}. Only after averaging over the target law does $\mathbb E_{\mathrm{ens}}[B_{\mathrm{proj}}]=\frac12(D-d)v$ recover Proposition~\ref{prop:energy_noise}.
+Equation~\eqref{eq:risk_gap_n} now yields three direct comparative statics, obtained by varying $n$, $G$, and $P$, respectively.
+
+\textbf{(P1) Sample-size scaling.}
+Holding the task, data distribution, optimization protocol, and subspace fixed, $\Delta$ should be approximately affine in $1/n$, with slope $A_{\mathrm{var}}\ge0$ and intercept $-B_{\mathrm{proj}}\le0$.
+A sign change is expected only when both coefficients are strictly positive and the corresponding $n^\star$ lies in the observed range.
+
+\textbf{(P2) Noise scaling.}
+Consider a label perturbation with standard deviation $\tau$ that preserves the population optimum but increases the score covariance $G$---for example, independent zero-mean additive label noise under squared loss.
+More precisely, suppose $G(\tau)=G_0+\tau^2G_{\mathrm{noise}}$ with $G_{\mathrm{noise}}\succeq0$, while $H$ and $\theta^\star$ remain fixed.
+Because $A_{\mathrm{var}}$ is linear in $G$, Eq.~\eqref{eq:risk_gap_n} gives
+\begin{equation}
+\Delta(\tau)
+\approx
+\Delta(0)+c_1\tau^2,
+\qquad
+c_1
+=
+\frac{1}{2n}
+\left[
+\mathrm{tr}(H^\dagger G_{\mathrm{noise}})
+-
+\mathrm{tr}\!\left(
+(P^\top HP)^\dagger P^\top G_{\mathrm{noise}}P
+\right)
+\right]
+\ge0.
+\label{eq:noise_scaling_prediction}
+\end{equation}
+The inequality is strict when the added gradient noise has a nonzero component in directions excluded by the compressed subspace.
+This statement does not apply automatically to label flipping or arbitrary losses, for which the perturbation may move $\theta^\star$ and change both terms.
+
+\textbf{(P3) Subspace alignment.}
+For two equal-dimensional projections $P_1$ and $P_2$, Eq.~\eqref{eq:risk_gap_n} gives
+\begin{equation}
+\Delta(P_1)-\Delta(P_2)
+\approx
+\frac{A_{\mathrm{var}}(P_1)-A_{\mathrm{var}}(P_2)}{n}
+-
+\left[
+B_{\mathrm{proj}}(P_1)-B_{\mathrm{proj}}(P_2)
+\right].
+\label{eq:subspace_alignment_prediction}
+\end{equation}
+Thus, if the removed-variance coefficients are equal or tightly controlled, the better-aligned projection---the one with smaller $B_{\mathrm{proj}}$---has the larger compression advantage.
+Equal dimension alone is insufficient in an anisotropic problem because changing $P$ generally changes both terms.
+
+P1--P3 are therefore not independent heuristics: they probe the sample size, noise covariance, and subspace geometry in the same risk-gap decomposition.
+They diagnose when pure compression should help, but do not specify how to reduce $B_{\mathrm{proj}}$ when the chosen subspace omits important directions.
+Appendix~\ref{sec:sparse_bias} addresses that constructive question and derives the sparse-recoverability prediction P4 from a matched-budget comparison.
+
+
+\subsection{Sparse Residual Correction under Matched Budgets}
+\label{sec:sparse_bias}
+
+Let $I=\{i_1,\ldots,i_K\}\subseteq\{1,\ldots,D\}$ be a sparse support of size $K$ with coordinate-selection matrix $E_I=[e_{i_1},\ldots,e_{i_K}]\in\mathbb{R}^{D\times K}$, so that the hybrid parameterization optimizes over $\mathrm{col}([P,E_I])$.
+Adding $K$ sparse directions to a \emph{fixed} compressed space can never increase the best attainable approximation bias, since the feasible set only grows (Appendix~\ref{app:sparse_bias_reduction}); this nested comparison, however, spends $d+K$ parameters against $d$ and therefore does not describe our experiments, which match the \emph{total} budget.
+The relevant question is: given a fixed budget $B$, is it better to spend all of it on a larger projected space, or to reserve $K$ coordinates for sparse correction?
+The isotropic setting of Proposition~1 gives a sharp answer.
+
+\begin{quote}\textbf{Matched-budget condition (restated).}
+
+In the setting of Proposition~\ref{prop:energy_noise}, compare (a) a compressed-only parameterization with projection dimension $B$ and (b) a hybrid parameterization with projection dimension $d=B-K$ and a sparse support $\hat{I}$ of size $K$ selected independently of the estimation noise, with $\operatorname{rank}([P,E_{\hat{I}}])=B$.
+Expectations in this proposition are ensemble averages as defined in Appendix~\ref{sec:when_fails}.
+Both have the same expected estimation variance $\frac{1}{2}B\sigma_{\mathrm{eff}}^2$, and their expected excess risks differ only through the bias:
+\begin{equation}
+\mathbb E_{\mathrm{ens}}\big[R(\hat{\theta}_{\mathrm{hyb}})\big]
+-
+\mathbb E_{\mathrm{ens}}\big[R(\hat{\theta}_{U,B})\big]
+=
+\frac{1}{2}\Big(K\,v-\mathbb E_{\mathrm{ens}}\big[\mathcal{E}_K\big]\Big),
+\label{eq:matched_budget_condition}
+\end{equation}
+Writing $q=(I-PP^\top)\theta^\star$, $A_{\hat I}=(I-PP^\top)E_{\hat I}$, and $\Pi_{A_{\hat I}}$ for the orthogonal projector onto $\operatorname{col}(A_{\hat I})$, the captured off-subspace energy is
+$\mathcal E_K:=\|\Pi_{A_{\hat I}}q\|_2^2$.
+Hence, under a matched budget, the hybrid parameterization wins if and only if the selected directions recover above-average residual energy, $\mathbb E_{\mathrm{ens}}[\mathcal{E}_K]>Kv$.
+\end{quote}
+The proof is given in Appendix~\ref{app:matched_budget}.
+Let $P_B^\top P_B=I_B$ denote the budget-$B$ baseline projection. For fixed $\theta^\star,P,P_B$ and a fixed noise-independent support $I$ with $\operatorname{rank}([P,E_I])=B$, the corresponding risk difference is instead
+\begin{equation}
+\mathbb E_\epsilon\!\left[R(\hat\theta_{\mathrm{hyb}})-R(\hat\theta_{U,B})\mid\theta^\star,P,P_B,I\right]
+=\frac12\left(\|q\|_2^2-\mathcal E_K-\|(I_D-P_BP_B^\top)\theta^\star\|_2^2\right).
+\label{eq:fixed_matched_budget_condition}
+\end{equation}
+Thus, $Kv$ in Eq.~\eqref{eq:matched_budget_condition} is an ensemble-average opportunity cost, not the exact cost for a single realized target and pair of projections.
+
+\textbf{(P4) Sparse recoverability.}
+Unlike P1--P3, this prediction is a constructive consequence of Proposition~\ref{prop:matched_budget}, rather than a direct comparative static of Eq.~\eqref{eq:risk_gap_n}.
+At a fixed total budget $B$, the hybrid's expected advantage over pure compression is
+$\frac{1}{2}\big(\mathbb E_{\mathrm{ens}}[\mathcal E_K]-Kv\big)$.
+It is therefore governed by the off-subspace energy recovered by the selected support, not by the total update norm: target-independent support gives no expected gain, while a support capturing above-average residual energy reduces projection bias without increasing the idealized variance term.
+Experiment E5 in Appendix~\ref{sec:real_model_validation} tests this implication directly.
+
+Proposition~\ref{prop:matched_budget} sharpens the design principle in two ways, both examined empirically.
+First, \emph{uninformed sparsity provides no expected gain}: under the isotropic target model, any $B$-dimensional subspace selected independently of $\theta^\star$ has the same expected approximation error, so a random support captures exactly $\mathbb E_{\mathrm{ens}}[\mathcal{E}_K]=Kv$ and the random hybrid matches the $B$-dimensional compressed-only estimator in expectation (Corollary~\ref{cor:random_support} in Appendix~\ref{app:matched_budget}); the sequence-model experiment in Appendix~\ref{sec:synthetic} exhibits a near-tie for its single realized target, rather than directly estimating this ensemble equality.
+The benefit of the hybrid parameterization must therefore come from \emph{data-dependent, target-informed support selection}, not from sparsity itself.
+Second, \emph{informed selection on concentrated energy wins}: when the off-subspace energy is heavy-tailed, the top-$K$ coordinates identified during warmup carry far more than $Kv$ of energy, so reserving a small $K$ strictly reduces risk; when the energy is diffuse, the captured fraction of the bias floor is negligible and the hybrid cannot rescue compression, consistent with the failure regime of Appendix~\ref{sec:when_fails}.
+Detailed derivations, including the general anisotropic decomposition and the risk-level condition for a fixed support, are provided in Appendices~\ref{app:general_bias_variance}--\ref{app:prolosa_bias_variance_condition}.
+
+\paragraph{Remark (selection variance under data-dependent supports).}
+Proposition~\ref{prop:matched_budget} isolates the idealized benefit of allocating budget to target-informed residual directions while assuming the support is selected independently of the estimation noise.
+In practice, ProLoSA selects its support from warmup statistics computed on the \emph{same} training data used for estimation, which violates this independence: by the law of total covariance,
+$\operatorname{Cov}(\hat\theta)=\mathbb E_{\hat I}\big[\operatorname{Cov}(\hat\theta\mid\hat I)\big]+\operatorname{Cov}_{\hat I}\big(\mathbb E[\hat\theta\mid\hat I]\big)$,
+where the second term is an additional \emph{selection variance} induced by the noise-dependence of $\hat I$, and noisy scores can also inflate the apparent captured energy of the selected coordinates.
+The hybrid therefore helps only when the captured bias reduction exceeds this extra variance.
+This effect is directly visible in our experiments: in the sequence model, the noise-dependent support degrades gracefully relative to an oracle support as $\sigma_y$ grows (Appendix~\ref{sec:synthetic}), and in the Transformer experiment ProLoSA falls behind the matched-budget compressed baseline precisely in the small-$n$, high-noise corner where support selection is least reliable (Appendix~\ref{sec:transformer_synthetic}).
+
+
+\subsection{General Bias--Variance Decomposition with Finite-Sample Bias}
+\label{app:general_bias_variance}
+
+The main text presents the locally centered case for clarity.
+Here we provide the more general decomposition that explicitly includes finite-sample estimation bias, optimization bias, or deviations from the ideal local quadratic model.
+
+For classical LoRA, let
+$\hat{\theta}_L=\arg\min_{\theta\in\mathbb{R}^D}\widehat R_n(\theta)$
+denote the full-space empirical minimizer introduced in Appendix~\ref{sec:bias_variance}.
+We decompose it relative to the population optimum $\theta^\star$ as
+\begin{equation}
+\hat{\theta}_{L}
+=
+\theta^\star+b_L+\xi_L,
+\label{eq:app_lora_decomposition}
+\end{equation}
+where
+$b_L:=\mathbb{E}[\hat{\theta}_L]-\theta^\star$
+is the bias of $\hat{\theta}_L$ (arising from finite samples, incomplete optimization, or misspecification of the local quadratic model) and
+$\xi_L:=\hat{\theta}_L-\mathbb{E}[\hat{\theta}_L]$
+is the centered estimation error.
+By construction, the error term is zero-mean with covariance $\Sigma_L$:
+\begin{equation}
+\mathbb{E}[\xi_L]=0,
+\qquad
+\mathrm{Cov}(\xi_L)=\Sigma_L.
+\label{eq:app_lora_error_moments}
+\end{equation}
+Substituting Eq.~\eqref{eq:app_lora_decomposition} into the local quadratic approximation in Eq.~\eqref{eq:local_quadratic} and taking the expectation with Eq.~\eqref{eq:app_lora_error_moments} gives
+\begin{equation}
+\mathbb{E}[R(\hat{\theta}_{L})]-R(\theta^\star)
+\approx
+\frac{1}{2}b_L^\top Hb_L
++
+\frac{1}{2}\mathrm{tr}(H\Sigma_L).
+\label{eq:app_lora_excess_risk_general}
+\end{equation}
+When $b_L\approx 0$, this reduces to Eq.~\eqref{eq:lora_excess_risk} in the main text.
+
+For the compressed parameterization, let $\theta^\star_U$ be the $H$-weighted projection of $\theta^\star$ onto $\mathcal{S}_U=\mathrm{col}(P)$, and let
+$\hat{\theta}_U=\arg\min_{\theta\in\mathcal{S}_U}\widehat R_n(\theta)$
+denote the restricted empirical minimizer.
+Writing $\hat{\theta}_U=P\hat{z}_U$ and $\theta^\star_U=Pz^\star_U$, we decompose
+\begin{equation}
+\hat{\theta}_{U}
+=
+\theta^\star_U
++
+Pb_z
++
+P\zeta,
+\label{eq:app_compressed_decomposition}
+\end{equation}
+where
+$b_z:=\mathbb{E}[\hat{z}_U]-z^\star_U$
+is the latent-space bias, so that $Pb_z\in\mathcal{S}_U$ captures finite-sample or optimization bias within the compressed subspace, and
+$\zeta:=\hat{z}_U-\mathbb{E}[\hat{z}_U]$
+is the centered latent error.
+By construction, the latent error is zero-mean with covariance $\Sigma_z$:
+\begin{equation}
+\mathbb{E}[\zeta]=0,
+\qquad
+\mathrm{Cov}(\zeta)=\Sigma_z.
+\label{eq:app_compressed_error_moments}
+\end{equation}
+Because $\theta^\star_U$ is the $H$-weighted projection of $\theta^\star$ onto $\mathcal{S}_U$, the projection residual is $H$-orthogonal to every direction in $\mathcal{S}_U$:
+\begin{equation}
+(\theta^\star_U-\theta^\star)^\top HPb_z=0.
+\label{eq:app_h_orthogonality}
+\end{equation}
+Substituting Eq.~\eqref{eq:app_compressed_decomposition} into Eq.~\eqref{eq:local_quadratic}, taking the expectation with Eq.~\eqref{eq:app_compressed_error_moments}, and using Eq.~\eqref{eq:app_h_orthogonality} gives
+\begin{equation}
+\mathbb{E}[R(\hat{\theta}_{U})]-R(\theta^\star) \approx \frac{1}{2}(\theta^\star_U-\theta^\star)^\top H (\theta^\star_U-\theta^\star) + \frac{1}{2}b_z^\top P^\top HPb_z + \frac{1}{2}\mathrm{tr}(HP\Sigma_zP^\top).
+\label{eq:app_compressed_excess_risk_general}
+\end{equation}
+Therefore, in the presence of finite-sample bias, a sufficient condition for compressed LoRA to improve over classical LoRA is
+\begin{equation}
+(\theta^\star_U-\theta^\star)^\top H (\theta^\star_U-\theta^\star) + b_z^\top P^\top HPb_z + \mathrm{tr}(HP\Sigma_zP^\top) < b_L^\top Hb_L + \mathrm{tr}(H\Sigma_L).
+\label{eq:app_compression_condition_general}
+\end{equation}
+The simplified condition in Eq.~\eqref{eq:compression_condition} follows when $b_L\approx 0$ and $b_z\approx 0$.
+The main intuition remains unchanged: compression is beneficial when its variance reduction outweighs its projection bias and any additional compressed-space estimation bias.
+
+\subsection{Proof of the Energy--Noise Condition (Proposition 1)}
+\label{app:energy_noise_condition}
+
+\paragraph{Fixed target and projection.}
+Fix $\theta^\star$ and $P$ with $P^\top P=I_d$, $0<d<D$, and observe
+\begin{equation}
+y=\theta^\star+\sigma_{\mathrm{eff}}\epsilon,
+\qquad \epsilon\sim\mathcal N(0,I_D).
+\label{eq:app_energy_obs}
+\end{equation}
+With $H=I$, excess risk is $\frac12\|\hat\theta-\theta^\star\|_2^2$.
+All expectations in this paragraph are over $\epsilon$, holding the task fixed.
+The full-space estimator $\hat\theta_L=y$ satisfies
+\begin{equation}
+\mathbb E_\epsilon\!\left[R(\hat\theta_L)-R(\theta^\star)\mid\theta^\star,P\right]
+=\frac12\sigma_{\mathrm{eff}}^2\mathbb E_\epsilon\|\epsilon\|_2^2
+=\frac12D\sigma_{\mathrm{eff}}^2.
+\label{eq:app_energy_lora_risk}
+\end{equation}
+The compressed estimator is $\hat\theta_U=PP^\top y$, with error
+\begin{equation}
+\hat\theta_U-\theta^\star
+=-(I-PP^\top)\theta^\star+\sigma_{\mathrm{eff}}PP^\top\epsilon.
+\label{eq:app_energy_error_decomp}
+\end{equation}
+The two terms are orthogonal for every noise realization. Since
+$\mathbb E_\epsilon\|PP^\top\epsilon\|_2^2=\mathrm{tr}(PP^\top)=d$,
+\begin{equation}
+\mathbb E_\epsilon\!\left[R(\hat\theta_U)-R(\theta^\star)\mid\theta^\star,P\right]
+=\frac12\|(I-PP^\top)\theta^\star\|_2^2+\frac12d\sigma_{\mathrm{eff}}^2.
+\label{eq:app_energy_compressed_risk}
+\end{equation}
+Subtracting gives the fixed-instance risk gap
+$\frac12(D-d)(\sigma_{\mathrm{eff}}^2-\hat v_\perp)$, proving
+Eqs.~\eqref{eq:conditional_compressed_risk} and~\eqref{eq:fixed_energy_noise_condition} without a random-target assumption.
+
+\paragraph{Additional ensemble average.}
+Now let $\Theta^\star\sim\mathcal Q$ have zero mean and second moment
+$\mathbb E_{\mathcal Q}[\Theta^\star{\Theta^\star}^\top]=vI_D$, independently of $P$ and the observation noise.
+Conditional on any such $P$,
+\begin{equation}
+\mathbb E_{\mathcal Q}\!\left[\|(I-PP^\top)\Theta^\star\|_2^2\mid P\right]
+=\mathrm{tr}\!\left((I-PP^\top)\mathbb E_{\mathcal Q}[\Theta^\star{\Theta^\star}^\top\mid P]\right)
+=(D-d)v.
+\label{eq:app_energy_bias_term}
+\end{equation}
+This identity holds for each target-independent orthonormal projection, including normalized one-hot and random orthonormal constructions, and hence also after averaging over a random $P$.
+Applying this additional average to Eq.~\eqref{eq:app_energy_compressed_risk} proves Eq.~\eqref{eq:energy_noise_risks}, and the ensemble risk gap is
+\begin{equation}
+\mathbb E_{\mathrm{ens}}\big[R(\hat\theta_L)-R(\hat\theta_U)\big]
+=\frac12(D-d)(\sigma_{\mathrm{eff}}^2-v).
+\label{eq:app_energy_risk_gap}
+\end{equation}
+Since $d<D$, this is positive if and only if $v<\sigma_{\mathrm{eff}}^2$, proving Proposition~\ref{prop:energy_noise}. \hfill$\square$
+
+\paragraph{Remark: recoverable fraction under different energy profiles.}
+In the notation of Appendix~\ref{app:isotropic_bias_reduction}, a sparse residual with support $I$ removes the fraction $\rho_I^2=\|\Pi_{A_I}q\|_2^2/\|q\|_2^2$ of the projection bias.
+The exact size-$K$ optimum is
+$I^\star=\arg\max_{|I|=K}\|\Pi_{A_I}q\|_2^2$.
+Selecting the $K$ largest coordinates of $|q|$ is a target-informed surrogate; it is exact when the residualized coordinate directions in $A_I$ are orthogonal, but not for an arbitrary $P$.
+For an incoherent projection such as the random construction used in our sequence experiment, those directions are nearly orthogonal when $d,K\ll D$, and coordinatewise concentration is consequently a reliable proxy.
+Under a diffuse i.i.d.\ Gaussian target, the top-$K$ coordinate energy is only an $O\!\big((K/D)\log(D/K)\big)$ fraction of $\mathbb{E}\|q\|_2^2$; under the same incoherence condition, sparse correction therefore removes only a negligible fraction of the bias floor.
+In contrast, the heavy-tailed mixture in Eq.~\eqref{eq:synthetic_gt} concentrates nearly all realized residual energy on about $\pi D$ coordinates, so when $K$ is at least of order $\pi D$, the target-informed support has $\rho_I^2\approx1$ and removes most of the bias.
+
+\subsection{Proof of the Matched-Budget Condition (Proposition 2)}
+\label{app:matched_budget}
+
+We work in the isotropic estimation setting of Appendix~\ref{app:energy_noise_condition}: $y=\theta^\star+\sigma_{\mathrm{eff}}\epsilon$ with $\epsilon\sim\mathcal{N}(0,I_D)$ independent of $\theta^\star$, $\theta^\star$ is a realization of $\Theta^\star\sim\mathcal Q$ with $\mathbb E_{\mathcal Q}[\Theta^\star{\Theta^\star}^\top]=vI_D$, $H=I$, and least-squares estimators.
+
+\paragraph{Step 1: ensemble risk of a target-independent subspace depends only on its dimension.}
+For any subspace $\mathcal{S}\subseteq\mathbb{R}^D$ of dimension $m$ with orthogonal projector $\Pi_{\mathcal{S}}$, the constrained least-squares estimator is $\hat{\theta}=\Pi_{\mathcal{S}}y$, with error
+$\hat{\theta}-\theta^\star=-(I-\Pi_{\mathcal{S}})\theta^\star+\sigma_{\mathrm{eff}}\Pi_{\mathcal{S}}\epsilon$,
+whose two components are orthogonal. For a subspace selected independently of the estimation noise, averaging over targets and noise gives
+\begin{equation}
+\mathbb E_{\mathrm{ens}}\big[R(\hat{\theta})-R(\theta^\star)\big]
+=
+\frac{1}{2}\,\mathbb E_{\mathrm{ens}}\big\|(I-\Pi_{\mathcal{S}})\theta^\star\big\|_2^2
++
+\frac{1}{2}\,m\,\sigma_{\mathrm{eff}}^2 .
+\label{eq:app_mb_generic_risk}
+\end{equation}
+If $\mathcal{S}$ is fixed (selected independently of $\theta^\star$ and $\epsilon$), then by $\mathbb E_{\mathcal Q}[\Theta^\star{\Theta^\star}^\top]=vI_D$,
+\begin{equation}
+\mathbb E_{\mathrm{ens}}\big\|(I-\Pi_{\mathcal{S}})\theta^\star\big\|_2^2
+=
+v\,\mathrm{tr}(I-\Pi_{\mathcal{S}})
+=
+(D-m)\,v .
+\label{eq:app_mb_fixed_bias}
+\end{equation}
+In particular, the compressed-only parameterization with projection dimension $B$ attains
+\begin{equation}
+\mathbb E_{\mathrm{ens}}\big[R(\hat{\theta}_{U,B})-R(\theta^\star)\big]
+=
+\frac{1}{2}(D-B)\,v+\frac{1}{2}B\,\sigma_{\mathrm{eff}}^2 .
+\label{eq:app_mb_compressed_risk}
+\end{equation}
+Equation~\eqref{eq:app_mb_fixed_bias} also shows that under an isotropic prior, \emph{every} fixed budget-$B$ linear parameterization---grouping, fixed sparse coordinates, or any mixture---attains the same expected risk: matched-budget gains cannot come from the shape of a data-independent parameterization.
+
+\paragraph{Step 2: hybrid parameterization with a selected support.}
+Let the hybrid use a projection $P$ of dimension $d=B-K$ together with a support $\hat{I}$ of size $K$, so that $\mathcal{S}_{\mathrm{hyb}}=\mathrm{col}([P,E_{\hat{I}}])$ has dimension $B$ (generically).
+Assume $\hat{I}$ may depend on $\theta^\star$ (informed selection, e.g., through warmup estimates) but is independent of the estimation noise $\epsilon$; the variance term in Eq.~\eqref{eq:app_mb_generic_risk} then remains $\frac{1}{2}B\sigma_{\mathrm{eff}}^2$ in expectation.
+Decomposing the bias as in Appendix~\ref{app:isotropic_bias_reduction}, with $q=(I-PP^\top)\theta^\star$, $A_{\hat{I}}=Q_PE_{\hat{I}}$, and captured energy $\mathcal{E}_K:=\|\Pi_{A_{\hat{I}}}q\|_2^2$,
+\begin{equation}
+\mathbb E_{\mathrm{ens}}\big\|(I-\Pi_{\mathrm{hyb}})\theta^\star\big\|_2^2
+=
+\mathbb E_{\mathrm{ens}}\|q\|_2^2-\mathbb E_{\mathrm{ens}}[\mathcal{E}_K]
+=
+(D-B+K)\,v-\mathbb E_{\mathrm{ens}}[\mathcal{E}_K].
+\label{eq:app_mb_hybrid_bias}
+\end{equation}
+Therefore,
+\begin{equation}
+\mathbb E_{\mathrm{ens}}\big[R(\hat{\theta}_{\mathrm{hyb}})\big]
+-
+\mathbb E_{\mathrm{ens}}\big[R(\hat{\theta}_{U,B})\big]
+=
+\frac{1}{2}\Big(K\,v-\mathbb E_{\mathrm{ens}}[\mathcal{E}_K]\Big),
+\label{eq:app_mb_difference}
+\end{equation}
+which proves Proposition~2. \hfill$\square$
+
+\begin{corollary}[Uninformed supports provide no expected gain]
+\label{cor:random_support}
+If $\hat{I}$ is selected independently of both $\theta^\star$ and $\epsilon$ (e.g., uniformly at random) and $\operatorname{rank}([P,E_{\hat{I}}])=B$, then
+\begin{equation}
+\mathbb E_{\mathrm{ens}}[\mathcal{E}_K]=Kv,
+\qquad
+\mathbb E_{\mathrm{ens}}\big[R(\hat{\theta}_{\mathrm{hyb}})\big]
+=
+\mathbb E_{\mathrm{ens}}\big[R(\hat{\theta}_{U,B})\big],
+\label{eq:app_mb_random_support}
+\end{equation}
+i.e., the random hybrid has the same expected risk as a $B$-dimensional compressed-only estimator.
+\end{corollary}
+
+\emph{Proof.}
+The augmented space $\mathcal{S}_{\mathrm{hyb}}=\mathrm{col}([P,E_{\hat{I}}])$ is a fixed $B$-dimensional subspace selected independently of $\theta^\star$, so Eq.~\eqref{eq:app_mb_fixed_bias} applies with $m=B$:
+$\mathbb E_{\mathrm{ens}}\|(I-\Pi_{\mathrm{hyb}})\theta^\star\|_2^2=(D-B)v$.
+Comparing with Eq.~\eqref{eq:app_mb_hybrid_bias} yields $\mathbb E_{\mathrm{ens}}[\mathcal{E}_K]=(D-B+K)v-(D-B)v=Kv$, and substituting into Eq.~\eqref{eq:app_mb_difference} gives a zero expected risk difference. \hfill$\square$
+
+Under isotropy, the expected approximation error of a data-independent subspace depends only on its dimension, so the \emph{shape} of an uninformed parameterization---grouping, fixed sparse coordinates, or any mixture---is irrelevant in expectation; any benefit of the hybrid must come from target-informed support selection.
+The generic rank condition holds unless an entire latent group of $P$ is contained in $\hat{I}$, an event of negligible probability for $K\ll D$.
+The matched-budget sequence-model experiment of Appendix~\ref{sec:synthetic} shows a near-tie on one fixed target; it does not average over target draws and therefore does not directly verify the ensemble equality.
+In real networks, a random support may nevertheless perform slightly worse than matched-budget compression---as observed in the support ablation (Appendix~\ref{sec:ablation})---which the isotropic model does not predict; plausible contributors include anisotropic curvature (a random support then wastes budget on low-curvature directions), optimization and conditioning effects of the augmented parameterization, and finite-sample variability.
+
+\paragraph{Remark: selection variance of data-dependent supports.}
+Proposition~\ref{prop:matched_budget} keeps the variance term at $\frac{1}{2}B\sigma_{\mathrm{eff}}^2$ by assuming $\hat{I}$ is independent of the estimation noise $\epsilon$.
+When the support is selected from statistics of the same noisy data---as in the synthetic protocol, where $\hat I=\operatorname{TopK}|y-PP^\top y|$ depends on $\epsilon$ through $y$, and in warmup SNIP, whose scores are computed from training gradients---the law of total covariance adds a selection-variance term $\operatorname{Cov}_{\hat I}\big(\mathbb{E}[\hat\theta\mid\hat I]\big)$, and noisy scores bias the selection toward coordinates whose measured residual is inflated by noise.
+For $K\ll D$ and a heavy-tailed off-subspace residual, the top coordinates are separated from the bulk by a wide margin, so the selection is stable and the extra variance is small at moderate noise; as $\sigma_{\mathrm{eff}}$ grows, selection errors accumulate and the data-dependent hybrid degrades relative to an oracle support.
+Both effects are visible in Figure~\ref{fig:synthetic_matched_budget}B, where the noise-dependent support tracks the oracle at small $\sigma_y$ and progressively falls behind it at large $\sigma_y$ while still improving over compressed-only by an order of magnitude.
+
+\paragraph{Remark: informed selection and energy profiles.}
+For the target-informed top-$K$ surrogate $I_{\mathrm{top}}=\operatorname{TopK}(|q|)$, the captured energy remains the projector quantity
+$\mathcal E_K=\|\Pi_{A_{I_{\mathrm{top}}}}q\|_2^2$, not simply $\sum_{i\in I_{\mathrm{top}}}q_i^2$.
+Under the incoherent-projection regime described above, these quantities are close.
+For the sparse heavy-tailed mixture of Eq.~\eqref{eq:synthetic_gt}, when $K$ is at least of order $\pi D$, the support then captures nearly all of the residual energy, so $\mathbb E_{\mathrm{ens}}[\mathcal E_K]\gg Kv$ and the hybrid strictly improves.
+For i.i.d.\ Gaussian coordinates, the corresponding captured fraction is only $O\big((K/D)\log(D/K)\big)$ under the same incoherence condition: it may beat a random support, but cannot materially reduce a bias floor of order $Dv$, matching the bias-dominated failure regime.
+
+\subsection{Bias Monotonicity of Support Augmentation (Auxiliary Lemma)}
+\label{app:sparse_bias_reduction}
+
+We record the auxiliary monotonicity result referenced in Appendix~\ref{sec:sparse_bias}: for a \emph{fixed} projection $P$, augmenting the compressed space with any sparse support cannot increase the best attainable approximation bias.
+The argument applies to any fixed sparse support $I$ and does not depend on how the support is selected.
+
+Recall that compressed LoRA restricts the full LoRA parameter vector to
+\begin{equation}
+\mathcal{S}_U=\mathrm{col}(P)\subseteq\mathbb{R}^D.
+\label{eq:app_compressed_space}
+\end{equation}
+Let $\theta^\star$ be the full-space population optimum and let $H\succeq 0$ be the local curvature around $\theta^\star$.
+The compressed-only local optimum is
+\begin{equation}
+\theta^\star_U
+=
+\arg\min_{\theta\in\mathcal{S}_U}
+(\theta-\theta^\star)^\top
+H
+(\theta-\theta^\star),
+\label{eq:app_compressed_local_optimum}
+\end{equation}
+with approximation bias
+\begin{equation}
+\mathsf{Bias}_{U}
+=
+\frac{1}{2}
+(\theta^\star_U-\theta^\star)^\top
+H
+(\theta^\star_U-\theta^\star).
+\label{eq:app_compressed_bias}
+\end{equation}
+
+For ProLoSA, let $I=\{i_1,\ldots,i_K\}\subseteq\{1,\ldots,D\}$ denote the selected sparse support and let
+\begin{equation}
+E_I=[e_{i_1},\ldots,e_{i_K}]\in\mathbb{R}^{D\times K}.
+\label{eq:app_coordinate_selection_matrix}
+\end{equation}
+For this fixed support, ProLoSA optimizes over the augmented space
+\begin{equation}
+\mathcal{S}_{U,I}
+=
+\{Pz+E_I\alpha\mid z\in\mathbb{R}^d,\alpha\in\mathbb{R}^K\}
+=
+\mathrm{col}([P,E_I]).
+\label{eq:app_augmented_space}
+\end{equation}
+The corresponding local optimum is
+\begin{equation}
+\theta^\star_{\mathcal{S}_{U,I}}
+=
+\arg\min_{\theta\in\mathcal{S}_{U,I}}
+(\theta-\theta^\star)^\top
+H
+(\theta-\theta^\star),
+\label{eq:app_prolosa_local_optimum}
+\end{equation}
+and its approximation bias is
+\begin{equation}
+\mathsf{Bias}_{U,I}
+=
+\frac{1}{2}
+(\theta^\star_{\mathcal{S}_{U,I}}-\theta^\star)^\top
+H
+(\theta^\star_{\mathcal{S}_{U,I}}-\theta^\star).
+\label{eq:app_prolosa_bias}
+\end{equation}
+
+Since $\mathcal{S}_U=\mathrm{col}(P)$ and $\mathcal{S}_{U,I}=\mathrm{col}([P,E_I])$, we have
+\begin{equation}
+\mathcal{S}_U\subseteq\mathcal{S}_{U,I}.
+\label{eq:app_space_inclusion}
+\end{equation}
+The compressed-only optimum minimizes the local quadratic approximation error over the smaller feasible set $\mathcal{S}_U$, whereas the ProLoSA optimum minimizes the same objective over the larger feasible set $\mathcal{S}_{U,I}$.
+Therefore,
+\begin{equation}
+(\theta^\star_{\mathcal{S}_{U,I}}-\theta^\star)^\top
+H
+(\theta^\star_{\mathcal{S}_{U,I}}-\theta^\star)
+\le
+(\theta^\star_U-\theta^\star)^\top
+H
+(\theta^\star_U-\theta^\star).
+\label{eq:app_bias_monotonicity_quadratic}
+\end{equation}
+Multiplying both sides by $1/2$ gives
+\begin{equation}
+\mathsf{Bias}_{U,I}
+\le
+\mathsf{Bias}_{U}.
+\label{eq:app_bias_monotonicity}
+\end{equation}
+This proves the lemma.
+
+This result concerns only the best attainable local approximation bias.
+It does not imply that ProLoSA always has lower overall expected excess risk, because the sparse residual branch can introduce additional estimation variance.
+The full bias--variance condition under which ProLoSA improves over compressed-only LoRA is given in Appendix~\ref{app:prolosa_bias_variance_condition}.
+
+Finally, the amount of bias reduction depends on the selected support.
+For any fixed support, adding sparse coordinate directions enlarges the feasible space and cannot increase the best attainable local approximation bias.
+Support selection determines how much of the compressed projection error can be recovered under a fixed sparse budget $K$.
+\subsection{Explicit Bias Reduction in the Isotropic Case}
+\label{app:isotropic_bias_reduction}
+
+We further characterize how much projection bias can be removed by the sparse residual branch in a simplified isotropic setting.
+Assume that the local curvature is isotropic, $H=I$, and that the projection matrix has orthonormal columns, $P^\top P=I_d$.
+Let
+\begin{equation}
+Q_P=I-PP^\top
+\label{eq:app_orthogonal_projector}
+\end{equation}
+be the orthogonal projector onto the complement of $\mathrm{col}(P)$.
+The component of the full-space optimum that cannot be represented by the compressed branch is
+\begin{equation}
+q=Q_P\theta^\star .
+\label{eq:app_off_subspace_residual}
+\end{equation}
+Thus, the compressed-only projection bias is
+\begin{equation}
+\mathsf{Bias}_{U}
+=
+\frac{1}{2}\|q\|_2^2 .
+\label{eq:app_isotropic_comp_bias}
+\end{equation}
+
+For ProLoSA, the augmented space includes both the projected subspace and the selected sparse coordinate directions.
+Since any component of $E_I\alpha$ inside $\mathrm{col}(P)$ can already be represented by the projected branch, only its orthogonal component contributes to reducing the off-subspace residual.
+Define
+\begin{equation}
+A_I=Q_PE_I .
+\label{eq:app_sparse_orthogonal_component}
+\end{equation}
+The best sparse correction in the orthogonal complement solves
+\begin{equation}
+\min_{\alpha\in\mathbb{R}^K}
+\|q-A_I\alpha\|_2^2 .
+\label{eq:app_best_sparse_correction}
+\end{equation}
+Let $\Pi_{A_I}$ denote the orthogonal projector onto $\mathrm{col}(A_I)$.
+The residual off-subspace error after adding the best sparse correction is $(I-\Pi_{A_I})q$.
+Therefore,
+\begin{equation}
+\mathsf{Bias}_{U,I}
+=
+\frac{1}{2}\|(I-\Pi_{A_I})q\|_2^2 .
+\label{eq:app_isotropic_prolosa_bias}
+\end{equation}
+Equivalently,
+\begin{equation}
+\mathsf{Bias}_{U,I}
+=
+\mathsf{Bias}_{U}
+-
+\frac{1}{2}\|\Pi_{A_I}q\|_2^2 .
+\label{eq:app_isotropic_bias_reduction}
+\end{equation}
+Thus, in this isotropic setting, the sparse residual branch removes exactly the portion of the compressed projection error that lies in the span of the selected sparse directions after removing their projected-subspace components.
+
+Define the recovered fraction as
+\begin{equation}
+\rho_I^2
+=
+\frac{\|\Pi_{A_I}q\|_2^2}{\|q\|_2^2}.
+\label{eq:app_recovered_fraction}
+\end{equation}
+Then $\rho_I^2\in[0,1]$, and
+\begin{equation}
+\mathsf{Bias}_{U,I}
+=
+(1-\rho_I^2)
+\mathsf{Bias}_{U} .
+\label{eq:app_recovered_bias_fraction}
+\end{equation}
+This expression clarifies when sparse residual correction is most effective.
+If the off-subspace error is concentrated on a small number of coordinates, a limited sparse support can recover a large fraction of the missing component.
+If the error is diffuse across many coordinates, the same sparse budget may provide only limited bias reduction.
+\subsection{Bias--Variance Condition for ProLoSA}
+\label{app:prolosa_bias_variance_condition}
+
+The previous sections show that the sparse residual branch cannot increase the best attainable local approximation bias.
+However, adding $K$ trainable sparse coefficients can increase estimation variance.
+This section gives the corresponding sufficient condition under which the bias reduction leads to lower expected excess risk.
+
+Let
+\begin{equation}
+M_I=[P,E_I]\in\mathbb{R}^{D\times(d+K)}
+\label{eq:app_augmented_reconstruction_matrix}
+\end{equation}
+denote the augmented reconstruction matrix for a fixed support $I$.
+Assume that the empirical ProLoSA estimator can be locally written as
+\begin{equation}
+\hat{\theta}_I
+=
+\theta^\star_{\mathcal{S}_{U,I}}
++
+M_I\eta,
+\qquad
+\mathbb{E}[\eta]=0,
+\qquad
+\mathrm{Cov}(\eta)=\Sigma_I .
+\label{eq:app_prolosa_estimator_decomposition}
+\end{equation}
+Using the local quadratic approximation in Eq.~\eqref{eq:local_quadratic}, its expected excess risk is
+\begin{equation}
+\mathbb{E}[R(\hat{\theta}_I)]-R(\theta^\star)
+\approx
+\mathsf{Bias}_{U,I}
++
+\frac{1}{2}
+\mathrm{tr}(HM_I\Sigma_IM_I^\top).
+\label{eq:app_prolosa_excess_risk}
+\end{equation}
+The corresponding compressed-only estimator satisfies
+\begin{equation}
+\mathbb{E}[R(\hat{\theta}_U)]-R(\theta^\star)
+\approx
+\mathsf{Bias}_{U}
++
+\frac{1}{2}
+\mathrm{tr}(HP\Sigma_zP^\top).
+\label{eq:app_compressed_excess_risk}
+\end{equation}
+Therefore, ProLoSA improves over compressed-only LoRA when
+\begin{equation}
+\mathsf{Bias}_{U,I}
++
+\frac{1}{2}
+\mathrm{tr}(HM_I\Sigma_IM_I^\top)
+<
+\mathsf{Bias}_{U}
++
+\frac{1}{2}
+\mathrm{tr}(HP\Sigma_zP^\top).
+\label{eq:app_prolosa_improvement_condition}
+\end{equation}
+Equivalently,
+\begin{equation}
+\mathsf{Bias}_{U}
+-
+\mathsf{Bias}_{U,I}
+>
+\frac{1}{2}
+\left[
+\mathrm{tr}(HM_I\Sigma_IM_I^\top)
+-
+\mathrm{tr}(HP\Sigma_zP^\top)
+\right].
+\label{eq:app_prolosa_condition}
+\end{equation}
+This condition formalizes the trade-off behind ProLoSA.
+The sparse residual branch is beneficial when the projection bias it recovers is larger than the additional estimation variance introduced by the sparse coefficients.
+Thus, the monotonicity lemma of Appendix~\ref{app:sparse_bias_reduction} concerns only the attainable bias, while Eq.~\eqref{eq:app_prolosa_condition} gives the risk-level condition.

@@ -1,0 +1,1041 @@
+{
+  "cola": {
+    "methods": {
+      "lora": {
+        "V_opt": 0.0592723510677068,
+        "V_stat_raw": 0.033918903057879604,
+        "V_stat": 0.004282727524026205,
+        "V_total": 0.063555078591733,
+        "n_boot": 5,
+        "n_seed": 2.0,
+        "norm2_mean": 0.9166503543927387,
+        "Bias2": 0.013633704792379488,
+        "Bias2+V": 0.07718878338411249,
+        "V_stat_signed": 0.004282727524026121,
+        "crossed_V_stat_signed": 0.003009316786199541,
+        "crossed_V_seed_signed": -0.002546821475653159,
+        "crossed_V_interaction": 0.06181917254336011,
+        "bias_by_reference": {
+          "mixed": 0.013633704792379511,
+          "rank4": 0.022752033709822435,
+          "rank64": 0.017687263084647315,
+          "leave_one_out_0": 0.015226967845272664,
+          "leave_one_out_1": 0.01422878129098257,
+          "leave_one_out_2": 0.014079341281958662,
+          "leave_one_out_3": 0.013279941948794565,
+          "leave_one_out_4": 0.014754034548393172,
+          "leave_one_out_5": 0.015051868350513557,
+          "leave_one_out_6": 0.014254075727960395,
+          "leave_one_out_7": 0.014751001395896272
+        },
+        "paths": [
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_101/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_101/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_102/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_102/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_103/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_103/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_104/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_104/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_105/seed_0/lora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_r4_lr4e-4/boot_105/seed_1/lora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt"
+        ]
+      },
+      "unilora": {
+        "V_opt": 0.03263225171951432,
+        "V_stat_raw": 0.01688804896682248,
+        "V_stat": 0.0005719231070653222,
+        "V_total": 0.033204174826579634,
+        "n_boot": 5,
+        "n_seed": 2.0,
+        "norm2_mean": 0.8694797723779423,
+        "Bias2": 0.030913516586793862,
+        "Bias2+V": 0.06411769141337349,
+        "V_stat_signed": 0.0005719231070653065,
+        "crossed_V_stat_signed": 0.0005691203401257706,
+        "crossed_V_seed_signed": -5.605533879074476e-06,
+        "crossed_V_interaction": 0.032637857253393424,
+        "bias_by_reference": {
+          "mixed": 0.030913516586793827,
+          "rank4": 0.03194758936015309,
+          "rank64": 0.03981762856551183,
+          "leave_one_out_0": 0.0350294004345216,
+          "leave_one_out_1": 0.030577519761543857,
+          "leave_one_out_2": 0.033232286809998686,
+          "leave_one_out_3": 0.030009390648279892,
+          "leave_one_out_4": 0.030154314015503492,
+          "leave_one_out_5": 0.03256650341311736,
+          "leave_one_out_6": 0.0325769660661501,
+          "leave_one_out_7": 0.029718125595971433
+        },
+        "paths": [
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/unilora_td23040/boot_101/seed_0/unilora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/unilora_td23040/boot_101/seed_1/unilora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/unilora_td23040/boot_102/seed_0/unilora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/unilora_td23040/boot_102/seed_1/unilora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/unilora_td23040/boot_103/seed_0/unilora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/unilora_td23040/boot_103/seed_1/unilora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/unilora_td23040/boot_104/seed_0/unilora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/unilora_td23040/boot_104/seed_1/unilora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/unilora_td23040/boot_105/seed_0/unilora_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/unilora_td23040/boot_105/seed_1/unilora_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt"
+        ]
+      },
+      "prolosa": {
+        "V_opt": 0.03060544086760609,
+        "V_stat_raw": 0.02161422295552212,
+        "V_stat": 0.006311502521719075,
+        "V_total": 0.03691694338932516,
+        "n_boot": 5,
+        "n_seed": 2.0,
+        "norm2_mean": 0.8749560534202677,
+        "Bias2": 0.03188624188980537,
+        "Bias2+V": 0.06880318527913054,
+        "V_stat_signed": 0.006311502521719066,
+        "crossed_V_stat_signed": 0.006561532149709184,
+        "crossed_V_seed_signed": 0.0005000592559802425,
+        "crossed_V_interaction": 0.03010538161162587,
+        "bias_by_reference": {
+          "mixed": 0.03188624188980537,
+          "rank4": 0.03439657148882958,
+          "rank64": 0.0399045997731244,
+          "leave_one_out_0": 0.03594171507323314,
+          "leave_one_out_1": 0.031384597617436366,
+          "leave_one_out_2": 0.03379838872771568,
+          "leave_one_out_3": 0.030949688457440335,
+          "leave_one_out_4": 0.030806212763475612,
+          "leave_one_out_5": 0.03331202381079263,
+          "leave_one_out_6": 0.033769221898816,
+          "leave_one_out_7": 0.031684460820268934
+        },
+        "paths": [
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_101/seed_0/unilora_rosa_snip_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_101/seed_1/unilora_rosa_snip_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_102/seed_0/unilora_rosa_snip_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_102/seed_1/unilora_rosa_snip_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_103/seed_0/unilora_rosa_snip_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_103/seed_1/unilora_rosa_snip_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_104/seed_0/unilora_rosa_snip_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_104/seed_1/unilora_rosa_snip_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_105/seed_0/unilora_rosa_snip_cola_roberta-large_lr0.005_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_105/seed_1/unilora_rosa_snip_cola_roberta-large_lr0.005_seed1_p0.8_theory.pt"
+        ]
+      }
+    },
+    "references": {
+      "mixed": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7065367325489877,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6910467213104741,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6820367914477016,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7015142597589423,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6973400641575541,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6893389355857963,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+          "score": 0.7122141696213052,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+          "score": 0.6797808791497613,
+          "seed": 4
+        }
+      ],
+      "rank4": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7065367325489877,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6910467213104741,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6820367914477016,
+          "seed": 2
+        }
+      ],
+      "rank64": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7015142597589423,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6973400641575541,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6893389355857963,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+          "score": 0.7122141696213052,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+          "score": 0.6797808791497613,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_0": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6910467213104741,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6820367914477016,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7015142597589423,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6973400641575541,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6893389355857963,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+          "score": 0.7122141696213052,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+          "score": 0.6797808791497613,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_1": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7065367325489877,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6820367914477016,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7015142597589423,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6973400641575541,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6893389355857963,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+          "score": 0.7122141696213052,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+          "score": 0.6797808791497613,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_2": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7065367325489877,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6910467213104741,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7015142597589423,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6973400641575541,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6893389355857963,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+          "score": 0.7122141696213052,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+          "score": 0.6797808791497613,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_3": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7065367325489877,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6910467213104741,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6820367914477016,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6973400641575541,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6893389355857963,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+          "score": 0.7122141696213052,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+          "score": 0.6797808791497613,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_4": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7065367325489877,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6910467213104741,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6820367914477016,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7015142597589423,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6893389355857963,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+          "score": 0.7122141696213052,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+          "score": 0.6797808791497613,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_5": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7065367325489877,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6910467213104741,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6820367914477016,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7015142597589423,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6973400641575541,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+          "score": 0.7122141696213052,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+          "score": 0.6797808791497613,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_6": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7065367325489877,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6910467213104741,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6820367914477016,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7015142597589423,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6973400641575541,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6893389355857963,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+          "score": 0.6797808791497613,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_7": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7065367325489877,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6910467213104741,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/cola/lora_r4_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6820367914477016,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+          "score": 0.7015142597589423,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+          "score": 0.6973400641575541,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+          "score": 0.6893389355857963,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr1e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+          "score": 0.7122141696213052,
+          "seed": 3
+        }
+      ]
+    },
+    "excluded_references": [
+      {
+        "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr4e-4/seed_0/lora_cola_roberta-large_lr0.005_seed0_theory.pt",
+        "score": 0.5498156591139931
+      },
+      {
+        "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr4e-4/seed_1/lora_cola_roberta-large_lr0.005_seed1_theory.pt",
+        "score": 0.19972243061225006
+      },
+      {
+        "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr4e-4/seed_2/lora_cola_roberta-large_lr0.005_seed2_theory.pt",
+        "score": 0.5909980631515633
+      },
+      {
+        "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr4e-4/seed_3/lora_cola_roberta-large_lr0.005_seed3_theory.pt",
+        "score": 0.4831623184083231
+      },
+      {
+        "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/cola/lora_ref_r64_lr4e-4/seed_4/lora_cola_roberta-large_lr0.005_seed4_theory.pt",
+        "score": 0.5600020773413192
+      }
+    ]
+  },
+  "mrpc": {
+    "methods": {
+      "lora": {
+        "V_opt": 0.02831259274491936,
+        "V_stat_raw": 0.023241032159952962,
+        "V_stat": 0.009084735787493284,
+        "V_total": 0.03739732853241264,
+        "n_boot": 5,
+        "n_seed": 2.0,
+        "norm2_mean": 0.9258102441747167,
+        "Bias2": 0.012363448807325532,
+        "Bias2+V": 0.049760777339738174,
+        "V_stat_signed": 0.009084735787493277,
+        "crossed_V_stat_signed": 0.008904840643573185,
+        "crossed_V_seed_signed": -0.0003597902878401824,
+        "crossed_V_interaction": 0.028672383032759555,
+        "bias_by_reference": {
+          "mixed": 0.012363448807325537,
+          "rank4": 0.02145598923002092,
+          "rank64": 0.01702726175551629,
+          "leave_one_out_0": 0.011926902871960845,
+          "leave_one_out_1": 0.014256346060060985,
+          "leave_one_out_2": 0.01356553110268884,
+          "leave_one_out_3": 0.012869980755725593,
+          "leave_one_out_4": 0.013725389154923197,
+          "leave_one_out_5": 0.012496520080710784,
+          "leave_one_out_6": 0.011842312839574053,
+          "leave_one_out_7": 0.014210433781445065
+        },
+        "paths": [
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_101/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_101/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_102/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_102/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_103/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_103/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_104/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_104/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_105/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_r4/boot_105/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt"
+        ]
+      },
+      "unilora": {
+        "V_opt": 0.03131129777059769,
+        "V_stat_raw": 0.016968162388269883,
+        "V_stat": 0.0013125135029710393,
+        "V_total": 0.032623811273568726,
+        "n_boot": 5,
+        "n_seed": 2.0,
+        "norm2_mean": 0.8743921875716899,
+        "Bias2": 0.02187330414572363,
+        "Bias2+V": 0.05449711541929236,
+        "V_stat_signed": 0.0013125135029710376,
+        "crossed_V_stat_signed": 0.0015710390666605328,
+        "crossed_V_seed_signed": 0.0005170511273789862,
+        "crossed_V_interaction": 0.030794246643218694,
+        "bias_by_reference": {
+          "mixed": 0.02187330414572364,
+          "rank4": 0.03247309431242608,
+          "rank64": 0.025632767247510155,
+          "leave_one_out_0": 0.02128100993496345,
+          "leave_one_out_1": 0.023694723278369245,
+          "leave_one_out_2": 0.022656648660569257,
+          "leave_one_out_3": 0.024184199770996312,
+          "leave_one_out_4": 0.0232466888679432,
+          "leave_one_out_5": 0.02102531660156121,
+          "leave_one_out_6": 0.021452394452438257,
+          "leave_one_out_7": 0.023431277787433237
+        },
+        "paths": [
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/unilora_td23040/boot_101/seed_0/unilora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/unilora_td23040/boot_101/seed_1/unilora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/unilora_td23040/boot_102/seed_0/unilora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/unilora_td23040/boot_102/seed_1/unilora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/unilora_td23040/boot_103/seed_0/unilora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/unilora_td23040/boot_103/seed_1/unilora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/unilora_td23040/boot_104/seed_0/unilora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/unilora_td23040/boot_104/seed_1/unilora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/unilora_td23040/boot_105/seed_0/unilora_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/unilora_td23040/boot_105/seed_1/unilora_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt"
+        ]
+      },
+      "prolosa": {
+        "V_opt": 0.03030122044954545,
+        "V_stat_raw": 0.01399812665943537,
+        "V_stat": 0.0,
+        "V_total": 0.03030122044954545,
+        "n_boot": 5,
+        "n_seed": 2.0,
+        "norm2_mean": 0.8897060213933765,
+        "Bias2": 0.01804150982163586,
+        "Bias2+V": 0.048342730271181314,
+        "V_stat_signed": -0.0011524835653373578,
+        "crossed_V_stat_signed": -0.001096121770384607,
+        "crossed_V_seed_signed": 0.00011272358990549805,
+        "crossed_V_interaction": 0.030188496859639962,
+        "bias_by_reference": {
+          "mixed": 0.018041509821635857,
+          "rank4": 0.029270604256475253,
+          "rank64": 0.021423390362540207,
+          "leave_one_out_0": 0.017623112069129636,
+          "leave_one_out_1": 0.01877079937651512,
+          "leave_one_out_2": 0.0194733856267923,
+          "leave_one_out_3": 0.019539466497139783,
+          "leave_one_out_4": 0.020031876893958585,
+          "leave_one_out_5": 0.017694994687080273,
+          "leave_one_out_6": 0.01785945595825665,
+          "leave_one_out_7": 0.01932481365269959
+        },
+        "paths": [
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_101/seed_0/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_101/seed_1/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_102/seed_0/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_102/seed_1/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_103/seed_0/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_103/seed_1/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_104/seed_0/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_104/seed_1/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_105/seed_0/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed0_p0.8_theory.pt",
+          "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/prolosa_td14400_sb8640_w128_m1_slrm0p2/boot_105/seed_1/unilora_rosa_snip_mrpc_roberta-large_lr0.0002_seed1_p0.8_theory.pt"
+        ]
+      }
+    },
+    "references": {
+      "mixed": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9142156862745098,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9117647058823529,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+          "score": 0.8872549019607843,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 4
+        }
+      ],
+      "rank4": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9142156862745098,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 2
+        }
+      ],
+      "rank64": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9117647058823529,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+          "score": 0.8872549019607843,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_0": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9142156862745098,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9117647058823529,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+          "score": 0.8872549019607843,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_1": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9117647058823529,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+          "score": 0.8872549019607843,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_2": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9142156862745098,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9117647058823529,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+          "score": 0.8872549019607843,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_3": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9142156862745098,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+          "score": 0.8872549019607843,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_4": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9142156862745098,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9117647058823529,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+          "score": 0.8872549019607843,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_5": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9142156862745098,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9117647058823529,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+          "score": 0.8872549019607843,
+          "seed": 3
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_6": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9142156862745098,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9117647058823529,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_4/lora_mrpc_roberta-large_lr0.0002_seed4_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 4
+        }
+      ],
+      "leave_one_out_7": [
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9142156862745098,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e4_projection_sweep/roberta-large/mrpc/lora_r4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_0/lora_mrpc_roberta-large_lr0.0002_seed0_theory.pt",
+          "score": 0.9117647058823529,
+          "seed": 0
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_1/lora_mrpc_roberta-large_lr0.0002_seed1_theory.pt",
+          "score": 0.9068627450980392,
+          "seed": 1
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_2/lora_mrpc_roberta-large_lr0.0002_seed2_theory.pt",
+          "score": 0.9044117647058824,
+          "seed": 2
+        },
+        {
+          "path": "NLU/peft/examples/sequence_classification/results_theory_e3_bias_variance/roberta-large/mrpc/lora_ref_r64_lr1e-4/seed_3/lora_mrpc_roberta-large_lr0.0002_seed3_theory.pt",
+          "score": 0.8872549019607843,
+          "seed": 3
+        }
+      ]
+    },
+    "excluded_references": []
+  }
+}

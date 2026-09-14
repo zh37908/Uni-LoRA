@@ -1,0 +1,14 @@
+Validation of ProLoSA ViT paper addition
+Audited completed runs: 62 (each JSON matched to its training log)
+Main text: 9 pages
+Statements and references begin: page 10
+Total PDF pages: 47
+Main ViT results: Table 3, page 8 (30 seed-42 scores)
+ViT details: Appendix D.7, pages 46-47
+Supplementary ViT results: Table 26, page 47 (30 seed-42 scores)
+All 60 displayed scores checked against audited final_accuracy values.
+All displayed d/K allocations checked against the logged budgets.
+Undefined references/citations: 0
+Overfull boxes: 0
+Rendered pages 8, 9, 46, 47 inspected for clipping and table layout.
+No training or evaluation rerun.

@@ -1,0 +1,10 @@
+{
+  "glue_tuning_jobs": [
+    "1858374",
+    "1858376"
+  ],
+  "glue_selection_job": "1858377",
+  "superseded_synthetic_job": "1858173",
+  "synthetic_job": "1858509",
+  "synthetic_summary_job": "1858510"
+}

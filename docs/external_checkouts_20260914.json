@@ -1,0 +1,56 @@
+[
+  {
+    "path": "NLU/peft/examples/sequence_classification/paper/AROMA",
+    "revision": "fb7610e9ee3fdf8e11f73a7d9f9ec358180fddc0",
+    "upstream": null,
+    "required_for_two_week_finetuning": false
+  },
+  {
+    "path": "NLU/peft/examples/sequence_classification/paper/Deep-K-Means-pytorch",
+    "revision": "2d0f81958fc28e57c23ede070fd0b08cd56a912f",
+    "upstream": null,
+    "required_for_two_week_finetuning": false
+  },
+  {
+    "path": "NLU/peft/examples/sequence_classification/paper/MyTransformers",
+    "revision": "4037d4d6ba67ff88de87f90b943ff4e3a3649b67",
+    "upstream": null,
+    "required_for_two_week_finetuning": false
+  },
+  {
+    "path": "NLU/peft/examples/sequence_classification/paper/Publication-GeoLoRA-Geometric-integration-for-parameter-efficient-fine-tuning",
+    "revision": "82f432d26173351a842cae1f41311bd0a1aa7b98",
+    "upstream": null,
+    "required_for_two_week_finetuning": false
+  },
+  {
+    "path": "NLU/peft/examples/sequence_classification/paper/RoSA",
+    "revision": "5f70c49e67a43beaa09eeeb8287d4bd3554af365",
+    "upstream": null,
+    "required_for_two_week_finetuning": false
+  },
+  {
+    "path": "NLU/peft/examples/sequence_classification/paper/SparseAdapter",
+    "revision": "b19008432c5983ecae3f054e74aa8a1dac19f28a",
+    "upstream": null,
+    "required_for_two_week_finetuning": false
+  },
+  {
+    "path": "NLU/peft/examples/sequence_classification/paper/igulora",
+    "revision": "3f5ba10a6646c81c557e4669b14b072f76822085",
+    "upstream": null,
+    "required_for_two_week_finetuning": false
+  },
+  {
+    "path": "instruction_tuning/bitsandbytes",
+    "revision": "0bd47826d3b5bb6ee57e51eb0f1410b21241fd52",
+    "upstream": null,
+    "required_for_two_week_finetuning": false
+  },
+  {
+    "path": "RoSA",
+    "revision": "5f70c49e67a43beaa09eeeb8287d4bd3554af365",
+    "upstream": "https://github.com/IST-DASLab/RoSA.git",
+    "required_for_two_week_finetuning": false
+  }
+]

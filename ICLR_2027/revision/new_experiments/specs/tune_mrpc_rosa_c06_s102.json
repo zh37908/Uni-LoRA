@@ -1,0 +1,13 @@
+{
+  "id": "tune_mrpc_rosa_c06_s102",
+  "phase": "tune",
+  "task": "mrpc",
+  "method": "rosa",
+  "seed": 102,
+  "config_id": 6,
+  "adapter_lr": 0.0004,
+  "head_lr": 0.0002,
+  "weight_decay": 0.1,
+  "dropout": 0.1,
+  "stopping": "best"
+}
