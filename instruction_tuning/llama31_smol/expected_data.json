@@ -1,0 +1,35 @@
+{
+  "splits": {
+    "train": {
+      "examples": 50000,
+      "raw_sha256": "6d01f02eead68cd56865dec6a17e9b6bd5ff5bcfde3509cec315867b27c535e6",
+      "fingerprint": "e71cc7b68ac08def",
+      "tokens": 66515418,
+      "supervised_tokens": 57981824,
+      "eos_labels": 150000,
+      "max_length": 2047
+    },
+    "val": {
+      "examples": 1000,
+      "raw_sha256": "54d225358f00d4b7ff99a88062ae01550b86a54182fd04f5f8cc721870ea3e85",
+      "fingerprint": "ec810fc4fc451d3c",
+      "tokens": 1340456,
+      "supervised_tokens": 1170549,
+      "eos_labels": 3000,
+      "max_length": 2045
+    },
+    "test": {
+      "examples": 1000,
+      "raw_sha256": "c23ea7ec0cf6d3d31999cb025eb2a621ccd35590914a917468deb9d9819b82e2",
+      "fingerprint": "559e763a9f8ab383",
+      "tokens": 1286977,
+      "supervised_tokens": 1124476,
+      "eos_labels": 3000,
+      "max_length": 2043
+    }
+  },
+  "benchmark_hashes": {
+    "ifeval.jsonl": "67ffeee0fcb87c317c5b08a2de85557b4a7e96ada6178aa645b4954fe4b53d49",
+    "ifbench.jsonl": "a2bf7b8e7ed11d39c65b4ec781da8b99663ed0121f97033d70fcecb61f8a9d85"
+  }
+}
