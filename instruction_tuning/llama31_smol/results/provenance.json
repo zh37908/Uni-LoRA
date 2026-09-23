@@ -1,0 +1,105 @@
+{
+  "source_commit": "6904a34",
+  "packaging": "Path/import/provenance changes only in training core; original runs preceded this packaging. Old checkpoints are not portable resume inputs.",
+  "original_sources": {
+    "replicate_r4_20260922/runner.py": "dcd424106c0f9128e32f4babaa0744c5cbeb6b013e20ec78404538930ff53e01",
+    "replicate_r4_20260922/benchmark.py": "4d2382fb6b282d6d6c49f9fc39d5388df2eedca7cc69237736c71f50c182e2cb",
+    "replicate_r4_20260922/dev.py": "42c9de66e7e4ebd79e37f52b483a9f7c7e0b4122a749ef2e2940aa734af945bf",
+    "round2/generation_checks.py": "ae6bc1191c9cc3794a7e3f8040eaafaed88abafe083efe9c262ae711ba09d255",
+    "round2/prepare.py": "9d398040b9f33c5058002bedad19c70d963fcf41ba151367d2e9e05ddeab6a17",
+    "round2/i2_common.py": "f2779114edb62acda1fc4a13981bce600a511fa4998eaf16abe11aceb148ec8d",
+    "round2/test_training.py": "059cfd96ca601c91139e54cdd765d722e288926eeeaf20afccae4e047f7fa472",
+    "scripts/fetch_verifiers.py": "7469987027f51a2e631bd37958d146beb4b36ca00fdfd89429204aec55123bc7"
+  },
+  "prediction_sha256": {
+    "prolosa_primary_r4_seed0": {
+      "ifeval": "6cb6cb3ac79bafe4f8b7ce4ba512b7e39c39f36f04e08b1cdaac180a290466cc",
+      "ifbench": "3df8e6a0e6bf484b2b03f0bac6ab0e5c3d1dbb896d9e4140a16f439712458f27"
+    },
+    "prolosa_primary_r4_seed21": {
+      "ifeval": "8cf391bdf90f3d0ef893eda74b2aa7a9189e2d644ed161788fc0f95fc22e116b",
+      "ifbench": "6f2cc01cdca19c4e4d39317d3188f2b42911dd2504600b9713db750347f1c75b"
+    },
+    "prolosa_backup_r4_seed0": {
+      "ifeval": "6dbb1b818878d11b1b1513196083736ec249286db8b2842f0c2a62d4e01140dd",
+      "ifbench": "5f2c4744b3d85157c121c20e88364333c7c5b8d90861af7b3b4d6c2bd69b7abc"
+    },
+    "prolosa_backup_r4_seed21": {
+      "ifeval": "8dab80861ed0dd8a87d4720f2a808696bcc5961b90c1fc49a0d572cad2afd7ee",
+      "ifbench": "f6200d6eddca2b6ddb738d7c7505c806e15b822c923d7d175fb797a5eb19b08c"
+    },
+    "unilora_r4_seed0": {
+      "ifeval": "d7d1d463584d60b5b1cc10828b827e789f41f706fe30c9e8a289c67fcbe4529e",
+      "ifbench": "6660959b98616911d9fef85ce5c1356278dc10bf79516aadde4ac58808dc7ca6"
+    },
+    "unilora_r4_seed21": {
+      "ifeval": "6d5f1dadcc6f0a1752af60c2ef105dd940c0bf5da24666c7f669a8856c159bbe",
+      "ifbench": "ca356706886c9ba8a04cfe5298a20ee3e57ebcaef1b64dbcafd17434762187bd"
+    },
+    "lora_r4_seed42": {
+      "ifeval": "2933fb8cf6eb65b62e15bd7b6264aa38d99e6e28404ce41df3c3754a7c744ab5",
+      "ifbench": "4e150723ac8795109397375311ccca19828082ab7008a71b86a3ceadd45fc75f"
+    },
+    "lora_r4_seed0": {
+      "ifeval": "585720f2deab7ee607827947c7a38e9c78c9fd0a8c468be15f9dedd7e9604bc5",
+      "ifbench": "80f540f0aad2615512a075dbd694e397c1c5484e597238c35f7bb1e8ae2769c3"
+    },
+    "lora_r4_seed21": {
+      "ifeval": "cd4099f9b4b521c70c6c9629329965832379bf40d3e8a32ba6d87429b0c88bff",
+      "ifbench": "e5f2ae09e1a3c4c50e32fa428e5803f34a93618b74c4ceee6442fb129c9fddf2"
+    },
+    "unilora_r4_seed42": {
+      "ifeval": "786a4027c8f8f7b1333979f7aaefb4efcb5acf41dabb02f68a889adf41ab326e",
+      "ifbench": "1b711460c7125770ac177bf9563af60a650b29a2b59403bd7550bfc5377ecabe"
+    },
+    "prolosa_primary_r4_seed42": {
+      "ifeval": "783d93ba647de38e9916a0842ae983675fd52ba12a611fcf5769b27156ff6182",
+      "ifbench": "06205cfcabe6aeb0ae85dd50b2dec6f7d828d7a5c73eb4cf3fcd41826f7a8056"
+    },
+    "prolosa_backup_r4_seed42": {
+      "ifeval": "0dfc3a4ead30c1966d2fb184a67fff61f73990ae9aab3e939b9e510fc08bb9d3",
+      "ifbench": "247096a875a4fd7f180140fe9869236792d41dd604dd07ab95aa04c7bc30dfd7"
+    }
+  },
+  "core_function_ast_sha256": {
+    "train.py": {
+      "seed_all": "26680b677c32376a912cdca97b9b648d73979feb1d8ff4c15460c2fef49e943e",
+      "build_model": "47e409259c00cdb94f7838ea5f4c626bbeedeae5a6710c58601bca2f455279ca",
+      "backend": "0b5fab3ccf7e02d842f5cd62f10b2e6d6fd23e19f83960374684e342db109d5a",
+      "adapter_tensors": "49116219da0e40d77454a0cb4694a8e65f7fac2e22b05bd456c6900c549e5acb",
+      "optimizer_for": "96e8a4bfb3f44a68c9864bea41cadd6743d36d784e501674f5e0757788de5ce3",
+      "set_lrs": "46538dfa0ac5939938bdd9217518262704021e4138e398b1a8e093046a44737b",
+      "rng_state": "69b771e674d3f091d916e99a6912a1b9a51e5f045ff5e3c09f1e9a2a1c950476",
+      "restore_rng": "2ea26aa67b144b77ca268810ff69b36a70c5e9c3b9a6ad8a0bf44d410b84d3e5",
+      "save_checkpoint": "2f57e296d3c87f018923ddff12a43dee1a0b975c49e056f589dd5e3b181f6d8c",
+      "load_checkpoint": "93d3c30983bea1c38ea203389c3c79b44357ec99e6b9f5c15d52c678bfc99d4a",
+      "take_step": "f61674b48e1c2b8054fdebe398c076256fb6c7b437d7c4834831aeb590bc502d",
+      "evaluate_nll": "1a74783cf0d469ab446d94e32541830701c283f8192d874e27c1376a0937af3d"
+    },
+    "common.py": {
+      "sha256": "5a1520c1870a2d2b332b6fa00f9af06a7dfd0120c2074fb0f685ea1f5c946abe",
+      "write_json": "db4d681560632d61d9491a2123c12606453c90a2e47f1d7ff06c9f6b445b8cdb",
+      "normalize": "b2bbd52c48df3f6b5510701405095a06128e786ea327a6de1ccb01cf9a16f6e5",
+      "group_key": "6b588c4e335affcf73f4da26cd92c76b442571df3a687570fa24fa081334303e",
+      "validate_messages": "ffcb608e957607b65413b64a9b4f3c3303cf9b688827d340eb24f796c8538a22",
+      "header": "b2dc709488478f7ad67457829139ae555371e5817a29afe6eb6d2f100051840d",
+      "serialize": "b2b35b3ad05b321991544d0f1f3245b2333ac936c2aacd3c6338aab3e2f4d3bf",
+      "encode_chat": "c10c3018b159adfc1eb551270767cd3bdc2ea4575b7df7e5afc11622227ad8f3",
+      "load_tokenizer": "bb8ed74e2ad603d9ac3378e23bd496b6afd3cd44e616a6a262c7f6c847cbf86f",
+      "collate": "f67d1318322d4fa75c7fbf377064206a85792607a760ef96ff40398efb6eb25b"
+    },
+    "evaluate.py": {
+      "scorers": "5601e839cd716306a342817615329da82c4eeb206aaa28603d0dccb21b9686c2",
+      "score_predictions": "9806c29b9537a62b3e1268b69aaa62be262be0cd9ff725849b656c0a39579164"
+    },
+    "development.py": {
+      "build_records": "75bc85ce9969e935eaf9ef964802f0446ef3f0abd0c03dcc2b776a1f329ea575",
+      "passes": "00447a94433d029a728df9cec0d0d2972a38a872b5fa50d71f7f61abf2c64996",
+      "evaluate": "5025379187f655992d143586c5672a9b9ea849e73a928d2f524b40fc7c9ec5db"
+    },
+    "data_utils.py": {
+      "rows": "2ddcb013014b7989ef25b94b7ef3aaceaf74d8e26a3efdef8468497931fc50bc",
+      "PromptFilter": "d7af48a845ed350ada269813e62be0ff3c6ca59dc4a48dc1dd3f3bda26419e35"
+    }
+  }
+}

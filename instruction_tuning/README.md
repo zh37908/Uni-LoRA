@@ -158,3 +158,9 @@ We thank the Hugging Face team, in particular Younes Belkada, for their support 
 We also thank Meta for releasing the LLaMA models without which this work would not have been possible.
 
 This repo builds on the [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) and [LMSYS FastChat](https://github.com/lm-sys/FastChat) repos.
+
+
+## Llama-3.1-8B / SmolTalk (rank 4)
+
+The reproducible three-seed LoRA, Uni-LoRA and ProLoSA instruction-tuning experiment,
+including IFEval/IFBench results and Slurm instructions, is in [llama31_smol](llama31_smol/README.md).
