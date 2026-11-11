@@ -22,12 +22,14 @@ The preparation job writes `spec.json`, fixed `test.pt`, and each teacher's `tea
 
 ## Required local artifacts
 
-The repository includes the locked protocol, selected configurations, source snapshots, and code used by this experiment. The earlier frozen model and prepared tensors are binary research artifacts and are not included in this source release. Before running `submit.sh`, place the original files at the following paths and retain their recorded SHA-256 hashes:
+The repository includes the locked protocol, selected configurations, source snapshots, code, and the four frozen binary inputs:
 
 * `synthetic/results_revision5_fixed_teacher/teachers.pt`
 * `synthetic/prolosa_all_linear_20260924/prepared.pt`
 * `synthetic/prolosa_spike_slab_teacher_20260925/prepared.pt`
 * `synthetic/prolosa_spike_slab_teacher_20260925/test.pt`
+
+Before running `submit.sh`, verify them from the repository root with `sha256sum -c synthetic/prolosa_multiteacher_20261109/weights.sha256`.
 
 The Slurm scripts use the original cluster account, partitions, repository path, and Conda environment. Adjust those fields for another cluster before submission. Python dependencies are PyTorch, NumPy, SciPy, and Matplotlib.
 

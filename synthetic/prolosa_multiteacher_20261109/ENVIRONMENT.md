@@ -27,5 +27,6 @@ same shell after exporting the variable. Slurm's default environment export
 passes it to GPU and analysis jobs. Adjust the account, partition, GPU type,
 and repository path in the Slurm scripts for another cluster.
 
-The source release omits the earlier binary artifacts needed to initialize
-this experiment; see [README.md](README.md#required-local-artifacts).
+The four frozen binary artifacts are included in the multi-teacher GitHub
+branch. Verify them with `sha256sum -c synthetic/prolosa_multiteacher_20261109/weights.sha256` from the repository
+root before a new run; see [README.md](README.md#required-local-artifacts).
