@@ -6,9 +6,11 @@ The selected configurations come from `../prolosa_spike_slab_teacher_20260925/se
 
 The optional optimization control was **included before seeing results**: for noise 1 and 4, repeats 0–4, all methods and teachers, the same trajectory is extended to 3,000 updates while retaining its 1,000-update primary prediction. This adds 300 extended trajectories.
 
+For the tested Python, PyTorch/CUDA, and analysis dependencies, see [ENVIRONMENT.md](ENVIRONMENT.md) and [environment.yml](environment.yml).
+
 ## Run
 
-`submit.sh` queues a GPU preparation and smoke job, then a five-task GPU array with an `afterok` dependency, then a CPU analysis job after the full array succeeds. Five array shards each process two teachers. The GPU jobs target the A30 partition and use `/home/hzhaobi/miniconda3/envs/unilora_modern/bin/python`.
+`submit.sh` queues a GPU preparation and smoke job, then a five-task GPU array with an `afterok` dependency, then a CPU analysis job after the full array succeeds. Five array shards each process two teachers. The GPU jobs target the A30 partition by default; the scripts use `/home/hzhaobi/miniconda3/envs/unilora_modern/bin/python` unless `MULTITEACHER_PYTHON` is set.
 
 ```bash
 bash synthetic/prolosa_multiteacher_20261109/submit.sh

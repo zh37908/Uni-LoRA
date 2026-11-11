@@ -15,7 +15,7 @@ cd /home/hzhaobi/Uni-LoRA
 export OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
 export CUBLAS_WORKSPACE_CONFIG=:4096:8 PYTHONUNBUFFERED=1
 
-python=/home/hzhaobi/miniconda3/envs/unilora_modern/bin/python
+python=${MULTITEACHER_PYTHON:-/home/hzhaobi/miniconda3/envs/unilora_modern/bin/python}
 runner=synthetic/prolosa_multiteacher_20261109/run_multiteacher.py
 
 case "${1:-}" in
