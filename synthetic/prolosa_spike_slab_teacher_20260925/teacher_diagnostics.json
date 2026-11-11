@@ -1,0 +1,86 @@
+{
+  "coordinates": "physical weight deltas, not LoRA factors",
+  "dimension": 49152,
+  "seed": 13,
+  "pi": 0.01,
+  "tau0": 0.005,
+  "tau1": 0.5,
+  "nu": 3,
+  "unscaled_second_moment": 0.00252475,
+  "scale": 0.7042098344536498,
+  "scaled_spike_sd": 0.003521049172268249,
+  "scaled_slab_sd": 0.3521049172268249,
+  "slab_count": 505,
+  "slab_fraction": 0.010274251302083334,
+  "slab_energy_fraction": 0.9875431069861409,
+  "top_1pct_count": 492,
+  "top_1pct_energy_fraction": 0.9875596372341471,
+  "absolute_delta_quantiles": {
+    "0.5": 0.0024108596868836667,
+    "0.9": 0.005991246646359828,
+    "0.99": 0.01313056520218682,
+    "0.999": 0.465116895043247,
+    "1.0": 1.5282542596818705
+  },
+  "modules": {
+    "q": {
+      "elements": 4096,
+      "slab_count": 52,
+      "update_frobenius": 1.342795729637146,
+      "base_weight_frobenius": 4.189019680023193,
+      "numerical_rank": 64,
+      "rank4_weight_residual_fraction": 0.5639829364317066,
+      "leave_one_out_prediction_mse": 4.251935024512932e-06
+    },
+    "k": {
+      "elements": 4096,
+      "slab_count": 41,
+      "update_frobenius": 1.6502681970596313,
+      "base_weight_frobenius": 4.089478492736816,
+      "numerical_rank": 64,
+      "rank4_weight_residual_fraction": 0.4157942315506016,
+      "leave_one_out_prediction_mse": 7.5863754318561405e-06
+    },
+    "v": {
+      "elements": 4096,
+      "slab_count": 42,
+      "update_frobenius": 2.175015926361084,
+      "base_weight_frobenius": 5.769172668457031,
+      "numerical_rank": 64,
+      "rank4_weight_residual_fraction": 0.23293337125369334,
+      "leave_one_out_prediction_mse": 0.0010505630634725094
+    },
+    "o": {
+      "elements": 4096,
+      "slab_count": 50,
+      "update_frobenius": 3.012415885925293,
+      "base_weight_frobenius": 5.768798828125,
+      "numerical_rank": 64,
+      "rank4_weight_residual_fraction": 0.39467084947130093,
+      "leave_one_out_prediction_mse": 0.001013148226775229
+    },
+    "ff1": {
+      "elements": 16384,
+      "slab_count": 134,
+      "update_frobenius": 3.541597366333008,
+      "base_weight_frobenius": 9.179845809936523,
+      "numerical_rank": 64,
+      "rank4_weight_residual_fraction": 0.6410406028535789,
+      "leave_one_out_prediction_mse": 0.00020726992806885391
+    },
+    "ff2": {
+      "elements": 16384,
+      "slab_count": 186,
+      "update_frobenius": 4.229248046875,
+      "base_weight_frobenius": 5.0352349281311035,
+      "numerical_rank": 64,
+      "rank4_weight_residual_fraction": 0.6805994810799726,
+      "leave_one_out_prediction_mse": 0.001389186829328537
+    }
+  },
+  "base_variance": 0.02988537773489952,
+  "displacement": 0.002988537773489952,
+  "noise_unit": 0.054667520279320814,
+  "rank4_svd_prediction_mse": 0.0013878054451197386,
+  "rank4_svd_note": "Weight Frobenius-optimal SVD is not a prediction-optimal lower bound."
+}

@@ -1,0 +1,10 @@
+/fits/
+/teachers/
+/summary/
+/spec.json
+/smoke.json
+/job_ids.tsv
+/submission_pending
+/smoke_released
+/submit.lock
+/queue_migration_*.json

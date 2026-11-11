@@ -1,0 +1,148 @@
+Q4 补充实验方案：独立 Transformer teachers 下的噪声反转与 ProLoSA 收益
+日期：2026-11-09
+状态：拟定方案；未修改训练代码，未提交 GPU 作业，未产生新实验结果。
+
+一、实验要回答什么
+
+Reviewer Q4: Fig. 2 and Table 3 use a single teacher draw (seed 13). Does the noise-driven reversal and the ProLoSA–Uni-LoRA gap persist across, say, 5–10 independent teacher draws?
+
+直接检验两件事：
+1. 对不同 teacher，增加标签噪声时 LoRA 相对 Uni-LoRA 的风险差是否朝预测方向变化，是否仍出现从 LoRA 更好到 Uni-LoRA 更好的排序反转。
+2. 相同 adapter 参数预算下，ProLoSA 相对 Uni-LoRA 的平均收益是否跨 teacher 保留，而非仅出现在 seed 13。
+
+实验性质是“原先锁定的方法配置在独立新 teacher 上的稳健性测试”。固定底座、初始化、投影和训练规则。它不测试所有底座/投影/初始化的泛化，不重新验证精确序列模型定理，也不解决旧搜索中 ProLoSA 候选数较多的问题。
+
+二、推荐矩阵
+
+采用10个全新的teacher seeds：100,101,102,103,104,105,106,107,108,109。
+原seed13仅作为原图参考，单独展示，不纳入10个新teacher的主均值与CI。
+
+Teacher数T=10。
+噪声lambda={0,0.5,1,2,4}。
+方法={LoRA,Uni-LoRA,ProLoSA}。
+每teacher/方法/noise有M=20个配对训练数据与噪声重复。
+每次训练n=256，1000 optimizer updates。
+总计10 x 5 x 3 x 20 = 3000次拟合，3,000,000 optimizer updates。
+
+若资源必须缩减，可在看结果之前选择5个teacher，仍保留20个内层重复，共1500 fits。建议直接采用10个，因为teacher数量决定跨teacher区间的精度。不要根据初步收益决定采用哪些teacher或是否扩充。
+
+三、Teacher生成与随机化
+
+沿用原单Transformer block：hidden64，4 attention heads，FFN256，sequence length32，output dimension16。Q/K/V/O/ff1/ff2共49152个物理权重坐标发生更新；readout、LayerNorm、bias固定。
+
+每个teacher t独立生成所有坐标：
+  b_j ~ Bernoulli(0.01)
+  g_j ~ N(0,1)
+  T_j ~ t_3
+  u_j = (1-b_j)*0.005*g_j + b_j*(0.5/sqrt(3))*T_j
+  Delta W_t = c_t * reshape(u)
+
+沿用原teacher.py的随机抽样顺序，只把硬编码seed13参数化为teacher_seed。不得根据集中度、训练表现或是否出现交叉重抽teacher，也不裁剪重尾或强制低秩。
+
+每个teacher分别重新求c_t，使固定校准集上的输出位移MSE等于底座输出方差的10%：
+  mean_cal ||f_t(x)-f_0(x)||^2 / 16 = 0.1 * Var_cal(f_0(x))。
+沿用校准输入seed1000030、Ncal1024和原方差定义/二分求解容差。不能复用seed13的c=0.7042098345。
+定义s_delta,t = sqrt(上述实际校准输出位移MSE)。
+
+对teacher t的repeat r：
+  X_tr ~ N(0,I)，shape=(256,32,64)
+  epsilon_tr ~ N(0,I)，shape=(256,16)
+  y_tr(lambda) = f_t(X_tr) + lambda*s_delta,t*epsilon_tr。
+
+配对与独立规则：
+- 同一(t,r)的X和标准epsilon供全部3方法、全部5个lambda使用。
+- 不同teacher、不同repeat使用独立随机流。可用teacher索引t=0..9、r=0..19定义：X_seed=2000000+1000*t+r；noise_seed=3000000+1000*t+r。
+- 每次fit固定minibatch RNG81000，维持原训练顺序协议。
+- 固定各方法原初始化与projection/mapping seed42。LoRA与Uni原初始因子匹配；Pro512因bank维数不同，不应声称与二者初始因子也完全相同。
+- 固定1024个无噪声test inputs，沿用seed1000050。对每个teacher重新计算truth=f_t(X_test)。校准集、训练集和测试集用途分离。
+- 固定test inputs的推断是条件于该测试设计的teacher平均结果，不包含新测试集抽样不确定性。
+
+四、冻结已有选定配置，停止重新搜索
+
+来源：synthetic/prolosa_spike_slab_teacher_20260925/selection.json中的selected_configs。
+
+方法       | rank | 总adapter参数 | shared d | sparse K | 主学习率 | sparse学习率
+LoRA       | 4    | 4608          | —        | —        | 0.0002   | —
+Uni-LoRA   | 4    | 576           | 576      | 0        | 0.0005   | —
+ProLoSA    | 4    | 576           | 512      | 64       | 0.0005   | 0.002
+
+所有方法：AdamW，weight_decay=0，batch128，gradient clip1，FP32，TF32 off，固定学习率，无scheduler，1000更新，报告最后一步checkpoint。
+ProLoSA：前256步score-free warmup；第257–384步累积sum-SNIP；第384次更新之后选全局64个因子坐标并激活零初始化稀疏分支。
+每次训练都从头构建Adapter、重新积累SNIP和选择support。冻结的是选择算法和超参数，不是seed13的support mask。不得让teacher真值权重或slab mask参与选择。
+严格复用原训练实现的优化器状态处理；不要从GLUE实验套用额外optimizer reset或新scheduler。
+
+旧实验ProLoSA搜索108候选、LoRA/Uni各3候选，每候选9次开发拟合。本补实验不重跑这1026次搜索；所有新teacher作为冻结配置后的评估样本。报告时披露选择来源，不称equal-search结果。
+
+五、保存和分析
+
+每fit保存teacher_id、teacher_seed、repeat、lambda、method、完整配置、source hash、teacher hash、X/noise/test hash、有效参数数、训练步数、风险、耗时、clean test predictions；ProLoSA另存SNIP scores和mask。
+每teacher保存raw draw、slab mask、缩放c_t、输出位移、noise unit、top1%能量比例、每层更新范数和数值秩。这些是分布核对与解释诊断，不能用于剔除不利teacher。
+
+对每个(t,m,lambda)，先用该teacher的20个预测计算：
+  R_t,m,lambda = mean_r mean_test,output (f_hat_r-f_t)^2。
+  V_t,m,lambda = mean_test,output [sum_r(f_hat_r-f_bar)^2/(M-1)]。
+  B2_t,m,lambda = mean_test,output(f_bar-f_t)^2 - V_t,m,lambda/M。
+保留有限重复下可能出现的负B2；检查R=B2+V的计算恒等式，但不把恒等式本身当成理论验证。
+先在teacher内分解，再对10个teacher的R、V、B2等权平均。不得混合不同teacher的预测后直接计算variance。
+
+定义teacher层面的两种配对差：
+  D_t,lambda = R_t,LoRA,lambda - R_t,Uni,lambda （正数表示Uni更好）。
+  G_t,lambda = R_t,Uni,lambda - R_t,Pro,lambda （正数表示Pro更好）。
+
+预先指定两个主指标：
+  H_t = D_t,4 - D_t,0：噪声增强是否提高压缩方法的相对优势。
+  A_t = mean_lambda G_t,lambda：Pro相对Uni在5个固定噪声档的平均风险收益。
+主统计使用10个H_t和10个A_t，报告均值、全部teacher散点、普通95%配对t区间；对两个主指标的联合显著性表述另给Bonferroni调整的97.5%双侧区间。df=9。小样本近似的限制须保留。
+各lambda的D/G及B/V分量作为完整曲线展示。报告各teacher的相对风险降低rho_t,lambda=100*(1-R_t,Pro/R_t,Uni)，明确平均的是逐teacher百分比；不与ratio of grand means混用。
+
+交叉判据与措辞：
+- 逐teacher统计：预设lambda网格上是否出现低noise的D<0、高noise的D>0；列出相邻交叉区间。若多次变号，全部记录，不挑有利的一次。
+- 报告“X/10 teachers出现样本均值交叉”“Y/10 teachers的A_t>0”，不将其写成每个teacher均统计显著。
+- H均值为正只支持方向变化，不能单独证明交叉。
+- 若要正式声称跨teacher平均风险发生显著排序反转，对5个D_lambda给Bonferroni同时带（每点99%双侧t区间）；低noise某点区间全负且更高noise某点全正才支持该表述。
+- 若仅均值变号或仅H支持正值，就分别报告point-estimate crossover或positive noise trend。
+- A>0不等于所有noise点均Pro更好；每个noise的G和负结果仍完整报告。若声称五档全部获益，需对五个G的区间单独作同时校正。
+
+独立样本单位是teacher，不是10x20=200个训练重复，更不是test examples。主t区间直接使用teacher汇总量，其离散已包含每teacher有限20次Monte Carlo误差。若加bootstrap敏感性检查，只整块重采teacher并保留其内部完整配对结构；不要未经方差分解直接做外层teacher+内层repeat的朴素双层bootstrap。
+
+六、最终交付表图
+
+表A（对应原Table3）：5个noise行；三方法的跨teacher mean clean MSE；LoRA-Uni差及CI；Uni-Pro差及CI；逐teacher相对改善均值。注明T10、每teacher M20与CI单位。
+表B（逐teacher稳健性）：10个teacher行；D_0、D_4、H、A；交叉区间；5档Pro收益的正负情况。seed13单列参考。
+图A（对应Fig2）：三个面板分别为R、B2、V对lambda；三方法的跨teacher均值与区间。
+图B：两个面板分别画D(lambda)和G(lambda)；10条teacher细线、平均粗线、零线；避免仅画平均而掩盖异质性。
+附表：全部teacher diagnostics与3000条fit manifest；保存可复算的预测文件。
+
+七、可选优化控制（须执行前决定）
+
+为每个teacher、lambda={1,4}、前5个repeat、三方法保存1000和3000步两个检查点。
+共10x2x5x3=300条既有训练轨迹延长2000步，额外600000更新，约为主实验训练步数的20%。不是另选300个有利结果。
+可在同一训练作业中直接跑到3000步并保存1000步主结果；若分次恢复，需要额外保存optimizer和RNG状态，不能只加载因子当作原轨迹续训。
+不替换1000步主表，不因3000步更有利而重选主checkpoint。不要求为回答Q4重跑全部大样本无噪声控制。
+
+八、实现与资源
+
+新目录建议：synthetic/prolosa_multiteacher_20261109/。
+保留旧实验不动。旧run_search.py的require()绑定源文件和prepared哈希，不能原地改seed再复用prepared.pt。
+最小实现：
+1. teacher构造函数接收teacher_seed并输出每teacher bundle；
+2. 新runner读取、复制并校验旧selected_configs，不调用dev或lock搜索阶段；
+3. manifest增加teacher_id，训练/噪声seed同时包含teacher索引和repeat；
+4. 每fit重新构建原Adapter并使用原train函数；输出目录包含teacher/method/noise/repeat，避免覆盖或断点误判；
+5. 新analyzer先teacher内分解，再teacher间统计。
+新结果应绑定新runner/teacher构造源码hash及旧训练源码hash；成功恢复要求spec和依赖hash一致。
+
+原300条正式result.json均记录NVIDIA RTX5880。1000步训练循环平均耗时约：LoRA3.17s、Uni3.86s、Pro4.65s。每方法在新主实验各有1000 fits，估计合计约3.25 GPU训练小时。此值不包含teacher构造、末次预测、文件I/O、进程启动和排队，不是端到端工期保证。执行时应先用不参与统计的短smoke检查实际吞吐，完成矩阵仍按预定seed与规模运行。
+
+九、完成后回复Q4的填写框架
+
+We extended Fig. 2/Table 3 to ten newly sampled teachers, holding the original selected configurations, initialization, compression maps, and training protocol fixed. Each teacher uses twenty paired training-data/noise realizations at each of five noise levels. The original teacher (seed 13) is reported separately. [X/10] teachers show a point-estimate LoRA–Uni-LoRA reversal on the prespecified grid. The mean endpoint change in LoRA-minus-Uni-LoRA risk is [H and CI]. The mean Uni-LoRA-minus-ProLoSA risk difference, averaged over the five noise levels within each teacher, is [A and CI]. We report all per-teacher results and compute uncertainty using teachers as the independent units.
+
+只有实际完成后才能把上述extended和结果数字用于rebuttal。若结果不支持交叉或Pro收益，应如实改写，并保留该实验对适用范围的限制。
+
+主要依据
+synthetic/prolosa_spike_slab_teacher_20260925/PLAN.md
+synthetic/prolosa_spike_slab_teacher_20260925/teacher.py
+synthetic/prolosa_spike_slab_teacher_20260925/run_search.py
+synthetic/prolosa_spike_slab_teacher_20260925/selection.json
+synthetic/prolosa_spike_slab_teacher_20260925/summary/RESULTS.md

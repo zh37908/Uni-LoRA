@@ -1,0 +1,14 @@
+{
+  "concentrated": {
+    "target_id": "f343dc8618448c0c9d0e37927b8e6f50dc169343e536bdaae4bfce436cb39630",
+    "residual_topk_fraction": 0.9920641292688454,
+    "displacement": 0.002987907500937581,
+    "displacement_target": 0.0029879070818424227
+  },
+  "diffuse": {
+    "target_id": "82a8db1d1a8818d5c70195f5dd662c8928cafd785f34afc6223fdd840b5afa83",
+    "residual_topk_fraction": 0.0685416903187056,
+    "displacement": 0.0029879070352762938,
+    "displacement_target": 0.0029879070818424227
+  }
+}

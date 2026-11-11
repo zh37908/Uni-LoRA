@@ -1,0 +1,7433 @@
+{
+  "source_sha256": "2f4277dc44c2bd16eecc3a2390d783fc2cef55a00667c3566691548655cc9d2b",
+  "teacher_source_sha256": "c0b94754a847657d331be33c47155c7b3bcb406bdf0285ee42e1d53ae6850513",
+  "teacher_diagnostics_sha256": "7df6575c4065251b04565f76ab9e552236343fab7fc88703e0d66caaa2b434b7",
+  "plan_sha256": "bfd0647422db19966929e481d9f6644e9677f0ba5aefdda52baa6a179080ac28",
+  "prior_prepared_sha256": "c953155fb40ecaf1dfeafad7dac265df18e0d03eff087f2815a99156baae52e0",
+  "bundle_sha256": "60bbc7c03be7156be36d2ff49e9f345e6b229baaa211aa5783f936f84f3d4557",
+  "target_id": "6d6f8570b6c5a5d64c0caf674139958dacb55d7df8e59543d20561b2f44a6262",
+  "noise_unit": 0.054667520279320814,
+  "teacher": {
+    "coordinates": "physical weight deltas, not LoRA factors",
+    "dimension": 49152,
+    "seed": 13,
+    "pi": 0.01,
+    "tau0": 0.005,
+    "tau1": 0.5,
+    "nu": 3,
+    "unscaled_second_moment": 0.00252475,
+    "scale": 0.7042098344536498,
+    "scaled_spike_sd": 0.003521049172268249,
+    "scaled_slab_sd": 0.3521049172268249,
+    "slab_count": 505,
+    "slab_fraction": 0.010274251302083334,
+    "slab_energy_fraction": 0.9875431069861409,
+    "top_1pct_count": 492,
+    "top_1pct_energy_fraction": 0.9875596372341471,
+    "absolute_delta_quantiles": {
+      "0.5": 0.0024108596868836667,
+      "0.9": 0.005991246646359828,
+      "0.99": 0.01313056520218682,
+      "0.999": 0.465116895043247,
+      "1.0": 1.5282542596818705
+    },
+    "modules": {
+      "q": {
+        "elements": 4096,
+        "slab_count": 52,
+        "update_frobenius": 1.342795729637146,
+        "base_weight_frobenius": 4.189019680023193,
+        "numerical_rank": 64,
+        "rank4_weight_residual_fraction": 0.5639829364317066,
+        "leave_one_out_prediction_mse": 4.251935024512932e-06
+      },
+      "k": {
+        "elements": 4096,
+        "slab_count": 41,
+        "update_frobenius": 1.6502681970596313,
+        "base_weight_frobenius": 4.089478492736816,
+        "numerical_rank": 64,
+        "rank4_weight_residual_fraction": 0.4157942315506016,
+        "leave_one_out_prediction_mse": 7.5863754318561405e-06
+      },
+      "v": {
+        "elements": 4096,
+        "slab_count": 42,
+        "update_frobenius": 2.175015926361084,
+        "base_weight_frobenius": 5.769172668457031,
+        "numerical_rank": 64,
+        "rank4_weight_residual_fraction": 0.23293337125369334,
+        "leave_one_out_prediction_mse": 0.0010505630634725094
+      },
+      "o": {
+        "elements": 4096,
+        "slab_count": 50,
+        "update_frobenius": 3.012415885925293,
+        "base_weight_frobenius": 5.768798828125,
+        "numerical_rank": 64,
+        "rank4_weight_residual_fraction": 0.39467084947130093,
+        "leave_one_out_prediction_mse": 0.001013148226775229
+      },
+      "ff1": {
+        "elements": 16384,
+        "slab_count": 134,
+        "update_frobenius": 3.541597366333008,
+        "base_weight_frobenius": 9.179845809936523,
+        "numerical_rank": 64,
+        "rank4_weight_residual_fraction": 0.6410406028535789,
+        "leave_one_out_prediction_mse": 0.00020726992806885391
+      },
+      "ff2": {
+        "elements": 16384,
+        "slab_count": 186,
+        "update_frobenius": 4.229248046875,
+        "base_weight_frobenius": 5.0352349281311035,
+        "numerical_rank": 64,
+        "rank4_weight_residual_fraction": 0.6805994810799726,
+        "leave_one_out_prediction_mse": 0.001389186829328537
+      }
+    },
+    "base_variance": 0.02988537773489952,
+    "displacement": 0.002988537773489952,
+    "noise_unit": 0.054667520279320814,
+    "rank4_svd_prediction_mse": 0.0013878054451197386,
+    "rank4_svd_note": "Weight Frobenius-optimal SVD is not a prediction-optimal lower bound."
+  },
+  "configs": {
+    "c000": {
+      "method": "LoRA",
+      "bank": 0,
+      "sparse": 0,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "full"
+    },
+    "c001": {
+      "method": "LoRA",
+      "bank": 0,
+      "sparse": 0,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "full"
+    },
+    "c002": {
+      "method": "LoRA",
+      "bank": 0,
+      "sparse": 0,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "full"
+    },
+    "c003": {
+      "method": "Uni-LoRA",
+      "bank": 576,
+      "sparse": 0,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "bank only"
+    },
+    "c004": {
+      "method": "Uni-LoRA",
+      "bank": 576,
+      "sparse": 0,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "bank only"
+    },
+    "c005": {
+      "method": "Uni-LoRA",
+      "bank": 576,
+      "sparse": 0,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "bank only"
+    },
+    "c006": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c007": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c008": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c009": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c010": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c011": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c012": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c013": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c014": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c015": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c016": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c017": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c018": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c019": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c020": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c021": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c022": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c023": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c024": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c025": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c026": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c027": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c028": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c029": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c030": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c031": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c032": {
+      "method": "ProLoSA",
+      "bank": 288,
+      "sparse": 288,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "1:1"
+    },
+    "c033": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c034": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c035": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c036": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c037": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c038": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c039": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c040": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c041": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c042": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c043": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c044": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c045": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c046": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c047": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c048": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c049": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c050": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c051": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c052": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c053": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c054": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c055": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c056": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c057": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c058": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c059": {
+      "method": "ProLoSA",
+      "bank": 461,
+      "sparse": 115,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~4:1"
+    },
+    "c060": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c061": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c062": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c063": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c064": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c065": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c066": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c067": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c068": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c069": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c070": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c071": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c072": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c073": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c074": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c075": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c076": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c077": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c078": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c079": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c080": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c081": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c082": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c083": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c084": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c085": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c086": {
+      "method": "ProLoSA",
+      "bank": 512,
+      "sparse": 64,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "8:1"
+    },
+    "c087": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c088": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c089": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c090": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c091": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c092": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c093": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c094": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c095": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0002,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c096": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c097": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c098": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c099": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c100": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c101": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c102": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c103": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c104": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.0005,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c105": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c106": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c107": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.001,
+      "residual_lr_multiplier": 0.25,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c108": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c109": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c110": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.001,
+      "residual_lr_multiplier": 1.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c111": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 64,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c112": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 128,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    },
+    "c113": {
+      "method": "ProLoSA",
+      "bank": 542,
+      "sparse": 34,
+      "lr": 0.001,
+      "residual_lr_multiplier": 4.0,
+      "warmup": 256,
+      "score_steps": 128,
+      "ratio": "~16:1"
+    }
+  },
+  "dev_grid": [
+    {
+      "config_id": "c000",
+      "method": "LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c000",
+      "method": "LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c000",
+      "method": "LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c000",
+      "method": "LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c000",
+      "method": "LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c000",
+      "method": "LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c000",
+      "method": "LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c000",
+      "method": "LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c000",
+      "method": "LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c001",
+      "method": "LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c001",
+      "method": "LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c001",
+      "method": "LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c001",
+      "method": "LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c001",
+      "method": "LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c001",
+      "method": "LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c001",
+      "method": "LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c001",
+      "method": "LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c001",
+      "method": "LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c002",
+      "method": "LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c002",
+      "method": "LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c002",
+      "method": "LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c002",
+      "method": "LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c002",
+      "method": "LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c002",
+      "method": "LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c002",
+      "method": "LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c002",
+      "method": "LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c002",
+      "method": "LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c003",
+      "method": "Uni-LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c003",
+      "method": "Uni-LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c003",
+      "method": "Uni-LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c003",
+      "method": "Uni-LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c003",
+      "method": "Uni-LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c003",
+      "method": "Uni-LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c003",
+      "method": "Uni-LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c003",
+      "method": "Uni-LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c003",
+      "method": "Uni-LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c004",
+      "method": "Uni-LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c004",
+      "method": "Uni-LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c004",
+      "method": "Uni-LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c004",
+      "method": "Uni-LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c004",
+      "method": "Uni-LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c004",
+      "method": "Uni-LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c004",
+      "method": "Uni-LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c004",
+      "method": "Uni-LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c004",
+      "method": "Uni-LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c005",
+      "method": "Uni-LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c005",
+      "method": "Uni-LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c005",
+      "method": "Uni-LoRA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c005",
+      "method": "Uni-LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c005",
+      "method": "Uni-LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c005",
+      "method": "Uni-LoRA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c005",
+      "method": "Uni-LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c005",
+      "method": "Uni-LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c005",
+      "method": "Uni-LoRA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c006",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c006",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c006",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c006",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c006",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c006",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c006",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c006",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c006",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c007",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c007",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c007",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c007",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c007",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c007",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c007",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c007",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c007",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c008",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c008",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c008",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c008",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c008",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c008",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c008",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c008",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c008",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c009",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c009",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c009",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c009",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c009",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c009",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c009",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c009",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c009",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c010",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c010",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c010",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c010",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c010",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c010",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c010",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c010",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c010",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c011",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c011",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c011",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c011",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c011",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c011",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c011",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c011",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c011",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c012",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c012",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c012",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c012",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c012",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c012",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c012",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c012",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c012",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c013",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c013",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c013",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c013",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c013",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c013",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c013",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c013",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c013",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c014",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c014",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c014",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c014",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c014",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c014",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c014",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c014",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c014",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c015",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c015",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c015",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c015",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c015",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c015",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c015",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c015",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c015",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c016",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c016",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c016",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c016",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c016",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c016",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c016",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c016",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c016",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c017",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c017",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c017",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c017",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c017",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c017",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c017",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c017",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c017",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c018",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c018",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c018",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c018",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c018",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c018",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c018",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c018",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c018",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c019",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c019",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c019",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c019",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c019",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c019",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c019",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c019",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c019",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c020",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c020",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c020",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c020",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c020",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c020",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c020",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c020",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c020",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c021",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c021",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c021",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c021",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c021",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c021",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c021",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c021",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c021",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c022",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c022",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c022",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c022",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c022",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c022",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c022",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c022",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c022",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c023",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c023",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c023",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c023",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c023",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c023",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c023",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c023",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c023",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c024",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c024",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c024",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c024",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c024",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c024",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c024",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c024",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c024",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c025",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c025",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c025",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c025",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c025",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c025",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c025",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c025",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c025",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c026",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c026",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c026",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c026",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c026",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c026",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c026",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c026",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c026",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c027",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c027",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c027",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c027",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c027",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c027",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c027",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c027",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c027",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c028",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c028",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c028",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c028",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c028",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c028",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c028",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c028",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c028",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c029",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c029",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c029",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c029",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c029",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c029",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c029",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c029",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c029",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c030",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c030",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c030",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c030",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c030",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c030",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c030",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c030",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c030",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c031",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c031",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c031",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c031",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c031",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c031",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c031",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c031",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c031",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c032",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c032",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c032",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c032",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c032",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c032",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c032",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c032",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c032",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c033",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c033",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c033",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c033",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c033",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c033",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c033",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c033",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c033",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c034",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c034",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c034",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c034",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c034",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c034",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c034",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c034",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c034",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c035",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c035",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c035",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c035",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c035",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c035",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c035",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c035",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c035",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c036",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c036",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c036",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c036",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c036",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c036",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c036",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c036",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c036",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c037",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c037",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c037",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c037",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c037",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c037",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c037",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c037",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c037",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c038",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c038",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c038",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c038",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c038",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c038",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c038",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c038",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c038",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c039",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c039",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c039",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c039",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c039",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c039",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c039",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c039",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c039",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c040",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c040",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c040",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c040",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c040",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c040",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c040",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c040",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c040",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c041",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c041",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c041",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c041",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c041",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c041",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c041",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c041",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c041",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c042",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c042",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c042",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c042",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c042",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c042",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c042",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c042",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c042",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c043",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c043",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c043",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c043",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c043",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c043",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c043",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c043",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c043",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c044",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c044",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c044",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c044",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c044",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c044",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c044",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c044",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c044",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c045",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c045",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c045",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c045",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c045",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c045",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c045",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c045",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c045",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c046",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c046",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c046",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c046",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c046",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c046",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c046",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c046",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c046",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c047",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c047",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c047",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c047",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c047",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c047",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c047",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c047",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c047",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c048",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c048",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c048",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c048",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c048",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c048",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c048",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c048",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c048",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c049",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c049",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c049",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c049",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c049",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c049",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c049",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c049",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c049",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c050",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c050",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c050",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c050",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c050",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c050",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c050",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c050",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c050",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c051",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c051",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c051",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c051",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c051",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c051",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c051",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c051",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c051",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c052",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c052",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c052",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c052",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c052",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c052",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c052",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c052",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c052",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c053",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c053",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c053",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c053",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c053",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c053",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c053",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c053",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c053",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c054",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c054",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c054",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c054",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c054",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c054",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c054",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c054",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c054",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c055",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c055",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c055",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c055",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c055",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c055",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c055",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c055",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c055",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c056",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c056",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c056",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c056",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c056",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c056",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c056",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c056",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c056",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c057",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c057",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c057",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c057",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c057",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c057",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c057",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c057",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c057",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c058",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c058",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c058",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c058",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c058",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c058",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c058",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c058",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c058",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c059",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c059",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c059",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c059",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c059",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c059",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c059",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c059",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c059",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c060",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c060",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c060",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c060",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c060",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c060",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c060",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c060",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c060",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c061",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c061",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c061",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c061",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c061",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c061",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c061",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c061",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c061",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c062",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c062",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c062",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c062",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c062",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c062",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c062",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c062",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c062",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c063",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c063",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c063",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c063",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c063",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c063",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c063",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c063",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c063",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c064",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c064",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c064",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c064",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c064",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c064",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c064",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c064",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c064",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c065",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c065",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c065",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c065",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c065",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c065",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c065",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c065",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c065",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c066",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c066",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c066",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c066",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c066",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c066",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c066",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c066",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c066",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c067",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c067",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c067",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c067",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c067",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c067",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c067",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c067",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c067",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c068",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c068",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c068",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c068",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c068",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c068",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c068",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c068",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c068",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c069",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c069",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c069",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c069",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c069",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c069",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c069",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c069",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c069",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c070",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c070",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c070",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c070",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c070",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c070",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c070",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c070",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c070",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c071",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c071",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c071",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c071",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c071",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c071",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c071",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c071",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c071",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c072",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c072",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c072",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c072",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c072",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c072",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c072",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c072",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c072",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c073",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c073",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c073",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c073",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c073",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c073",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c073",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c073",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c073",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c074",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c074",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c074",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c074",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c074",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c074",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c074",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c074",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c074",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c075",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c075",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c075",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c075",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c075",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c075",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c075",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c075",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c075",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c076",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c076",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c076",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c076",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c076",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c076",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c076",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c076",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c076",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c077",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c077",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c077",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c077",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c077",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c077",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c077",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c077",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c077",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c078",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c078",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c078",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c078",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c078",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c078",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c078",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c078",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c078",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c079",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c079",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c079",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c079",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c079",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c079",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c079",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c079",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c079",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c080",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c080",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c080",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c080",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c080",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c080",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c080",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c080",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c080",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c081",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c081",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c081",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c081",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c081",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c081",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c081",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c081",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c081",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c082",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c082",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c082",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c082",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c082",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c082",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c082",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c082",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c082",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c083",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c083",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c083",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c083",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c083",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c083",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c083",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c083",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c083",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c084",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c084",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c084",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c084",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c084",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c084",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c084",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c084",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c084",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c085",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c085",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c085",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c085",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c085",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c085",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c085",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c085",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c085",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c086",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c086",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c086",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c086",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c086",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c086",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c086",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c086",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c086",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c087",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c087",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c087",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c087",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c087",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c087",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c087",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c087",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c087",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c088",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c088",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c088",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c088",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c088",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c088",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c088",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c088",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c088",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c089",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c089",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c089",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c089",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c089",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c089",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c089",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c089",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c089",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c090",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c090",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c090",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c090",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c090",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c090",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c090",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c090",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c090",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c091",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c091",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c091",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c091",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c091",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c091",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c091",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c091",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c091",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c092",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c092",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c092",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c092",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c092",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c092",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c092",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c092",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c092",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c093",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c093",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c093",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c093",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c093",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c093",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c093",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c093",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c093",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c094",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c094",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c094",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c094",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c094",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c094",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c094",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c094",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c094",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c095",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c095",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c095",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c095",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c095",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c095",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c095",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c095",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c095",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c096",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c096",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c096",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c096",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c096",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c096",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c096",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c096",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c096",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c097",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c097",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c097",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c097",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c097",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c097",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c097",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c097",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c097",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c098",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c098",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c098",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c098",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c098",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c098",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c098",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c098",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c098",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c099",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c099",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c099",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c099",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c099",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c099",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c099",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c099",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c099",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c100",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c100",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c100",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c100",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c100",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c100",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c100",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c100",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c100",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c101",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c101",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c101",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c101",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c101",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c101",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c101",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c101",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c101",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c102",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c102",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c102",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c102",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c102",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c102",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c102",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c102",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c102",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c103",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c103",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c103",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c103",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c103",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c103",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c103",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c103",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c103",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c104",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c104",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c104",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c104",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c104",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c104",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c104",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c104",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c104",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c105",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c105",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c105",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c105",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c105",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c105",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c105",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c105",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c105",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c106",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c106",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c106",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c106",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c106",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c106",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c106",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c106",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c106",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c107",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c107",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c107",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c107",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c107",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c107",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c107",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c107",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c107",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c108",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c108",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c108",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c108",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c108",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c108",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c108",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c108",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c108",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c109",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c109",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c109",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c109",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c109",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c109",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c109",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c109",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c109",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c110",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c110",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c110",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c110",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c110",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c110",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c110",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c110",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c110",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c111",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c111",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c111",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c111",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c111",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c111",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c111",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c111",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c111",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c112",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c112",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c112",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c112",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c112",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c112",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c112",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c112",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c112",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c113",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c113",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c113",
+      "method": "ProLoSA",
+      "noise_multiple": 0.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c113",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c113",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c113",
+      "method": "ProLoSA",
+      "noise_multiple": 1.0,
+      "repeat": 2
+    },
+    {
+      "config_id": "c113",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 0
+    },
+    {
+      "config_id": "c113",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 1
+    },
+    {
+      "config_id": "c113",
+      "method": "ProLoSA",
+      "noise_multiple": 4.0,
+      "repeat": 2
+    }
+  ],
+  "audit": {
+    "standard_configuration_matches_prior_training": true,
+    "prediction_max_error": 0.0,
+    "factor_max_error": 0.0,
+    "support_exact": true,
+    "base_and_zero_update_exact": true,
+    "matched_initial_factors_and_predictions_exact": true,
+    "same_bank_uni_pro_initial_exact": true,
+    "all_six_factor_gradient_norms": {
+      "q": 0.014218551106750965,
+      "k": 0.01521169114857912,
+      "v": 0.13098213076591492,
+      "o": 0.08439837396144867,
+      "ff1": 0.07072649896144867,
+      "ff2": 0.20445510745048523
+    },
+    "source_factor_and_gradient_equivalence": true,
+    "snip_sum_verified": true,
+    "unselected_gradient_zero": true,
+    "full_parameters": 4608,
+    "forward_errors": {
+      "q": 4.76837158203125e-07,
+      "k": 3.5762786865234375e-07,
+      "v": 4.76837158203125e-07,
+      "o": 3.5762786865234375e-07,
+      "ff1": 3.5762786865234375e-07,
+      "ff2": 4.76837158203125e-07
+    },
+    "bank_gradient_relative_errors": {
+      "q": 1.9749099067212228e-07,
+      "k": 2.1268840555421775e-07,
+      "v": 2.1377182690685004e-07,
+      "o": 1.7558510023718554e-07,
+      "ff1": 1.93531747072484e-07,
+      "ff2": 2.3369817370166857e-07
+    }
+  }
+}
